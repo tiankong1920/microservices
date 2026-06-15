@@ -1,0 +1,3 @@
+# Spring Boot Starter Auto-Configuration
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.inventory.monitoring.config.MonitoringAutoConfiguration

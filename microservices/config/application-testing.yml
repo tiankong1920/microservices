@@ -1,0 +1,105 @@
+---
+# 测试环境配置文件
+# 功能描述：测试环境的特定配置，继承并覆盖基础配置
+# 配置来源：环境变量
+# 修改记录：
+# - 2025-12-28 架构师团队：初始配置
+
+# Spring应用配置
+spring:
+  # 应用信息配置
+  application:
+    # 应用名称
+    # 功能描述：测试环境的应用名称
+    # 允许取值范围：任意字符串
+    # 默认值：inventory-management-system-test
+    # 注意事项：用于服务发现和配置管理
+    # 修改记录：
+    # - 2025-12-28 架构师团队：初始配置
+    name: ${SPRING_APPLICATION_NAME:inventory-management-system-test}
+  
+  # 数据源配置
+  # 功能描述：测试环境的数据库连接配置
+  # 注意事项：所有敏感信息通过环境变量注入
+  datasource:
+    url: ${DB_URL:jdbc:mysql://test-db:3306/inventory_test}
+    driver-class-name: ${DB_DRIVER_CLASS_NAME:com.mysql.cj.jdbc.Driver}
+    username: ${DB_USERNAME:test_user}
+    password: ${DB_PASSWORD:}
+    hikari:
+      maximum-pool-size: ${DB_HIKARI_MAXIMUM_POOL_SIZE:50}
+      minimum-idle: ${DB_HIKARI_MINIMUM_IDLE:10}
+      connection-timeout: ${DB_HIKARI_CONNECTION_TIMEOUT:30000}
+
+# 日志配置
+logging:
+  # 日志级别配置
+  level:
+    # 根日志级别
+    # 功能描述：测试环境的根日志级别
+    # 允许取值范围：TRACE、DEBUG、INFO、WARN、ERROR、FATAL、OFF
+    # 默认值：INFO
+    # 注意事项：测试环境建议使用INFO级别
+    # 修改记录：
+    # - 2025-12-28 架构师团队：初始配置
+    root: ${LOGGING_LEVEL_ROOT:INFO}
+    
+    # 应用日志级别
+    # 功能描述：测试环境的应用日志级别
+    # 允许取值范围：TRACE、DEBUG、INFO、WARN、ERROR、FATAL、OFF
+    # 默认值：DEBUG
+    # 注意事项：测试环境可设置为DEBUG，便于问题排查
+    # 修改记录：
+    # - 2025-12-28 架构师团队：初始配置
+    com.inventory: ${LOGGING_LEVEL_COM_INVENTORY:DEBUG}
+
+# 管理端点配置
+management:
+  # 端点配置
+  endpoints:
+    # Web端点配置
+    web:
+      # 暴露的端点
+      # 功能描述：测试环境暴露的管理端点
+      # 允许取值范围：health、info、metrics、prometheus、configprops、env等
+      # 默认值：health,info,metrics,prometheus,configprops,env
+      # 注意事项：测试环境可以暴露更多端点用于调试
+      # 修改记录：
+      # - 2025-12-28 架构师团队：初始配置
+      exposure:
+        include: ${MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE:health,info,metrics,prometheus,configprops,env}
+  
+  # 端点详细配置
+  endpoint:
+    # 健康检查端点配置
+    health:
+      # 显示详情
+      # 功能描述：测试环境健康检查端点显示详情的条件
+      # 允许取值范围：never、when-authorized、always
+      # 默认值：always
+      # 注意事项：测试环境可以总是显示详情
+      # 修改记录：
+      # - 2025-12-28 架构师团队：初始配置
+      show-details: ${MANAGEMENT_ENDPOINT_HEALTH_SHOW_DETAILS:always}
+
+# 应用特定配置
+app:
+  # 功能标志配置
+  feature-flags:
+    # 实验性功能开关
+    # 功能描述：测试环境是否启用实验性功能
+    # 允许取值范围：true（启用）、false（禁用）
+    # 默认值：true
+    # 注意事项：测试环境可以启用实验性功能进行测试
+    # 修改记录：
+    # - 2025-12-28 架构师团队：初始配置
+    experimental-feature: ${APP_FEATURE_FLAGS_EXPERIMENTAL_FEATURE:true}
+    
+    # 新UI开关
+    # 功能描述：测试环境是否启用新UI
+    # 允许取值范围：true（启用）、false（禁用）
+    # 默认值：true
+    # 注意事项：测试环境可以启用新UI进行测试
+    # 修改记录：
+    # - 2025-12-28 架构师团队：初始配置
+    new-ui: ${APP_FEATURE_FLAGS_NEW_UI:true}

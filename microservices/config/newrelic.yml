@@ -1,0 +1,233 @@
+# New Relic Configuration
+# This file contains configuration for New Relic APM integration
+
+newrelic:
+  enabled: true
+  
+  # License Configuration
+  license:
+    key: ${NEW_RELIC_LICENSE_KEY:}
+  
+  # Application Configuration
+  app:
+    # Application name
+    name: ${NEW_RELIC_APP_NAME:${spring.application.name:Inventory Management System}}
+    
+    # Application version
+    version: ${NEW_RELIC_APP_VERSION:${app.version:1.0.0}}
+  
+  # Agent Configuration
+  agent:
+    # Enable the agent
+    enabled: ${NEW_RELIC_AGENT_ENABLED:true}
+    
+    # Log level (audit, debug, fine, finer, finest, info, off, severe, warn)
+    log_level: ${NEW_RELIC_LOG_LEVEL:info}
+    
+    # Log file path
+    log_file_path: ${NEW_RELIC_LOG_FILE_PATH:logs}
+    
+    # Log file name
+    log_file_name: ${NEW_RELIC_LOG_FILE_NAME:newrelic_agent.log}
+    
+    # High security mode
+    high_security: ${NEW_RELIC_HIGH_SECURITY:false}
+  
+  # Distributed Tracing
+  distributed_tracing:
+    # Enable distributed tracing
+    enabled: ${NEW_RELIC_DISTRIBUTED_TRACING_ENABLED:true}
+    
+    # Exclude newrelic header
+    exclude_newrelic_header: ${NEW_RELIC_DISTRIBUTED_TRACING_EXCLUDE_NEWRELIC_HEADER:false}
+  
+  # Transaction Tracer
+  transaction_tracer:
+    # Enable transaction tracer
+    enabled: ${NEW_RELIC_TRANSACTION_TRACER_ENABLED:true}
+    
+    # Transaction threshold (seconds)
+    threshold: ${NEW_RELIC_TRANSACTION_TRACER_THRESHOLD:0.5}
+    
+    # Stack trace threshold (seconds)
+    stack_trace_threshold: ${NEW_RELIC_TRANSACTION_TRACER_STACK_TRACE_THRESHOLD:0.5}
+    
+    # SQL record explain plans
+    explain_enabled: ${NEW_RELIC_TRANSACTION_TRACER_EXPLAIN_ENABLED:true}
+    
+    # SQL explain plan threshold (seconds)
+    explain_threshold: ${NEW_RELIC_TRANSACTION_TRACER_EXPLAIN_THRESHOLD:0.5}
+    
+    # Record SQL
+    record_sql: ${NEW_RELIC_TRANSACTION_TRACER_RECORD_SQL:obfuscated}
+  
+  # Error Collector
+  error_collector:
+    # Enable error collector
+    enabled: ${NEW_RELIC_ERROR_COLLECTOR_ENABLED:true}
+    
+    # Capture HTTP 4xx errors
+    capture_http_4xx: ${NEW_RELIC_ERROR_COLLECTOR_CAPTURE_HTTP_4XX:false}
+    
+    # Ignore errors (comma-separated list)
+    ignore_errors: ${NEW_RELIC_ERROR_COLLECTOR_IGNORE_ERRORS:}
+    
+    # Ignore status codes (comma-separated list)
+    ignore_status_codes: ${NEW_RELIC_ERROR_COLLECTOR_IGNORE_STATUS_CODES:}
+  
+  # Thread Profiler
+  thread_profiler:
+    # Enable thread profiler
+    enabled: ${NEW_RELIC_THREAD_PROFILER_ENABLED:true}
+  
+  # Browser Monitoring
+  browser_monitoring:
+    # Enable auto instrumentation
+    auto_instrument: ${NEW_RELIC_BROWSER_MONITORING_AUTO_INSTRUMENT:true}
+    
+    # Enable browser monitoring
+    enabled: ${NEW_RELIC_BROWSER_MONITORING_ENABLED:true}
+  
+  # JMX
+  jmx:
+    # Enable JMX
+    enabled: ${NEW_RELIC_JMX_ENABLED:true}
+  
+  # Cross Application Tracer
+  cross_application_tracer:
+    # Enable cross application tracer
+    enabled: ${NEW_RELIC_CROSS_APPLICATION_TRACER_ENABLED:false}
+  
+  # Circuit Breaker
+  circuitbreaker:
+    # Enable circuit breaker
+    enabled: ${NEW_RELIC_CIRCUITBREAKER_ENABLED:true}
+    
+    # Circuit breaker memory threshold (percentage)
+    memory_threshold: ${NEW_RELIC_CIRCUITBREAKER_MEMORY_THRESHOLD:20}
+    
+    # Circuit breaker gc CPU threshold (percentage)
+    gc_cpu_threshold: ${NEW_RELIC_CIRCUITBREAKER_GC_CPU_THRESHOLD:10}
+  
+  # Span Events
+  span_events:
+    # Enable span events
+    enabled: ${NEW_RELIC_SPAN_EVENTS_ENABLED:true}
+    
+    # Maximum samples stored
+    max_samples_stored: ${NEW_RELIC_SPAN_EVENTS_MAX_SAMPLES_STORED:2000}
+  
+  # Transaction Events
+  transaction_events:
+    # Enable transaction events
+    enabled: ${NEW_RELIC_TRANSACTION_EVENTS_ENABLED:true}
+    
+    # Maximum samples stored
+    max_samples_stored: ${NEW_RELIC_TRANSACTION_EVENTS_MAX_SAMPLES_STORED:10000}
+  
+  # Custom Events
+  custom_events:
+    # Enable custom events
+    enabled: ${NEW_RELIC_CUSTOM_EVENTS_ENABLED:true}
+    
+    # Maximum samples stored
+    max_samples_stored: ${NEW_RELIC_CUSTOM_EVENTS_MAX_SAMPLES_STORED:10000}
+  
+  # Labels (Tags)
+  labels:
+    team: ${NEW_RELIC_LABEL_TEAM:inventory}
+    project: ${NEW_RELIC_LABEL_PROJECT:inventory-management}
+    environment: ${NEW_RELIC_LABEL_ENVIRONMENT:${spring.profiles.active:unknown}}
+    datacenter: ${NEW_RELIC_LABEL_DATACENTER:us-east}
+    region: ${NEW_RELIC_LABEL_REGION:us-east-1}
+  
+  # Attributes
+  attributes:
+    # Enable custom attributes
+    enabled: ${NEW_RELIC_ATTRIBUTES_ENABLED:true}
+    
+    # Include attributes (comma-separated list)
+    include: ${NEW_RELIC_ATTRIBUTES_INCLUDE:}
+    
+    # Exclude attributes (comma-separated list)
+    exclude: ${NEW_RELIC_ATTRIBUTES_EXCLUDE:}
+  
+  # Message Tracer
+  message_tracer:
+    # Enable segment reporting
+    segment_reporting_enabled: ${NEW_RELIC_MESSAGE_TRACER_SEGMENT_REPORTING_ENABLED:true}
+  
+  # Infinite Tracing
+  infinite_tracing:
+    # Enable infinite tracing
+    trace_observer:
+      host: ${NEW_RELIC_INFINITE_TRACING_TRACE_OBSERVER_HOST:}
+      port: ${NEW_RELIC_INFINITE_TRACING_TRACE_OBSERVER_PORT:443}
+  
+  # Utilization
+  utilization:
+    # Detect AWS
+    detect_aws: ${NEW_RELIC_UTILIZATION_DETECT_AWS:true}
+    
+    # Detect Azure
+    detect_azure: ${NEW_RELIC_UTILIZATION_DETECT_AZURE:true}
+    
+    # Detect Docker
+    detect_docker: ${NEW_RELIC_UTILIZATION_DETECT_DOCKER:true}
+    
+    # Detect Kubernetes
+    detect_kubernetes: ${NEW_RELIC_UTILIZATION_DETECT_KUBERNETES:true}
+    
+    # Detect GCP
+    detect_gcp: ${NEW_RELIC_UTILIZATION_DETECT_GCP:true}
+    
+    # Detect PCF
+    detect_pcf: ${NEW_RELIC_UTILIZATION_DETECT_PCF:true}
+  
+  # Code Level Metrics
+  code_level_metrics:
+    # Enable code level metrics
+    enabled: ${NEW_RELIC_CODE_LEVEL_METRICS_ENABLED:true}
+
+---
+# Profile-specific configurations
+spring:
+  config:
+    activate:
+      on-profile: dev
+
+newrelic:
+  enabled: false
+  agent:
+    enabled: false
+
+---
+spring:
+  config:
+    activate:
+      on-profile: test
+
+newrelic:
+  enabled: false
+  agent:
+    enabled: false
+
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+
+newrelic:
+  enabled: true
+  agent:
+    enabled: true
+    log_level: warn
+  distributed_tracing:
+    enabled: true
+  transaction_tracer:
+    enabled: true
+    threshold: 0.5
+  error_collector:
+    enabled: true
+    capture_http_4xx: false

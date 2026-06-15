@@ -1,0 +1,120 @@
+---
+spring:
+  application:
+    name: auth-service
+  cloud:
+    nacos:
+      discovery:
+        server-addr: ${NACOS_HOST:localhost}:${NACOS_PORT:8848}
+        namespace: ${NACOS_NAMESPACE:public}
+        group: support-auth
+        metadata:
+          version: 3.0.0
+          env: ${SPRING_PROFILES_ACTIVE:dev}
+          service-type: microservice
+          framework: spring-boot
+          language: java
+          team: inventory-management
+          region: default
+          zone: default
+          stage: ${SPRING_PROFILES_ACTIVE:dev}
+          gray: false
+          weight: 1.0
+      config:
+        server-addr: ${NACOS_HOST:localhost}:${NACOS_PORT:8848}
+        namespace: ${NACOS_NAMESPACE:public}
+        group: support-auth
+        file-extension: yml
+        refresh-enabled: true
+        encode: UTF-8
+  datasource:
+    url: jdbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:5432}/${POSTGRES_DB:inventory_db}
+    username: ${POSTGRES_USER:postgres}
+    password: ${POSTGRES_PASSWORD:changeme}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      database: 3
+      timeout: 2000ms
+      lettuce:
+        pool:
+          max-active: 8
+          max-idle: 8
+          min-idle: 0
+          max-wait: -1ms
+server:
+  port: 8093
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      show-details: always
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+logging:
+  level:
+    root: INFO
+    com.inventory.authservice: DEBUG
+    org.springframework.security: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
+  file:
+    name: logs/auth-service.log
+  logback:
+    rollingpolicy:
+      max-file-size: 10MB
+      max-history: 30
+jwt:
+  # ⚠️ WARNING: Must be overridden via JWT_SECRET env var in production!
+  # Default is only for local dev; minimum 32 chars required for HS256.
+  secret: ${JWT_SECRET:CHANGE_ME_IN_PRODUCTION_MIN_32_CHARS_LONG!!}
+  expiration: ${JWT_EXPIRATION:1800000}
+  refresh-expiration: ${JWT_REFRESH_EXPIRATION:604800000}
+oauth2:
+  client:
+    id: ${OAUTH2_CLIENT_ID:inventory-client}
+    secret: ${OAUTH2_CLIENT_SECRET}
+    authorized-grant-types: password,refresh_token,authorization_code
+    scopes: read,write
+    registered-redirect-uri: ${OAUTH2_REDIRECT_URI:http://localhost:3000/callback}
+
+security:
+  password:
+    min-length: 8
+    max-length: 128
+    require-uppercase: true
+    require-lowercase: true
+    require-digit: true
+    require-special-char: true
+    special-chars: "!@#$%^&*()_+-=[]{};':\"\\|,.<>/?"
+    history-count: 5
+  lockout:
+    max-attempts: 5
+    lock-duration-minutes: 30
+    attempts-window-minutes: 15
+  cors:
+    allowed-origins: ${AUTH_CORS_ORIGINS:http://localhost:3000}
+    allowed-methods: GET,POST,PUT,DELETE,PATCH,OPTIONS
+    allowed-headers: Authorization,Content-Type,X-Requested-With
+    allow-credentials: true
+    max-age: 3600
+  session:
+    max-concurrent: 3
+    timeout-minutes: 30

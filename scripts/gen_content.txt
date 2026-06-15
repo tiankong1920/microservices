@@ -1,0 +1,388 @@
+﻿package com.inventory.orderservice.service.impl;
+
+import com.inventory.orderservice.client.InventoryClient;
+import com.inventory.orderservice.dto.OrderDTO;
+import com.inventory.orderservice.dto.OrderItemDTO;
+import com.inventory.orderservice.entity.Order;
+import com.inventory.orderservice.entity.OrderItem;
+import com.inventory.orderservice.exception.InsufficientInventoryException;
+import com.inventory.orderservice.exception.OrderNotFoundException;
+import com.inventory.orderservice.exception.OrderStatusException;
+import com.inventory.orderservice.repository.IOrderItemRepository;
+import com.inventory.orderservice.repository.IOrderRepository;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Spy;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
+import org.modelmapper.ModelMapper;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
+
+@ExtendWith(MockitoExtension.class)
+@MockitoSettings(strictness = Strictness.LENIENT)
+class OrderServiceImplTest {
+
+    @Mock private IOrderRepository orderRepository;
+    @Mock private IOrderItemRepository orderItemRepository;
+    @Mock private InventoryClient inventoryClient;
+    @Spy private ModelMapper modelMapper = new ModelMapper();
+    @InjectMocks private OrderServiceImpl orderService;
+
+    private Order testOrder;
+    private OrderDTO testOrderDTO;
+    private List<OrderItem> testOrderItems;
+    private List<OrderItemDTO> testOrderItemDTOs;
+
+    @BeforeEach
+    void setUp() {
+        testOrderItems = new ArrayList<>();
+        OrderItem item = new OrderItem();
+        item.setId(1L);
+        item.setProductId(100L);
+        item.setProductName(" Test Product\);
+ item.setQuantity(10);
+ item.setUnitPrice(100.0);
+ item.setCreatedAt(LocalDateTime.now());
+ testOrderItems.add(item);
+
+ testOrder = new Order();
+ testOrder.setId(1L);
+ testOrder.setOrderNumber(\ORD-2024-0001\);
+ testOrder.setCustomerName(\Test Customer\);
+ testOrder.setStatus(Order.Status.PENDING);
+ testOrder.setItems(testOrderItems);
+ testOrder.setCreatedAt(LocalDateTime.now());
+ testOrder.setUpdatedAt(LocalDateTime.now());
+ testOrderItems.forEach(i -> i.setOrder(testOrder));
+
+ testOrderItemDTOs = new ArrayList<>();
+ OrderItemDTO itemDTO = new OrderItemDTO();
+ itemDTO.setProductId(100L);
+ itemDTO.setProductName(\Test Product\);
+ itemDTO.setQuantity(10);
+ itemDTO.setUnitPrice(100.0);
+ testOrderItemDTOs.add(itemDTO);
+
+ testOrderDTO = new OrderDTO();
+ testOrderDTO.setId(1L);
+ testOrderDTO.setOrderNumber(\ORD-2024-0001\);
+ testOrderDTO.setCustomerName(\Test Customer\);
+ testOrderDTO.setStatus(Order.Status.PENDING);
+ testOrderDTO.setItems(testOrderItemDTOs);
+ }
+
+ @Test
+ @DisplayName(\Should create order with PENDING status\)
+ void testCreateOrder() {
+ when(orderRepository.save(any(Order.class))).thenAnswer(i -> {
+ Order o = i.getArgument(0);
+ o.setId(1L);
+ return o;
+ });
+ OrderDTO result = orderService.createOrder(testOrderDTO);
+ assertNotNull(result);
+ assertEquals(Order.Status.PENDING, result.getStatus());
+ verify(orderRepository).save(any(Order.class));
+ }
+
+ @Test
+ @DisplayName(\Should return order by ID\)
+ void testGetOrderById() {
+ when(orderRepository.findById(1L)).thenReturn(Optional.of(testOrder));
+ OrderDTO result = orderService.getOrderById(1L);
+ assertNotNull(result);
+ assertEquals(1L, result.getId());
+ }
+
+ @Test
+ @DisplayName(\Should throw exception when order not found\)
+ void testGetOrderByIdNotFound() {
+ when(orderRepository.findById(99L)).thenReturn(Optional.empty());
+ assertThrows(OrderNotFoundException.class, () -> orderService.getOrderById(99L));
+ }
+
+ @Test
+ @DisplayName(\Should return all orders\)
+ void testGetAllOrders() {
+ when(orderRepository.findAll()).thenReturn(List.of(testOrder));
+ List<OrderDTO> results = orderService.getAllOrders();
+ assertEquals(1, results.size());
+ }
+
+ @Test
+ @DisplayName(\Should return empty list when no orders\)
+ void testGetAllOrdersEmpty() {
+ when(orderRepository.findAll()).thenReturn(List.of());
+ List<OrderDTO> results = orderService.getAllOrders();
+ assertTrue(results.isEmpty());
+ }
+
+ @Test
+ @DisplayName(\Should update order customer name\)
+ void testUpdateOrder() {
+ when(orderRepository.findById(1L)).thenReturn(Optional.of(testOrder));
+ when(orderRepository.save(any(Order.class))).thenAnswer(i -> i.getArgument(0));
+ testOrderDTO.setCustomerName(\Updated Name\);
+ OrderDTO result = orderService.updateOrder(1L, testOrderDTO);
+ assertEquals(\Updated Name\, result.getCustomerName());
+ }
+
+ @Test
+ @DisplayName(\Should throw exception when updating non-existent order\)
+ void testUpdateOrderNotFound() {
+ when(orderRepository.findById(99L)).thenReturn(Optional.empty());
+ assertThrows(OrderNotFoundException.class, () -> orderService.updateOrder(99L, testOrderDTO));
+ }
+
+ @Test
+ @DisplayName(\Should delete order\)
+ void testDeleteOrder() {
+ when(orderRepository.findById(1L)).thenReturn(Optional.of(testOrder));
+ when(orderRepository.save(any(Order.class))).thenAnswer(i -> i.getArgument(0));
+ orderService.deleteOrder(1L);
+ verify(orderRepository).save(any(Order.class));
+ }
+
+ @Test
+ @DisplayName(\Should throw exception when deleting non-existent order\)
+ void testDeleteOrderNotFound() {
+ when(orderRepository.findById(99L)).thenReturn(Optional.empty());
+ assertThrows(OrderNotFoundException.class, () -> orderService.deleteOrder(99L));
+ }
+
+ @Test
+ @DisplayName(\Should throw exception when inventory deduction fails\)
+ void testCreateOrderInventoryDeductionFails() {
+ when(orderRepository.save(any(Order.class))).thenAnswer(i -> {
+ Order o = i.getArgument(0);
+ o.setId(1L);
+ return o;
+ });
+ when(inventoryClient.deductStock(any(), any())).thenReturn(false);
+ assertThrows(InsufficientInventoryException.class, h -> orderService.createOrder(testOrderDTO));
+ }
+
+ @Test
+ @DisplayName(\Should transition from PENDING to PROCESSING\)
+ void testPendingToProcessing() {
+ when(orderRepository.findById(1L)).thenReturn(Optional.of(testOrder));
+ when(orderRepository.save(any(Order.class))).thenAnswer(i -> i.getArgument(0));
+ OrderDTO result = orderService.updateOrderStatus(1L, Order.Status.PROCESSING);
+ assertEquals(Order.Status.PROCESSING, result.getStatus());
+ }
+
+ @Test
+ @DisplayName(\Should transition from PENDING to CANCELLED and restore inventory\)
+ void testPendingToCancelled() {
+ testOrder.setStatus(Order.Status.PENDING);
+ when(orderRepository.findById(1L)).thenReturn(Optional.of(testOrder));
+ when(orderRepository.save(any(Order.class))).thenAnswer(i -> i.getArgument(0));
+ when(inventoryClient.restoreStock(any(), any())).thenReturn(true);
+ OrderDTO result = orderService.cancelOrder(1L);
+ assertEquals(Order.Status.CANCELLED, result.getStatus());
+ }
+
+ @Test
+ @DisplayName(\Should transition from PROCESSING to COMPLETED\)
+ void testProcessingToCompleted() {
+ testOrder.setStatus(Order.Status.PROCESSING);
+ when(orderRepository.findById(1L)).thenReturn(Optional.of(testOrder));
+ when(orderRepository.save(any(Order.class))).thenAnswer(i -> i.getArgument(0));
+ OrderDTO result = orderService.updateOrderStatus(1L, Order.Status.COMPLETED);
+ assertEquals(Order.Status.COMPLETED, result.getStatus());
+ }
+
+ @Test
+ @DisplayName(\Should not allow transition from COMPLETED to any other status\)
+ void testCompletedToAny() {
+ testOrder.setStatus(Order.Status.COMPLETED);
+ when(orderRepository.findById(1L)).thenReturn(Optional.of(testOrder));
+ assertThrows(OrderStatusException.class, h -> orderService.updateOrderStatus(1L, Order.Status.CANCELLED));
+ }
+
+ @Test
+ @DisplayName(\Should not allow transition from CANCELLED to any other status\)
+ void testCancelledToAny() {
+ testOrder.setStatus(Order.Status.CANCELLED);
+ when(orderRepository.findById(1L)).thenReturn(Optional.of(testOrder));
+ assertThrows(OrderStatusException.class, h -> orderService.updateOrderStatus(1L, Order.Status.PENDING));
+ }
+
+ @Test
+ @DisplayName(\Should get valid status transitions\)
+ void testGetValidStatusTransitions() {
+ testOrder.setStatus(Order.Status.PENDING);
+ when(orderRepository.findById(1L)).thenReturn(Optional.of(testOrder));
+ List<String> transitions = orderService.getValidStatusTransitions(1L);
+ assertTrue(transitions.contains(\PROCESSING\));
+ assertTrue(transitions.contains(\CANCELLED\));
+ }
+
+ @Test
+ @DisplayName(\Should find orders by order number\)
+ void testFindByOrderNumber() {
+ when(orderRepository.findByOrderNumber(\ORD-2024-0001\)).thenReturn(Optional.of(testOrder));
+ OrderDTO result = orderService.findByOrderNumber(\ORD-2024-0001\);
+ assertNotNull(result);
+ assertEquals(\ORD-2024-0001\, result.getOrderNumber());
+ }
+
+ @Test
+ @DisplayName(\Should find orders by customer name\)
+ void testFindByCustomerName() {
+ when(orderRepository.findByCustomerName(\Test Customer\)).thenReturn(List.of(testOrder));
+ List<OrderDTO> results = orderService.findByCustomerName(\Test Customer\);
+ assertEquals(1, results.size());
+ }
+
+ @Test
+ @DisplayName(\Should find orders by status\)
+ void testFindByStatus() {
+ when(orderRepository.findByStatus(Order.Status.PENDING)).thenReturn(List.of(testOrder));
+ List<OrderDTO> results = orderService.findByStatus(Order.Status.PENDING);
+ assertEquals(1, results.size());
+ }
+
+ @Test
+ @DisplayName(\Should calculate order total amount\)
+ void testCalculateTotalAmount() {
+ when(orderRepository.findById(1L)).thenReturn(Optional.of(testOrder));
+ double total = orderService.calculateTotalAmount(1L);
+ assertEquals(1000.0, total, 0.01);
+ }
+
+ @Test
+ @DisplayName(\Should add item to existing order\)
+ void testAddItemToOrder() {
+ testOrder.setStatus(Order.Status.PENDING);
+ when(orderRepository.findById(1L)).thenReturn(Optional.of(testOrder));
+ when(orderRepository.save(any(Order.class))).thenAnswer(i -> i.getArgument(0));
+ OrderItemDTO newItem = new OrderItemDTO();
+ newItem.setProductId(200L);
+ newItem.setProductName(\New Product\);
+ newItem.setQuantity(5);
+ newItem.setUnitPrice(50.0);
+ OrderDTO result = orderService.addItemToOrder(1L, newItem);
+ assertNotNull(result);
+ }
+
+ @Test
+ @DisplayName(\Should remove item from order and restore inventory\)
+ void testRemoveItemFromOrder() {
+ testOrder.setStatus(Order.Status.PENDING);
+ when(orderRepository.findById(1L)).thenReturn(Optional.of(testOrder));
+ when(orderRepository.save(any(Order.class))).thenAnswer(i -> i.getArgument(0));
+ when(inventoryClient.restoreStock(any(), any())).thenReturn(true);
+ OrderDTO result = orderService.removeItemFromOrder(1L, 1L);
+ assertNotNull(result);
+ }
+
+ @Test
+ @DisplayName(\Should reject order with null customer name\)
+ void testRejectNullCustomerName() {
+ testOrderDTO.setCustomerName(null);
+ assertThrows(OrderStatusException.class, h -> orderService.createOrder(testOrderDTO));
+ }
+
+ @Test
+ @DisplayName(\Should reject order with empty order number\)
+ void testRejectEmptyOrderNumber() {
+ testOrderDTO.setOrderNumber(\\);
+ assertThrows(OrderStatusException.class, h -> orderService.createOrder(testOrderDTO));
+ }
+
+ @Test
+ @DisplayName(\Should reject order with empty items\)
+ void testRejectEmptyItems() {
+ testOrderDTO.setItems(new ArrayList<>());
+ assertThrows(OrderStatusException.class, h -> orderService.createOrder(testOrderDTO));
+ }
+
+ @Test
+ @DisplayName(\Should throw exception when cancelling completed order\)
+ void testCancelCompletedOrder() {
+ testOrder.setStatus(Order.Status.COMPLETED);
+ when(orderRepository.findById(1L)).thenReturn(Optional.of(testOrder));
+ assertThrows(OrderStatusException.class, h -> orderService.cancelOrder(1L));
+ }
+
+ @Test
+ @DisplayName(\Should throw exception when cancelling already cancelled order\)
+ void testCancelAlreadyCancelledOrder() {
+ testOrder.setStatus(Order.Status.CANCELLED);
+ when(orderRepository.findById(1L)).thenReturn(Optional.of(testOrder));
+ assertThrows(OrderStatusException.class, h -> orderService.cancelOrder(1L));
+ }
+
+ @Test
+ @DisplayName(\Should throw exception when adding item to non-PENDING order\)
+ void testAddItemToNonPendingOrder() {
+ testOrder.setStatus(Order.Status.COMPLETED);
+ when(orderRepository.findById(1L)).thenReturn(Optional.of(testOrder));
+ OrderItemDTO newItem = new OrderItemDTO();
+ newItem.setProductId(200L);
+ newItem.setProductName(\New Product\);
+ newItem.setQuantity(5);
+ newItem.setUnitPrice(50.0);
+ assertThrows(OrderStatusException.class, h -> orderService.addItemToOrder(1L, newItem));
+ }
+
+ @Test
+ @DisplayName(\Should throw exception when adding item with insufficient inventory\)
+ void testAddItemInsufficientInventory() {
+ testOrder.setStatus(Order.Status.PENDING);
+ when(orderRepository.findById(1L)).thenReturn(Optional.of(testOrder));
+ when(inventoryClient.deductStock(any(), any())).thenReturn(false);
+ OrderItemDTO newItem = new OrderItemDTO();
+ newItem.setProductId(200L);
+ newItem.setProductName(\New Product\);
+ newItem.setQuantity(1000);
+ newItem.setUnitPrice(50.0);
+ assertThrows(InsufficientInventoryException.class, h -> orderService.addItemToOrder(1L, newItem));
+ }
+
+ @Test
+ @DisplayName(\Should throw exception when removing item from non-PENDING order\)
+ void testRemoveItemFromNonPendingOrder() {
+ testOrder.setStatus(Order.Status.COMPLETED);
+ when(orderRepository.findById(1L)).thenReturn(Optional.of(testOrder));
+ assertThrows(OrderStatusException.class, h -> orderService.removeItemFromOrder(1L, 1L));
+ }
+
+ @Test
+ @DisplayName(\Should throw exception when item not found in order\)
+ void testRemoveItemNotFound() {
+ testOrder.setStatus(Order.Status.PENDING);
+ when(orderRepository.findById(1L)).thenReturn(Optional.of(testOrder));
+ assertThrows(OrderNotFoundException.class, h -> orderService.removeItemFromOrder(1L, 997L));
+ }
+
+ @Test
+ @DisplayName(\Should throw exception when deleting order in PROCESSING status\)
+ void testDeleteProcessingOrder() {
+ testOrder.setStatus(Order.Status.PROCESSING);
+ when(orderRepository.findById(1L)).thenReturn(Optional.of(testOrder));
+ assertThrows(OrderStatusException.class, h -> orderService.deleteOrder(1L));
+ }
+
+ @Test
+ @DisplayName(\Should throw exception when deleting order in COMPLETED status\)
+ void testDeleteCompletedOrder() {
+ testOrder.setStatus(Order.Status.COMPLETED);
+ when(orderRepository.findById(1L)).thenReturn(Optional.of(testOrder));
+ assertThrows(OrderStatusException.class, h -> orderService.deleteOrder(1L));
+ }
+}

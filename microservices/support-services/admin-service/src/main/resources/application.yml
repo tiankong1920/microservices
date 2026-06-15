@@ -1,0 +1,86 @@
+---
+spring:
+  application:
+    name: admin-service
+  profiles:
+    active: dev
+  datasource:
+    url: jdbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:5432}/${POSTGRES_DB:inventory_db}
+    username: ${POSTGRES_USER:postgres}
+    password: ${POSTGRES_PASSWORD:changeme}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+server:
+  port: 8091
+  servlet:
+    context-path: /
+jwt:
+  secret: ${JWT_SECRET}
+  expiration.in.ms: 86400000
+logging:
+  level:
+    root: INFO
+    com.inventory.adminservice: DEBUG
+  pattern:
+    console: '%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} -- %msg%n'
+    file: '%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} -- %msg%n'
+spring.cloud.nacos:
+  config:
+    server-addr: ${NACOS_HOST:localhost}:${NACOS_PORT:8848}
+    namespace: ${NACOS_NAMESPACE:public}
+    group: DEFAULT_GROUP
+    file-extension: yml
+  discovery:
+    server-addr: ${NACOS_HOST:localhost}:${NACOS_PORT:8848}
+    namespace: ${NACOS_NAMESPACE:public}
+    group: DEFAULT_GROUP
+    service: admin-service
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      show-details: when-authorized
+      probes:
+        enabled: true
+  health:
+    livenessstate:
+      enabled: true
+    readinessstate:
+      enabled: true
+  metrics:
+    tags:
+      application: ${spring.application.name}
+    export:
+      prometheus:
+        enabled: true
+
+resilience4j:
+  circuitbreaker:
+    configs:
+      default:
+        slidingWindowSize: 100
+        minimumNumberOfCalls: 10
+        failureRateThreshold: 50
+        waitDurationInOpenState: 60000
+        permittedNumberOfCallsInHalfOpenState: 10
+        slidingWindowType: COUNT_BASED
+    instances:
+      adminServiceCircuitBreaker:
+        baseConfig: default
+  retry:
+    configs:
+      default:
+        maxAttempts: 3
+        waitDuration: 1000
+    instances:
+      adminServiceRetry:
+        baseConfig: default

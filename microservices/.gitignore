@@ -1,0 +1,129 @@
+# Gradle
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+# Gradle Wrapper (keep the wrapper files)
+!gradlew
+!gradlew.bat
+!gradle/wrapper/
+
+# IDE - IntelliJ IDEA
+.idea/
+*.iml
+*.ipr
+*.iws
+out/
+.idea_modules/
+
+# IDE - Eclipse
+.settings/
+.classpath
+.project
+.metadata/
+bin/
+tmp/
+
+# IDE - VS Code
+.vscode/
+*.code-workspace
+
+# IDE - NetBeans
+nb-configuration.xml
+nbproject/
+
+# Java
+*.class
+*.jar
+*.war
+*.ear
+*.nar
+hs_err_pid*
+replay_pid*
+
+# Log files
+*.log
+logs/
+
+# Package Files
+*.nar
+*.zip
+*.tar.gz
+*.rar
+
+
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Application specific
+application-local.yml
+application-local.properties
+
+# Test output
+test-output/
+*.exec
+
+# JaCoCo
+jacoco.exec
+*.exec
+
+# PMD
+.pmdcache
+
+# Checkstyle
+checkstyle-cache
+
+# SpotBugs
+spotbugs.xml
+
+# Dependency check
+dependency-check-report.*
+
+# SonarQube
+.sonar/
+.scannerwork/
+
+# Node.js (if any frontend)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Docker
+.docker/
+
+# Kubernetes
+*.kubeconfig
+
+# Temporary files
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+
+# Backup files
+*.bak
+*.backup
+*.old
+
+# Generated sources
+generated/
+**/generated-sources/
+**/generated-test-sources/
+
+# Coverage reports
+coverage/
+.nyc_output/
+
+# Documentation
+docs/_build/

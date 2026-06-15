@@ -1,0 +1,2 @@
+import os\npath=r" microservices\\project-root\\core-services\\order-service\\src\	est\\java\\com\\inventory\\orderservice\\service\\impl\\OrderServiceImplTest.java\
+os.makedirs(os.path.dirname(path),exist_ok=True)\nprint(path)

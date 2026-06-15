@@ -1,0 +1,27 @@
+# Frontend test runner stage
+FROM docker.m.daocloud.io/library/node:20-alpine AS test
+
+WORKDIR /app
+
+# 配置 npm 使用国内镜像（绕过代理证书问题）
+RUN npm config set registry https://registry.npmmirror.com && \
+    npm config set strict-ssl false && \
+    npm config set fund false && \
+    npm config set audit false
+
+# 复制 package 文件优先以利用缓存
+COPY package*.json ./
+RUN npm ci --prefer-offline --no-audit --legacy-peer-deps
+
+# 复制源代码
+COPY . .
+
+# 设置 Node 环境
+ENV CI=true
+ENV NODE_ENV=test
+
+# 预热 vitest/esbuild 缓存（首次构建后，后续构建会更快）
+RUN npx vitest --version || true
+
+# 默认运行所有测试
+CMD ["npx", "vitest", "run", "--reporter=verbose"]

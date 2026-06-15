@@ -1,0 +1,181 @@
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.5.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+Type-safe project accessors is an incubating feature.
+Project accessors enabled, but root project name not explicitly set for 'buildSrc'. Checking out the project in different folders will impact the generated code and implicitly the buildscript classpath, breaking caching.
+> Task :buildSrc:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :buildSrc:compileKotlin NO-SOURCE
+> Task :buildSrc:compileJava NO-SOURCE
+> Task :buildSrc:compileGroovy NO-SOURCE
+> Task :buildSrc:pluginDescriptors UP-TO-DATE
+> Task :buildSrc:processResources NO-SOURCE
+> Task :buildSrc:classes UP-TO-DATE
+> Task :buildSrc:jar UP-TO-DATE
+
+> Configure project :
+Configuring inventory-management-system...
+Project accessors enabled, but root project name not explicitly set for 'buildSrc'. Checking out the project in different folders will impact the generated code and implicitly the buildscript classpath, breaking caching.
+
+> Configure project :common
+Configuring common...
+
+> Configure project :core-services
+Configuring core-services...
+
+> Configure project :cross-service-tests
+Configuring cross-service-tests...
+
+> Configure project :monitoring
+Configuring monitoring...
+
+> Configure project :monitoring-core
+Configuring monitoring-core...
+
+> Configure project :monitoring-spring-boot-starter
+Configuring monitoring-spring-boot-starter...
+
+> Configure project :support-services
+Configuring support-services...
+
+> Configure project :core-services:business-partner-service
+Configuring business-partner-service...
+
+> Configure project :core-services:customer-service
+Configuring customer-service...
+
+> Configure project :core-services:datasource-service
+Configuring datasource-service...
+
+> Configure project :core-services:inventory-service
+Configuring inventory-service...
+
+> Configure project :core-services:invoice-service
+Configuring invoice-service...
+
+> Configure project :core-services:mall-service
+Configuring mall-service...
+
+> Configure project :core-services:order-service
+Configuring order-service...
+
+> Configure project :core-services:procurement-service
+Configuring procurement-service...
+
+> Configure project :core-services:product-service
+Configuring product-service...
+
+> Configure project :core-services:sales-service
+Configuring sales-service...
+
+> Configure project :core-services:supplier-service
+Configuring supplier-service...
+
+> Configure project :core-services:template-service
+Configuring template-service...
+
+> Configure project :support-services:admin-service
+Configuring admin-service...
+
+> Configure project :support-services:auth-service
+Configuring auth-service...
+
+> Configure project :support-services:config-service
+Configuring config-service...
+
+> Configure project :support-services:finance-service
+Configuring finance-service...
+
+> Configure project :support-services:gateway-service
+Configuring gateway-service...
+
+> Configure project :support-services:registry-service
+Configuring registry-service...
+
+> Configure project :support-services:report-service
+Configuring report-service...
+
+> Task :common:generateEffectiveLombokConfig UP-TO-DATE
+> Task :support-services:config-service:generateEffectiveLombokConfig UP-TO-DATE
+> Task :support-services:config-service:processResources UP-TO-DATE
+> Task :support-services:config-service:generateTestEffectiveLombokConfig UP-TO-DATE
+> Task :support-services:config-service:processTestResources UP-TO-DATE
+> Task :common:compileJava UP-TO-DATE
+> Task :common:compileGroovy NO-SOURCE
+> Task :common:processResources UP-TO-DATE
+> Task :common:classes UP-TO-DATE
+> Task :common:jar
+> Task :support-services:config-service:compileJava UP-TO-DATE
+> Task :support-services:config-service:compileGroovy NO-SOURCE
+> Task :support-services:config-service:classes UP-TO-DATE
+
+> Task :support-services:config-service:compileTestJava
+E:\101\microservices\support-services\config-service\src\test\java\com\inventory\configservice\controller\ConfigManagementControllerTest.java:57: 閿欒: 鏃犳硶灏嗚褰?ConfigDTO涓殑鏋勯€犲櫒 ConfigDTO搴旂敤鍒扮粰瀹氱被鍨?
+        ConfigDTO dto = new ConfigDTO();
+                        ^
+  闇€瑕? String,String,String,String,String,String,String,long,long
+  鎵惧埌:    娌℃湁鍙傛暟
+  鍘熷洜: 瀹為檯鍙傛暟鍒楄〃鍜屽舰寮忓弬鏁板垪琛ㄩ暱搴︿笉鍚?
+E:\101\microservices\support-services\config-service\src\test\java\com\inventory\configservice\controller\ConfigManagementControllerTest.java:58: 閿欒: 鎵句笉鍒扮鍙?        dto.setDataId("app.yaml");
+           ^
+  绗﹀彿:   鏂规硶 setDataId(String)
+  浣嶇疆: 绫诲瀷涓篊onfigDTO鐨勫彉閲?dto
+E:\101\microservices\support-services\config-service\src\test\java\com\inventory\configservice\controller\ConfigManagementControllerTest.java:65: 閿欒: 鎵句笉鍒扮鍙?        assertEquals("app.yaml", response.getBody().getData().getDataId());
+                                                             ^
+  绗﹀彿:   鏂规硶 getDataId()
+  浣嶇疆: 绫?ConfigDTO
+E:\101\microservices\support-services\config-service\src\test\java\com\inventory\configservice\controller\ConfigManagementControllerTest.java:126: 閿欒: 鏃犳硶灏嗚褰?ConfigHistoryDTO涓殑鏋勯€犲櫒 ConfigHistoryDTO搴旂敤鍒扮粰瀹氱被鍨?
+                .thenReturn(List.of(new ConfigHistoryDTO()));
+                                    ^
+  闇€瑕? long,String,String,String,String,String,String,String,long,long
+  鎵惧埌:    娌℃湁鍙傛暟
+  鍘熷洜: 瀹為檯鍙傛暟鍒楄〃鍜屽舰寮忓弬鏁板垪琛ㄩ暱搴︿笉鍚?
+E:\101\microservices\support-services\config-service\src\test\java\com\inventory\configservice\controller\ConfigManagementControllerTest.java:138: 閿欒: 鏃犳硶灏嗚褰?ConfigDTO涓殑鏋勯€犲櫒 ConfigDTO搴旂敤鍒扮粰瀹氱被鍨?
+                .thenReturn(List.of(new ConfigDTO()));
+                                    ^
+  闇€瑕? String,String,String,String,String,String,String,long,long
+  鎵惧埌:    娌℃湁鍙傛暟
+  鍘熷洜: 瀹為檯鍙傛暟鍒楄〃鍜屽舰寮忓弬鏁板垪琛ㄩ暱搴︿笉鍚?
+5 涓敊璇?
+
+> Task :support-services:config-service:compileTestJava FAILED
+
+[Incubating] Problems report is available at: file:///E:/101/microservices/build/reports/problems/problems-report.html
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':support-services:config-service:compileTestJava' (registered by plugin class 'org.gradle.api.plugins.JavaBasePlugin').
+> Compilation failed; see the compiler output below.
+  E:\101\microservices\support-services\config-service\src\test\java\com\inventory\configservice\controller\ConfigManagementControllerTest.java:57: 閿欒: 鏃犳硶灏嗚褰?ConfigDTO涓殑鏋勯€犲櫒 ConfigDTO搴旂敤鍒扮粰瀹氱被鍨?
+          ConfigDTO dto = new ConfigDTO();
+                          ^
+    闇€瑕? String,String,String,String,String,String,String,long,long
+    鎵惧埌:    娌℃湁鍙傛暟
+    鍘熷洜: 瀹為檯鍙傛暟鍒楄〃鍜屽舰寮忓弬鏁板垪琛ㄩ暱搴︿笉鍚?
+  E:\101\microservices\support-services\config-service\src\test\java\com\inventory\configservice\controller\ConfigManagementControllerTest.java:126: 閿欒: 鏃犳硶灏嗚褰?ConfigHistoryDTO涓殑鏋勯€犲櫒 ConfigHistoryDTO搴旂敤鍒扮粰瀹氱被鍨?
+                  .thenReturn(List.of(new ConfigHistoryDTO()));
+                                      ^
+    闇€瑕? long,String,String,String,String,String,String,String,long,long
+    鎵惧埌:    娌℃湁鍙傛暟
+    鍘熷洜: 瀹為檯鍙傛暟鍒楄〃鍜屽舰寮忓弬鏁板垪琛ㄩ暱搴︿笉鍚?
+  E:\101\microservices\support-services\config-service\src\test\java\com\inventory\configservice\controller\ConfigManagementControllerTest.java:138: 閿欒: 鏃犳硶灏嗚褰?ConfigDTO涓殑鏋勯€犲櫒 ConfigDTO搴旂敤鍒扮粰瀹氱被鍨?
+                  .thenReturn(List.of(new ConfigDTO()));
+                                      ^
+    闇€瑕? String,String,String,String,String,String,String,long,long
+    鎵惧埌:    娌℃湁鍙傛暟
+    鍘熷洜: 瀹為檯鍙傛暟鍒楄〃鍜屽舰寮忓弬鏁板垪琛ㄩ暱搴︿笉鍚?
+  E:\101\microservices\support-services\config-service\src\test\java\com\inventory\configservice\controller\ConfigManagementControllerTest.java:58: 閿欒: 鎵句笉鍒扮鍙?          dto.setDataId("app.yaml");
+             ^
+    绗﹀彿:   鏂规硶 setDataId(String)
+    浣嶇疆: 绫诲瀷涓篊onfigDTO鐨勫彉閲?dto
+  E:\101\microservices\support-services\config-service\src\test\java\com\inventory\configservice\controller\ConfigManagementControllerTest.java:65: 閿欒: 鎵句笉鍒扮鍙?          assertEquals("app.yaml", response.getBody().getData().getDataId());
+                                                               ^
+    绗﹀彿:   鏂规硶 getDataId()
+    浣嶇疆: 绫?ConfigDTO
+  5 涓敊璇?
+
+* Try:
+> Check your code and dependencies to fix the compilation error(s)
+> Run with --scan to get full insights from a Build Scan (powered by Develocity).
+
+BUILD FAILED in 1m 27s
+12 actionable tasks: 2 executed, 10 up-to-date

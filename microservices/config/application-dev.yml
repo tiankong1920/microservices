@@ -1,0 +1,53 @@
+---
+spring:
+  datasource:
+    url: jdbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:5432}/${POSTGRES_DB:inventory_db}
+    driver-class-name: org.postgresql.Driver
+    username: ${POSTGRES_USER:postgres}
+    password: ${POSTGRES_PASSWORD:}
+    hikari:
+      maximum-pool-size: 20
+      minimum-idle: 5
+      connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 1800000
+      pool-name: InventoryHikariPool
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        jdbc:
+          batch_size: 50
+          batch_versioned_data: true
+        order_inserts: true
+        order_updates: true
+  sql:
+    init:
+      mode: always
+      platform: postgresql
+logging:
+  level:
+    root: DEBUG
+    com.inventory: DEBUG
+    org.springframework: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql: TRACE
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus,configprops,env
+springdoc:
+  swagger-ui:
+    enabled: true
+app:
+  feature-flags:
+    experimental-feature: true
+    new-ui: true
+  dev:
+    enable-debug-tools: true
+    mock-external-services: true

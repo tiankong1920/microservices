@@ -1,0 +1,7 @@
+ Image redis:7-alpine Pulling 
+ Image nacos/nacos-server:v2.3.0 Pulling 
+ Image postgres:18-alpine Pulling 
+ Image postgres:18-alpine Error failed to resolve reference "docker.io/library/postgres:18-alpine": failed to do request: Head "https://registry-1.docker.io/v2/library/postgres/manifests/18-alpine": Proxy connect error: connect ETIMEDOUT 173.244.209.150:443
+ Image redis:7-alpine Interrupted 
+ Image nacos/nacos-server:v2.3.0 Interrupted 
+Error response from daemon: failed to resolve reference "docker.io/library/postgres:18-alpine": failed to do request: Head "https://registry-1.docker.io/v2/library/postgres/manifests/18-alpine": Proxy connect error: connect ETIMEDOUT 173.244.209.150:443

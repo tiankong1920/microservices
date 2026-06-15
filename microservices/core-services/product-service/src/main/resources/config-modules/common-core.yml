@@ -1,0 +1,26 @@
+---
+# 公共核心配置
+# 功能描述:包含Redis缓存等公共配置
+# 适用范围:所有服务
+# 修改记录:
+# - 2025-02-05 修复模块联动
+
+spring:
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      database: ${REDIS_DATABASE:0}
+      timeout: 2000ms
+      lettuce:
+        pool:
+          max-active: 8
+          max-idle: 8
+          min-idle: 0
+          max-wait: -1ms
+  
+  cache:
+    type: redis
+    redis:
+      time-to-live: 30m
+      cache-null-values: false

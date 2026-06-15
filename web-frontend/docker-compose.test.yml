@@ -1,0 +1,16 @@
+services:
+  frontend-test:
+    build:
+      context: .
+      dockerfile: Dockerfile.test
+    image: web-frontend-test:latest
+    container_name: web-frontend-test
+    working_dir: /app
+    environment:
+      - CI=true
+      - NODE_ENV=test
+    # Windows 容器里挂载源码以利用 host 上的 node_modules 缓存
+    volumes:
+      - .:/app
+      - /app/node_modules
+    command: ["npx", "vitest", "run", "--reporter=verbose"]

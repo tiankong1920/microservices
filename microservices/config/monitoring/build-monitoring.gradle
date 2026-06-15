@@ -1,0 +1,235 @@
+/**
+ * Gradle Build Monitoring Configuration
+ * Gradle构建监控配置
+ * 
+ * 功能说明:
+ * - 收集构建性能指标
+ * - 监控构建过程关键指标
+ * - 支持Prometheus + Grafana监控
+ * - 生成构建报告
+ * 
+ * 使用方法:
+ * 1. 在build.gradle.kts中应用此配置
+ * 2. 配置Prometheus和Grafana
+ * 3. 查看监控仪表盘
+ * 
+ * 版本: 1.0
+ * 更新日期: 2026-03-15
+ */
+
+import org.gradle.api.services.BuildService
+import org.gradle.api.services.BuildServiceParameters
+import org.gradle.tooling.events.FinishEvent
+import org.gradle.tooling.events.OperationCompletionListener
+import org.gradle.tooling.events.task.TaskFinishEvent
+import org.gradle.tooling.events.task.TaskSuccessResult
+import org.gradle.tooling.events.task.TaskFailureResult
+
+/**
+ * 构建指标收集服务
+ */
+abstract class BuildMetricsService : BuildService<BuildServiceParameters.None>, OperationCompletionListener, AutoCloseable {
+    
+    private val buildStartTime = System.currentTimeMillis()
+    private val taskTimings = mutableMapOf<String, Long>()
+    private val taskResults = mutableMapOf<String, String>()
+    private var totalTasks = 0
+    private var successfulTasks = 0
+    private var failedTasks = 0
+    
+    override fun onFinish(event: FinishEvent) {
+        when (event) {
+            is TaskFinishEvent -> {
+                val taskPath = event.descriptor.taskPath
+                val duration = event.result.endTime - event.result.startTime
+                
+                taskTimings[taskPath] = duration
+                totalTasks++
+                
+                when (event.result) {
+                    is TaskSuccessResult -> {
+                        successfulTasks++
+                        taskResults[taskPath] = "SUCCESS"
+                    }
+                    is TaskFailureResult -> {
+                        failedTasks++
+                        taskResults[taskPath] = "FAILED"
+                    }
+                    else -> {
+                        taskResults[taskPath] = "UNKNOWN"
+                    }
+                }
+                
+                // 记录慢任务（超过10秒）
+                if (duration > 10000) {
+                    println("[BUILD-METRICS] Slow task detected: $taskPath took ${duration}ms")
+                }
+            }
+        }
+    }
+    
+    override fun close() {
+        val totalBuildTime = System.currentTimeMillis() - buildStartTime
+        
+        println("\n" + "=".repeat(80))
+        println("BUILD METRICS REPORT")
+        println("=".repeat(80))
+        println("Total build time: ${totalBuildTime}ms (${totalBuildTime / 1000}s)")
+        println("Total tasks: $totalTasks")
+        println("Successful tasks: $successfulTasks")
+        println("Failed tasks: $failedTasks")
+        println("Success rate: ${if (totalTasks > 0) (successfulTasks * 100 / totalTasks) else 0}%")
+        
+        // 显示最慢的任务
+        val slowestTasks = taskTimings.entries.sortedByDescending { it.value }.take(5)
+        if (slowestTasks.isNotEmpty()) {
+            println("\nTop 5 slowest tasks:")
+            slowestTasks.forEachIndexed { index, entry ->
+                println("${index + 1}. ${entry.key}: ${entry.value}ms")
+            }
+        }
+        
+        // 生成指标文件
+        generateMetricsFile(totalBuildTime)
+        
+        println("=".repeat(80))
+    }
+    
+    private fun generateMetricsFile(totalBuildTime: Long) {
+        val metricsFile = File("build/reports/build-metrics.json")
+        metricsFile.parentFile.mkdirs()
+        
+        val metrics = buildString {
+            appendLine("{")
+            appendLine("  \"timestamp\": \"${java.time.Instant.now()}\",")
+            appendLine("  \"totalBuildTime\": $totalBuildTime,")
+            appendLine("  \"totalTasks\": $totalTasks,")
+            appendLine("  \"successfulTasks\": $successfulTasks,")
+            appendLine("  \"failedTasks\": $failedTasks,")
+            appendLine("  \"taskTimings\": {")
+            
+            taskTimings.entries.forEachIndexed { index, entry ->
+                appendLine("    \"${entry.key}\": ${entry.value}${if (index < taskTimings.size - 1) "," else ""}")
+            }
+            
+            appendLine("  },")
+            appendLine("  \"taskResults\": {")
+            
+            taskResults.entries.forEachIndexed { index, entry ->
+                appendLine("    \"${entry.key}\": \"${entry.value}\"${if (index < taskResults.size - 1) "," else ""}")
+            }
+            
+            appendLine("  }")
+            appendLine("}")
+        }
+        
+        metricsFile.writeText(metrics)
+        println("\n[BUILD-METRICS] Metrics saved to: ${metricsFile.absolutePath}")
+    }
+}
+
+/**
+ * 构建性能监控扩展
+ */
+class BuildMonitoringExtension {
+    var enabled = true
+    var metricsOutputDir = "build/reports/metrics"
+    var slowTaskThreshold = 10000L // 10 seconds
+    var enableConsoleOutput = true
+    var enableFileOutput = true
+    var enablePrometheusFormat = false
+}
+
+/**
+ * 配置构建监控
+ */
+void configureBuildMonitoring(Project project) {
+    // 创建扩展
+    def extension = project.extensions.create("buildMonitoring", BuildMonitoringExtension)
+    
+    // 注册构建服务
+    def buildMetricsService = project.gradle.sharedServices.registerIfAbsent(
+        "buildMetrics",
+        BuildMetricsService.class
+    ) { }
+    
+    // 配置任务执行监听器
+    project.gradle.taskGraph.whenReady { graph ->
+        if (extension.enabled) {
+            println("[BUILD-MONITORING] Build monitoring enabled")
+            println("[BUILD-MONITORING] Total tasks to execute: ${graph.allTasks.size()}")
+            
+            graph.allTasks.forEach { task ->
+                task.doFirst {
+                    task.extensions.add("startTime", System.currentTimeMillis())
+                }
+                
+                task.doLast {
+                    def startTime = task.extensions.findByName("startTime") as Long
+                    if (startTime != null) {
+                        def duration = System.currentTimeMillis() - startTime
+                        if (duration > extension.slowTaskThreshold) {
+                            println("[BUILD-MONITORING] Slow task: ${task.path} took ${duration}ms")
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    // 构建完成后的报告
+    project.gradle.buildFinished { result ->
+        if (extension.enabled && extension.enableConsoleOutput) {
+            println("\n[BUILD-MONITORING] Build ${result.failure != null ? 'FAILED' : 'SUCCESS'}")
+        }
+    }
+}
+
+// 应用监控配置
+configureBuildMonitoring(project)
+
+/**
+ * 性能基准线配置
+ * 基于历史构建数据建立性能基准线
+ */
+ext {
+    buildPerformanceBaseline = [
+        maxConfigurationTime: 5000,      // 配置阶段最大时间: 5秒
+        maxExecutionTime: 120000,        // 执行阶段最大时间: 2分钟
+        maxTotalBuildTime: 180000,       // 总构建时间: 3分钟
+        maxMemoryUsage: 4294967296L,     // 内存使用: 4GB
+        maxGcTime: 5000,                 // GC时间: 5秒
+        maxFailedTasks: 0                // 失败任务数: 0
+    ]
+}
+
+/**
+ * 告警阈值配置
+ * 当指标偏离基准线时触发告警
+ */
+ext {
+    alertThresholds = [
+        configurationTimeDeviation: 0.15,  // 配置阶段偏差: 15%
+        executionTimeDeviation: 0.15,      // 执行阶段偏差: 15%
+        totalBuildTimeDeviation: 0.15,     // 总构建时间偏差: 15%
+        memoryUsageDeviation: 0.20,        // 内存使用偏差: 20%
+        gcTimeDeviation: 0.25              // GC时间偏差: 25%
+    ]
+}
+
+/**
+ * 仓库访问监控配置
+ */
+ext {
+    repositoryMonitoring = [
+        enabled: true,
+        logAccess: true,
+        logFailures: true,
+        alertOnFailureThreshold: 20,       // 1分钟内失败请求超过20次告警
+        alertOnUnusualAccess: true,        // 非工作时间访问告警
+        alertOnHighFrequency: true,        // 高频请求告警
+        logRetentionDays: 30               // 日志保留30天
+    ]
+}
+
+println("[BUILD-MONITORING] Build monitoring configuration loaded")

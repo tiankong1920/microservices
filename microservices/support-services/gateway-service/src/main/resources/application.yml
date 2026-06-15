@@ -1,0 +1,831 @@
+---
+spring:
+  application:
+    name: gateway-service
+  cloud:
+    nacos:
+      discovery:
+        server-addr: ${NACOS_HOST:localhost}:${NACOS_PORT:8848}
+        namespace: ${NACOS_NAMESPACE:public}
+        group: support-api-gateway
+        metadata:
+          version: 3.0.0
+          env: ${SPRING_PROFILES_ACTIVE:dev}
+          service-type: microservice
+          framework: spring-boot
+          language: java
+          team: inventory-management
+          region: default
+          zone: default
+          stage: ${SPRING_PROFILES_ACTIVE:dev}
+          gray: false
+          weight: 1.0
+      config:
+        server-addr: ${NACOS_HOST:localhost}:${NACOS_PORT:8848}
+        namespace: ${NACOS_NAMESPACE:public}
+        group: support-api-gateway
+        file-extension: yml
+        refresh-enabled: true
+        encode: UTF-8
+    gateway:
+      routes:
+      - id: http-to-https-redirect
+        uri: https://localhost:443
+        predicates:
+        - Path=/**
+        - Header=X-Forwarded-Proto, http
+        filters:
+        - RedirectTo=301, https://${host}/#{request.path()}
+      - id: admin-service
+        uri: lb://admin-service
+        predicates:
+        - Path=/api/v1/admin/**
+        filters:
+        - RewritePath=/api/v1/admin/(?<segment>.*), /api/v1/${segment}
+        - name: RequestRateLimiter
+          args:
+            redis-rate-limiter.replenishRate: 10
+            redis-rate-limiter.burstCapacity: 20
+            redis-rate-limiter.requestedTokens: 1
+            key-resolver: '#{@apiKeyResolver}'
+        - name: CircuitBreaker
+          args:
+            name: adminServiceCircuitBreaker
+            fallbackUri: forward:/fallback/admin
+      - id: product-service
+        uri: lb://product-service
+        predicates:
+        - Path=/api/v1/products/**
+        filters:
+        - RewritePath=/api/v1/products/(?<segment>.*), /api/v1/products/${segment}
+        - name: RequestRateLimiter
+          args:
+            redis-rate-limiter.replenishRate: 50
+            redis-rate-limiter.burstCapacity: 100
+            redis-rate-limiter.requestedTokens: 1
+            key-resolver: '#{@apiKeyResolver}'
+        - name: CircuitBreaker
+          args:
+            name: productServiceCircuitBreaker
+            fallbackUri: forward:/fallback/product
+      - id: inventory-service
+        uri: lb://inventory-service
+        predicates:
+        - Path=/api/v1/inventory/**
+        filters:
+        - RewritePath=/api/v1/inventory/(?<segment>.*), /api/v1/inventory/${segment}
+        - name: RequestRateLimiter
+          args:
+            redis-rate-limiter.replenishRate: 30
+            redis-rate-limiter.burstCapacity: 60
+            redis-rate-limiter.requestedTokens: 1
+            key-resolver: '#{@apiKeyResolver}'
+        - name: CircuitBreaker
+          args:
+            name: inventoryServiceCircuitBreaker
+            fallbackUri: forward:/fallback/inventory
+      - id: order-service
+        uri: lb://order-service
+        predicates:
+        - Path=/api/v1/orders/**
+        filters:
+        - RewritePath=/api/v1/orders/(?<segment>.*), /api/v1/orders/${segment}
+        - name: RequestRateLimiter
+          args:
+            redis-rate-limiter.replenishRate: 40
+            redis-rate-limiter.burstCapacity: 80
+            redis-rate-limiter.requestedTokens: 1
+            key-resolver: '#{@apiKeyResolver}'
+        - name: CircuitBreaker
+          args:
+            name: orderServiceCircuitBreaker
+            fallbackUri: forward:/fallback/order
+      - id: customer-service
+        uri: lb://customer-service
+        predicates:
+        - Path=/api/v1/customers/**
+        filters:
+        - RewritePath=/api/v1/customers/(?<segment>.*), /api/v1/customers/${segment}
+        - name: RequestRateLimiter
+          args:
+            redis-rate-limiter.replenishRate: 30
+            redis-rate-limiter.burstCapacity: 60
+            redis-rate-limiter.requestedTokens: 1
+            key-resolver: '#{@apiKeyResolver}'
+        - name: CircuitBreaker
+          args:
+            name: customerServiceCircuitBreaker
+            fallbackUri: forward:/fallback/customer
+      - id: sales-service
+        uri: lb://sales-service
+        predicates:
+        - Path=/api/v1/sales/**
+        filters:
+        - RewritePath=/api/v1/sales/(?<segment>.*), /api/v1/sales/${segment}
+        - name: RequestRateLimiter
+          args:
+            redis-rate-limiter.replenishRate: 35
+            redis-rate-limiter.burstCapacity: 70
+            redis-rate-limiter.requestedTokens: 1
+            key-resolver: '#{@apiKeyResolver}'
+        - name: CircuitBreaker
+          args:
+            name: salesServiceCircuitBreaker
+            fallbackUri: forward:/fallback/sales
+      - id: procurement-service
+        uri: lb://procurement-service
+        predicates:
+        - Path=/api/v1/procurement/**
+        filters:
+        - RewritePath=/api/v1/procurement/(?<segment>.*), /api/v1/procurement/${segment}
+        - name: RequestRateLimiter
+          args:
+            redis-rate-limiter.replenishRate: 25
+            redis-rate-limiter.burstCapacity: 50
+            redis-rate-limiter.requestedTokens: 1
+            key-resolver: '#{@apiKeyResolver}'
+        - name: CircuitBreaker
+          args:
+            name: procurementServiceCircuitBreaker
+            fallbackUri: forward:/fallback/procurement
+      - id: supplier-service
+        uri: lb://supplier-service
+        predicates:
+        - Path=/api/v1/suppliers/**
+        filters:
+        - RewritePath=/api/v1/suppliers/(?<segment>.*), /api/v1/suppliers/${segment}
+        - name: RequestRateLimiter
+          args:
+            redis-rate-limiter.replenishRate: 20
+            redis-rate-limiter.burstCapacity: 40
+            redis-rate-limiter.requestedTokens: 1
+            key-resolver: '#{@apiKeyResolver}'
+        - name: CircuitBreaker
+          args:
+            name: supplierServiceCircuitBreaker
+            fallbackUri: forward:/fallback/supplier
+      - id: auth-service
+        uri: lb://auth-service
+        predicates:
+        - Path=/api/v1/auth/**
+        filters:
+        - RewritePath=/api/v1/auth/(?<segment>.*), /api/v1/auth/${segment}
+        - name: RequestRateLimiter
+          args:
+            redis-rate-limiter.replenishRate: 50
+            redis-rate-limiter.burstCapacity: 100
+            redis-rate-limiter.requestedTokens: 1
+            key-resolver: '#{@ipKeyResolver}'
+        - name: CircuitBreaker
+          args:
+            name: authServiceCircuitBreaker
+            fallbackUri: forward:/fallback/auth
+      - id: finance-service
+        uri: lb://finance-service
+        predicates:
+        - Path=/api/v1/finance/**
+        filters:
+        - RewritePath=/api/v1/finance/(?<segment>.*), /api/v1/finance/${segment}
+        - name: RequestRateLimiter
+          args:
+            redis-rate-limiter.replenishRate: 20
+            redis-rate-limiter.burstCapacity: 40
+            redis-rate-limiter.requestedTokens: 1
+            key-resolver: '#{@apiKeyResolver}'
+        - name: CircuitBreaker
+          args:
+            name: financeServiceCircuitBreaker
+            fallbackUri: forward:/fallback/finance
+      - id: datasource-service
+        uri: lb://datasource-service
+        predicates:
+        - Path=/api/v1/datasources/**
+        filters:
+        - RewritePath=/api/v1/datasources/(?<segment>.*), /api/v1/datasources/${segment}
+        - name: RequestRateLimiter
+          args:
+            redis-rate-limiter.replenishRate: 20
+            redis-rate-limiter.burstCapacity: 40
+            redis-rate-limiter.requestedTokens: 1
+            key-resolver: '#{@apiKeyResolver}'
+        - name: CircuitBreaker
+          args:
+            name: datasourceServiceCircuitBreaker
+            fallbackUri: forward:/fallback/datasource
+      - id: template-service
+        uri: lb://template-service
+        predicates:
+        - Path=/api/v1/templates/**
+        filters:
+        - RewritePath=/api/v1/templates/(?<segment>.*), /api/v1/templates/${segment}
+        - name: RequestRateLimiter
+          args:
+            redis-rate-limiter.replenishRate: 20
+            redis-rate-limiter.burstCapacity: 40
+            redis-rate-limiter.requestedTokens: 1
+            key-resolver: '#{@apiKeyResolver}'
+        - name: CircuitBreaker
+          args:
+            name: templateServiceCircuitBreaker
+            fallbackUri: forward:/fallback/template
+      - id: mall-service
+        uri: lb://mall-service
+        predicates:
+        - Path=/api/v1/mall/**
+        filters:
+        - RewritePath=/api/v1/mall/(?<segment>.*), /api/v1/mall/${segment}
+        - name: RequestRateLimiter
+          args:
+            redis-rate-limiter.replenishRate: 30
+            redis-rate-limiter.burstCapacity: 60
+            redis-rate-limiter.requestedTokens: 1
+            key-resolver: '#{@apiKeyResolver}'
+        - name: CircuitBreaker
+          args:
+            name: mallServiceCircuitBreaker
+            fallbackUri: forward:/fallback/mall
+      - id: business-partner-service
+        uri: lb://business-partner-service
+        predicates:
+        - Path=/api/v1/business-partners/**
+        filters:
+        - RewritePath=/api/v1/business-partners/(?<segment>.*), /api/v1/business-partners/${segment}
+        - name: RequestRateLimiter
+          args:
+            redis-rate-limiter.replenishRate: 20
+            redis-rate-limiter.burstCapacity: 40
+            redis-rate-limiter.requestedTokens: 1
+            key-resolver: '#{@apiKeyResolver}'
+        - name: CircuitBreaker
+          args:
+            name: businessPartnerServiceCircuitBreaker
+            fallbackUri: forward:/fallback/business-partner
+      - id: report-service
+        uri: lb://report-service
+        predicates:
+        - Path=/api/v1/reports/**
+        filters:
+        - RewritePath=/api/v1/reports/(?<segment>.*), /api/v1/reports/${segment}
+        - name: RequestRateLimiter
+          args:
+            redis-rate-limiter.replenishRate: 15
+            redis-rate-limiter.burstCapacity: 30
+            redis-rate-limiter.requestedTokens: 1
+            key-resolver: '#{@apiKeyResolver}'
+        - name: CircuitBreaker
+          args:
+            name: reportServiceCircuitBreaker
+            fallbackUri: forward:/fallback/report
+      - id: invoice-service
+        uri: lb://invoice-service
+        predicates:
+        - Path=/api/v1/invoice/**
+        filters:
+        - RewritePath=/api/v1/invoice/(?<segment>.*), /api/v1/invoice/${segment}
+        - name: RequestRateLimiter
+          args:
+            redis-rate-limiter.replenishRate: 20
+            redis-rate-limiter.burstCapacity: 40
+            redis-rate-limiter.requestedTokens: 1
+            key-resolver: '#{@apiKeyResolver}'
+        - name: CircuitBreaker
+          args:
+            name: invoiceServiceCircuitBreaker
+            fallbackUri: forward:/fallback/invoice
+      - id: config-service
+        uri: lb://config-service
+        predicates:
+        - Path=/api/v1/config/**
+        filters:
+        - RewritePath=/api/v1/config/(?<segment>.*), /api/v1/config/${segment}
+        - name: RequestRateLimiter
+          args:
+            redis-rate-limiter.replenishRate: 20
+            redis-rate-limiter.burstCapacity: 40
+            redis-rate-limiter.requestedTokens: 1
+            key-resolver: '#{@apiKeyResolver}'
+        - name: CircuitBreaker
+          args:
+            name: configServiceCircuitBreaker
+            fallbackUri: forward:/fallback/config
+      - id: registry-service
+        uri: lb://registry-service
+        predicates:
+        - Path=/api/v1/registry/**
+        filters:
+        - RewritePath=/api/v1/registry/(?<segment>.*), /api/v1/registry/${segment}
+        - name: RequestRateLimiter
+          args:
+            redis-rate-limiter.replenishRate: 20
+            redis-rate-limiter.burstCapacity: 40
+            redis-rate-limiter.requestedTokens: 1
+            key-resolver: '#{@apiKeyResolver}'
+        - name: CircuitBreaker
+          args:
+            name: registryServiceCircuitBreaker
+            fallbackUri: forward:/fallback/registry
+      - id: inventory-stock-transfers
+        uri: lb://inventory-service
+        predicates:
+        - Path=/api/v1/stock-transfers/**
+        filters:
+        - RewritePath=/api/v1/stock-transfers/(?<segment>.*), /api/v1/stock-transfers/${segment}
+        - name: RequestRateLimiter
+          args:
+            redis-rate-limiter.replenishRate: 20
+            redis-rate-limiter.burstCapacity: 40
+            redis-rate-limiter.requestedTokens: 1
+            key-resolver: '#{@apiKeyResolver}'
+        - name: CircuitBreaker
+          args:
+            name: inventoryStockTransfersCircuitBreaker
+            fallbackUri: forward:/fallback/stock-transfers
+      - id: inventory-other-stock
+        uri: lb://inventory-service
+        predicates:
+        - Path=/api/v1/other-stock/**
+        filters:
+        - RewritePath=/api/v1/other-stock/(?<segment>.*), /api/v1/other-stock/${segment}
+        - name: RequestRateLimiter
+          args:
+            redis-rate-limiter.replenishRate: 20
+            redis-rate-limiter.burstCapacity: 40
+            redis-rate-limiter.requestedTokens: 1
+            key-resolver: '#{@apiKeyResolver}'
+        - name: CircuitBreaker
+          args:
+            name: inventoryOtherStockCircuitBreaker
+            fallbackUri: forward:/fallback/other-stock
+      - id: sales-returns
+        uri: lb://sales-service
+        predicates:
+        - Path=/api/v1/sales-returns/**
+        filters:
+        - RewritePath=/api/v1/sales-returns/(?<segment>.*), /api/v1/sales-returns/${segment}
+        - name: RequestRateLimiter
+          args:
+            redis-rate-limiter.replenishRate: 20
+            redis-rate-limiter.burstCapacity: 40
+            redis-rate-limiter.requestedTokens: 1
+            key-resolver: '#{@apiKeyResolver}'
+        - name: CircuitBreaker
+          args:
+            name: salesReturnsCircuitBreaker
+            fallbackUri: forward:/fallback/sales-returns
+      - id: sales-retail
+        uri: lb://sales-service
+        predicates:
+        - Path=/api/v1/retail/**
+        filters:
+        - RewritePath=/api/v1/retail/(?<segment>.*), /api/v1/retail/${segment}
+        - name: RequestRateLimiter
+          args:
+            redis-rate-limiter.replenishRate: 20
+            redis-rate-limiter.burstCapacity: 40
+            redis-rate-limiter.requestedTokens: 1
+            key-resolver: '#{@apiKeyResolver}'
+        - name: CircuitBreaker
+          args:
+            name: salesRetailCircuitBreaker
+            fallbackUri: forward:/fallback/retail
+      - id: procurement-returns
+        uri: lb://procurement-service
+        predicates:
+        - Path=/api/v1/procurement-returns/**
+        filters:
+        - RewritePath=/api/v1/procurement-returns/(?<segment>.*), /api/v1/procurement-returns/${segment}
+        - name: RequestRateLimiter
+          args:
+            redis-rate-limiter.replenishRate: 20
+            redis-rate-limiter.burstCapacity: 40
+            redis-rate-limiter.requestedTokens: 1
+            key-resolver: '#{@apiKeyResolver}'
+        - name: CircuitBreaker
+          args:
+            name: procurementReturnsCircuitBreaker
+            fallbackUri: forward:/fallback/procurement-returns
+      - id: product-categories
+        uri: lb://product-service
+        predicates:
+        - Path=/api/v1/categories/**
+        filters:
+        - RewritePath=/api/v1/categories/(?<segment>.*), /api/v1/categories/${segment}
+        - name: RequestRateLimiter
+          args:
+            redis-rate-limiter.replenishRate: 20
+            redis-rate-limiter.burstCapacity: 40
+            redis-rate-limiter.requestedTokens: 1
+            key-resolver: '#{@apiKeyResolver}'
+        - name: CircuitBreaker
+          args:
+            name: productCategoriesCircuitBreaker
+            fallbackUri: forward:/fallback/categories
+      - id: datasource-dashboard
+        uri: lb://datasource-service
+        predicates:
+        - Path=/api/v1/dashboard/**
+        filters:
+        - RewritePath=/api/v1/dashboard/(?<segment>.*), /api/v1/dashboard/${segment}
+        - name: RequestRateLimiter
+          args:
+            redis-rate-limiter.replenishRate: 20
+            redis-rate-limiter.burstCapacity: 40
+            redis-rate-limiter.requestedTokens: 1
+            key-resolver: '#{@apiKeyResolver}'
+        - name: CircuitBreaker
+          args:
+            name: datasourceDashboardCircuitBreaker
+            fallbackUri: forward:/fallback/dashboard
+      - id: datasource-connection-test
+        uri: lb://datasource-service
+        predicates:
+        - Path=/api/v1/connection-test/**
+        filters:
+        - RewritePath=/api/v1/connection-test/(?<segment>.*), /api/v1/connection-test/${segment}
+        - name: RequestRateLimiter
+          args:
+            redis-rate-limiter.replenishRate: 20
+            redis-rate-limiter.burstCapacity: 40
+            redis-rate-limiter.requestedTokens: 1
+            key-resolver: '#{@apiKeyResolver}'
+        - name: CircuitBreaker
+          args:
+            name: datasourceConnectionTestCircuitBreaker
+            fallbackUri: forward:/fallback/connection-test
+      - id: template-monitoring
+        uri: lb://template-service
+        predicates:
+        - Path=/api/v1/monitoring/**
+        filters:
+        - RewritePath=/api/v1/monitoring/(?<segment>.*), /api/v1/monitoring/${segment}
+        - name: RequestRateLimiter
+          args:
+            redis-rate-limiter.replenishRate: 20
+            redis-rate-limiter.burstCapacity: 40
+            redis-rate-limiter.requestedTokens: 1
+            key-resolver: '#{@apiKeyResolver}'
+        - name: CircuitBreaker
+          args:
+            name: templateMonitoringCircuitBreaker
+            fallbackUri: forward:/fallback/monitoring
+      - id: template-audit-logs
+        uri: lb://template-service
+        predicates:
+        - Path=/api/v1/audit-logs/**
+        filters:
+        - RewritePath=/api/v1/audit-logs/(?<segment>.*), /api/v1/audit-logs/${segment}
+        - name: RequestRateLimiter
+          args:
+            redis-rate-limiter.replenishRate: 20
+            redis-rate-limiter.burstCapacity: 40
+            redis-rate-limiter.requestedTokens: 1
+            key-resolver: '#{@apiKeyResolver}'
+        - name: CircuitBreaker
+          args:
+            name: templateAuditLogsCircuitBreaker
+            fallbackUri: forward:/fallback/audit-logs
+      - id: template-permissions
+        uri: lb://template-service
+        predicates:
+        - Path=/api/v1/permissions/**
+        filters:
+        - RewritePath=/api/v1/permissions/(?<segment>.*), /api/v1/permissions/${segment}
+        - name: RequestRateLimiter
+          args:
+            redis-rate-limiter.replenishRate: 20
+            redis-rate-limiter.burstCapacity: 40
+            redis-rate-limiter.requestedTokens: 1
+            key-resolver: '#{@apiKeyResolver}'
+        - name: CircuitBreaker
+          args:
+            name: templatePermissionsCircuitBreaker
+            fallbackUri: forward:/fallback/permissions
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      password: ${REDIS_PASSWORD:}
+      database: 0
+      timeout: 10000
+server:
+  port: 443
+  ssl:
+    enabled: true
+    key-store-type: PKCS12
+    key-store: classpath:keystore.p12
+    key-store-password: ${GATEWAY_KEYSTORE_PASSWORD}
+    key-alias: gateway-service
+    protocol: TLS
+    enabled-protocols: TLSv1.2, TLSv1.3
+    ciphers: TLS_AES_256_GCM_SHA384, TLS_AES_128_GCM_SHA256, TLS_CHACHA20_POLY1305_SHA256,
+      TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384, TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,
+      TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256, TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,
+      TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256, TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256
+    client-auth: none
+http-server:
+  port: 8080
+gateway:
+  ip-filter:
+    enabled: true
+    strategy: whitelist
+    whitelist:
+    - 127.0.0.1
+    - 192.168.1.0/24
+    - 10.0.0.0/8
+    blacklist:
+    - 172.16.0.0/12
+    allow-localhost: true
+    log-enabled: true
+resilience4j:
+  circuitbreaker:
+    configs:
+      default:
+        slidingWindowSize: 10
+        minimumNumberOfCalls: 20
+        permittedNumberOfCallsInHalfOpenState: 3
+        failureRateThreshold: 50
+        waitDurationInOpenState: 10000
+        slowCallRateThreshold: 100
+        slowCallDurationThreshold: 2000
+    instances:
+      adminServiceCircuitBreaker:
+        baseConfig: default
+        slidingWindowSize: 20
+        failureRateThreshold: 60
+        waitDurationInOpenState: 15000
+      productServiceCircuitBreaker:
+        baseConfig: default
+        slidingWindowSize: 12
+        failureRateThreshold: 50
+      inventoryServiceCircuitBreaker:
+        baseConfig: default
+        slidingWindowSize: 12
+        failureRateThreshold: 45
+      orderServiceCircuitBreaker:
+        baseConfig: default
+        slidingWindowSize: 15
+        failureRateThreshold: 40
+      customerServiceCircuitBreaker:
+        baseConfig: default
+        slidingWindowSize: 12
+        failureRateThreshold: 50
+      salesServiceCircuitBreaker:
+        baseConfig: default
+        slidingWindowSize: 12
+        failureRateThreshold: 50
+      procurementServiceCircuitBreaker:
+        baseConfig: default
+        slidingWindowSize: 12
+        failureRateThreshold: 50
+      supplierServiceCircuitBreaker:
+        baseConfig: default
+        slidingWindowSize: 12
+        failureRateThreshold: 50
+      authServiceCircuitBreaker:
+        baseConfig: default
+        slidingWindowSize: 8
+        failureRateThreshold: 60
+      financeServiceCircuitBreaker:
+        baseConfig: default
+        slidingWindowSize: 15
+        failureRateThreshold: 45
+      reportServiceCircuitBreaker:
+        baseConfig: default
+        slidingWindowSize: 10
+        failureRateThreshold: 40
+      datasourceServiceCircuitBreaker:
+        baseConfig: default
+        slidingWindowSize: 10
+        failureRateThreshold: 50
+      templateServiceCircuitBreaker:
+        baseConfig: default
+        slidingWindowSize: 10
+        failureRateThreshold: 40
+      mallServiceCircuitBreaker:
+        baseConfig: default
+        slidingWindowSize: 10
+        failureRateThreshold: 40
+      businessPartnerServiceCircuitBreaker:
+        baseConfig: default
+        slidingWindowSize: 10
+        failureRateThreshold: 50
+      configServiceCircuitBreaker:
+        baseConfig: default
+        slidingWindowSize: 10
+      registryServiceCircuitBreaker:
+        baseConfig: default
+        slidingWindowSize: 10
+      inventoryStockTransfersCircuitBreaker:
+        baseConfig: default
+        slidingWindowSize: 10
+      inventoryOtherStockCircuitBreaker:
+        baseConfig: default
+        slidingWindowSize: 10
+      salesReturnsCircuitBreaker:
+        baseConfig: default
+        slidingWindowSize: 10
+      salesRetailCircuitBreaker:
+        baseConfig: default
+        slidingWindowSize: 10
+      procurementReturnsCircuitBreaker:
+        baseConfig: default
+        slidingWindowSize: 10
+      productCategoriesCircuitBreaker:
+        baseConfig: default
+        slidingWindowSize: 10
+      datasourceDashboardCircuitBreaker:
+        baseConfig: default
+        slidingWindowSize: 10
+      datasourceConnectionTestCircuitBreaker:
+        baseConfig: default
+        slidingWindowSize: 10
+      templateMonitoringCircuitBreaker:
+        baseConfig: default
+        slidingWindowSize: 10
+      templateAuditLogsCircuitBreaker:
+        baseConfig: default
+        slidingWindowSize: 10
+      templatePermissionsCircuitBreaker:
+        baseConfig: default
+        slidingWindowSize: 10
+  retry:
+    configs:
+      default:
+        maxAttempts: 3
+        waitDuration: 1000
+        retryExceptions:
+        - java.io.IOException
+        - java.util.concurrent.TimeoutException
+        ignoreExceptions:
+        - java.lang.IllegalArgumentException
+    instances:
+      adminServiceRetry:
+        baseConfig: default
+      productServiceRetry:
+        baseConfig: default
+      inventoryServiceRetry:
+        baseConfig: default
+      orderServiceRetry:
+        baseConfig: default
+      customerServiceRetry:
+        baseConfig: default
+      salesServiceRetry:
+        baseConfig: default
+      procurementServiceRetry:
+        baseConfig: default
+      supplierServiceRetry:
+        baseConfig: default
+      authServiceRetry:
+        baseConfig: default
+      financeServiceRetry:
+        baseConfig: default
+      reportServiceRetry:
+        baseConfig: default
+      datasourceServiceRetry:
+        baseConfig: default
+      templateServiceRetry:
+        baseConfig: default
+      mallServiceRetry:
+        baseConfig: default
+      businessPartnerServiceRetry:
+        baseConfig: default
+      configServiceRetry:
+        baseConfig: default
+      registryServiceRetry:
+        baseConfig: default
+      inventoryStockTransfersRetry:
+        baseConfig: default
+      inventoryOtherStockRetry:
+        baseConfig: default
+      salesReturnsRetry:
+        baseConfig: default
+      salesRetailRetry:
+        baseConfig: default
+      procurementReturnsRetry:
+        baseConfig: default
+      productCategoriesRetry:
+        baseConfig: default
+      datasourceDashboardRetry:
+        baseConfig: default
+      datasourceConnectionTestRetry:
+        baseConfig: default
+      templateMonitoringRetry:
+        baseConfig: default
+      templateAuditLogsRetry:
+        baseConfig: default
+      templatePermissionsRetry:
+        baseConfig: default
+  timelimiter:
+    configs:
+      default:
+        timeoutDuration: 5000
+    instances:
+      adminServiceTimeLimiter:
+        baseConfig: default
+        timeoutDuration: 6000
+      productServiceTimeLimiter:
+        baseConfig: default
+        timeoutDuration: 6000
+      inventoryServiceTimeLimiter:
+        baseConfig: default
+        timeoutDuration: 6000
+      orderServiceTimeLimiter:
+        baseConfig: default
+        timeoutDuration: 7000
+      customerServiceTimeLimiter:
+        baseConfig: default
+        timeoutDuration: 6000
+      salesServiceTimeLimiter:
+        baseConfig: default
+        timeoutDuration: 6000
+      procurementServiceTimeLimiter:
+        baseConfig: default
+        timeoutDuration: 6000
+      supplierServiceTimeLimiter:
+        baseConfig: default
+        timeoutDuration: 6000
+      authServiceTimeLimiter:
+        baseConfig: default
+        timeoutDuration: 5000
+      financeServiceTimeLimiter:
+        baseConfig: default
+        timeoutDuration: 6000
+      reportServiceTimeLimiter:
+        baseConfig: default
+        timeoutDuration: 6000
+      datasourceServiceTimeLimiter:
+        baseConfig: default
+        timeoutDuration: 6000
+      templateServiceTimeLimiter:
+        baseConfig: default
+        timeoutDuration: 6000
+      mallServiceTimeLimiter:
+        baseConfig: default
+        timeoutDuration: 6000
+      businessPartnerServiceTimeLimiter:
+        baseConfig: default
+        timeoutDuration: 6000
+      configServiceTimeLimiter:
+        baseConfig: default
+        timeoutDuration: 6000
+      registryServiceTimeLimiter:
+        baseConfig: default
+        timeoutDuration: 6000
+      inventoryStockTransfersTimeLimiter:
+        baseConfig: default
+        timeoutDuration: 6000
+      inventoryOtherStockTimeLimiter:
+        baseConfig: default
+        timeoutDuration: 6000
+      salesReturnsTimeLimiter:
+        baseConfig: default
+        timeoutDuration: 6000
+      salesRetailTimeLimiter:
+        baseConfig: default
+        timeoutDuration: 6000
+      procurementReturnsTimeLimiter:
+        baseConfig: default
+        timeoutDuration: 6000
+      productCategoriesTimeLimiter:
+        baseConfig: default
+        timeoutDuration: 6000
+      datasourceDashboardTimeLimiter:
+        baseConfig: default
+        timeoutDuration: 6000
+      datasourceConnectionTestTimeLimiter:
+        baseConfig: default
+        timeoutDuration: 6000
+      templateMonitoringTimeLimiter:
+        baseConfig: default
+        timeoutDuration: 6000
+      templateAuditLogsTimeLimiter:
+        baseConfig: default
+        timeoutDuration: 6000
+      templatePermissionsTimeLimiter:
+        baseConfig: default
+        timeoutDuration: 6000
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      show-details: when-authorized
+      probes:
+        enabled: true
+  health:
+    livenessstate:
+      enabled: true
+    readinessstate:
+      enabled: true
+  metrics:
+    tags:
+      application: ${spring.application.name}
+    export:
+      prometheus:
+        enabled: true
+
+jwt:
+  secret: ${JWT_SECRET}

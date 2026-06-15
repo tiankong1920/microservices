@@ -1,0 +1,35 @@
+
+> web-frontend@0.0.0 test:coverage
+> vitest run --coverage
+
+
+ RUN  v4.1.2 E:/101/web-frontend
+      Coverage enabled with v8
+
+
+ Test Files  3 passed (3)
+      Tests  12 passed (12)
+   Start at  15:43:36
+   Duration  24.80s (transform 713ms, setup 747ms, import 54.14s, tests 7.05s, environment 6.88s)
+
+ % Coverage report from v8
+-------------------|---------|----------|---------|---------|-------------------
+File               | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+-------------------|---------|----------|---------|---------|-------------------
+All files          |   38.03 |    38.05 |    34.1 |   40.92 |                   
+ components        |   57.64 |    54.21 |   57.14 |   57.64 |                   
+  ...irmDialog.tsx |      50 |       50 |     100 |      50 | 40,44-48,55,59-63 
+  ...ngePicker.tsx |   38.88 |       80 |      25 |   38.88 | 28-30,34-36,40-44 
+  EmptyState.tsx   |   66.66 |    28.12 |     100 |   66.66 | 25,37-43          
+  Pagination.tsx   |   83.33 |      100 |      60 |   83.33 | 29,41             
+  Skeleton.tsx     |   57.14 |    63.63 |      50 |   57.14 | ...75,109,113-117 
+  Toast.tsx        |   66.66 |       80 |      50 |   66.66 | 14,32-33          
+ contexts          |   72.41 |       50 |   36.36 |    87.5 |                   
+  ToastContext.tsx |   72.41 |       50 |   36.36 |    87.5 | 30,39,70          
+ pages             |   41.13 |    37.83 |   22.85 |   43.89 |                   
+  ...merDetail.tsx |   74.28 |    53.33 |   66.66 |   76.47 | ...35,50,54-55,67 
+  CustomerEdit.tsx |   37.66 |       25 |   28.57 |   39.72 | ...13-134,139-152 
+  ...anagement.tsx |   35.88 |    38.46 |      16 |    38.7 | ...51-376,403-452 
+ services          |       0 |        0 |      40 |       0 |                   
+  exportService.ts |       0 |        0 |      40 |       0 | 18-173            
+-------------------|---------|----------|---------|---------|-------------------

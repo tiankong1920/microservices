@@ -1,0 +1,79 @@
+name: Frontend Docker Tests
+
+# 触发条件：web-frontend 代码变更
+on:
+  push:
+    branches: [main, develop]
+    paths:
+      - 'web-frontend/**'
+  pull_request:
+    branches: [main, develop]
+    paths:
+      - 'web-frontend/**'
+  workflow_dispatch: # 允许手动触发
+
+env:
+  IMAGE_NAME: web-frontend-test
+
+jobs:
+  docker-test:
+    name: Run Frontend Tests in Docker
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build test image
+        working-directory: web-frontend
+        run: |
+          docker build \
+            --file Dockerfile.test \
+            --tag ${IMAGE_NAME}:${GITHUB_SHA::8} \
+            --tag ${IMAGE_NAME}:latest \
+            --cache-from ${IMAGE_NAME}:latest \
+            .
+
+      - name: Run tests in container
+        working-directory: web-frontend
+        run: |
+          docker run --rm \
+            -v "${PWD}:/app" \
+            -v /app/node_modules \
+            -e CI=true \
+            -e NODE_ENV=test \
+            ${IMAGE_NAME}:latest \
+            npx vitest run --reporter=verbose
+
+      - name: Run tests with coverage
+        working-directory: web-frontend
+        run: |
+          docker run --rm \
+            -v "${PWD}:/app" \
+            -v /app/node_modules \
+            -e CI=true \
+            -e NODE_ENV=test \
+            ${IMAGE_NAME}:latest \
+            npx vitest run --coverage --reporter=text --reporter=json --outputFile=./test-results.json
+
+      - name: Upload coverage to Codecov
+        if: always()
+        uses: codecov/codecov-action@v4
+        with:
+          files: ./coverage/lcov.info
+          flags: frontend-docker
+          fail_ci_if_error: false
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: |
+            web-frontend/coverage/
+            web-frontend/test-results.json
+          retention-days: 30

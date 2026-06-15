@@ -1,0 +1,68 @@
+
+> web-frontend@0.0.0 test
+> vitest run
+
+
+ RUN  v4.1.2 E:/101/web-frontend
+
+ 鉂?src/pages/__tests__/CustomerEdit.test.tsx (4 tests | 4 failed) 54ms
+     脳 搴旇鏄剧ず缂栬緫瀹㈡埛鏍囬鍦ㄧ紪杈戞ā寮?36ms
+     脳 搴旇鏄剧ず鏂板瀹㈡埛鏍囬鍦ㄦ柊寤烘ā寮?4ms
+     脳 搴旇鏄剧ず淇濆瓨鎸夐挳 6ms
+     脳 搴旇瀵艰埅鍥炲垪琛ㄥ綋鐐瑰嚮杩斿洖鎸夐挳 4ms
+ 鉂?src/pages/__tests__/CustomerManagement.test.tsx (4 tests | 4 failed) 55ms
+     脳 搴旇鏄剧ず瀹㈡埛鍒楄〃鏍囬 38ms
+     脳 搴旇姝ｇ‘鏄剧ず瀹㈡埛鍒楄〃 5ms
+     脳 搴旇瀵艰埅鍒版柊澧為〉闈㈠綋鐐瑰嚮鏂板鎸夐挳 3ms
+     脳 搴旇鏄剧ず鎼滅储妗?3ms
+
+鈳幆鈳幆鈳幆鈳?Failed Tests 8 鈳幆鈳幆鈳幆鈳?
+ FAIL  src/pages/__tests__/CustomerEdit.test.tsx > CustomerEdit > 搴旇鏄剧ず缂栬緫瀹㈡埛鏍囬鍦ㄧ紪杈戞ā寮? FAIL  src/pages/__tests__/CustomerEdit.test.tsx > CustomerEdit > 搴旇鏄剧ず鏂板瀹㈡埛鏍囬鍦ㄦ柊寤烘ā寮? FAIL  src/pages/__tests__/CustomerEdit.test.tsx > CustomerEdit > 搴旇鏄剧ず淇濆瓨鎸夐挳
+ FAIL  src/pages/__tests__/CustomerEdit.test.tsx > CustomerEdit > 搴旇瀵艰埅鍥炲垪琛ㄥ綋鐐瑰嚮杩斿洖鎸夐挳
+Error: useToast must be used within a ToastProvider
+ 鉂?useToast src/contexts/ToastContext.tsx:70:11
+     68|   const context = useContext(ToastContext);
+     69|   if (!context) {
+     70|     throw new Error('useToast must be used within a ToastProvider');
+       |           ^
+     71|   }
+     72|   return context;
+ 鉂?CustomerEdit src/pages/CustomerEdit.tsx:32:38
+ 鉂?Object.react_stack_bottom_frame node_modules/react-dom/cjs/react-dom-client.development.js:25904:20
+ 鉂?renderWithHooks node_modules/react-dom/cjs/react-dom-client.development.js:7662:22
+ 鉂?updateFunctionComponent node_modules/react-dom/cjs/react-dom-client.development.js:10166:19
+ 鉂?beginWork node_modules/react-dom/cjs/react-dom-client.development.js:11778:18
+ 鉂?runWithFiberInDEV node_modules/react-dom/cjs/react-dom-client.development.js:874:13
+ 鉂?performUnitOfWork node_modules/react-dom/cjs/react-dom-client.development.js:17641:22
+ 鉂?workLoopSync node_modules/react-dom/cjs/react-dom-client.development.js:17469:41
+ 鉂?renderRootSync node_modules/react-dom/cjs/react-dom-client.development.js:17450:11
+
+鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆[1/8]鈳?
+ FAIL  src/pages/__tests__/CustomerManagement.test.tsx > CustomerManagement > 搴旇鏄剧ず瀹㈡埛鍒楄〃鏍囬
+ FAIL  src/pages/__tests__/CustomerManagement.test.tsx > CustomerManagement > 搴旇姝ｇ‘鏄剧ず瀹㈡埛鍒楄〃
+ FAIL  src/pages/__tests__/CustomerManagement.test.tsx > CustomerManagement > 搴旇瀵艰埅鍒版柊澧為〉闈㈠綋鐐瑰嚮鏂板鎸夐挳
+ FAIL  src/pages/__tests__/CustomerManagement.test.tsx > CustomerManagement > 搴旇鏄剧ず鎼滅储妗?Error: useToast must be used within a ToastProvider
+ 鉂?useToast src/contexts/ToastContext.tsx:70:11
+     68|   const context = useContext(ToastContext);
+     69|   if (!context) {
+     70|     throw new Error('useToast must be used within a ToastProvider');
+       |           ^
+     71|   }
+     72|   return context;
+ 鉂?CustomerManagement src/pages/CustomerManagement.tsx:41:51
+ 鉂?Object.react_stack_bottom_frame node_modules/react-dom/cjs/react-dom-client.development.js:25904:20
+ 鉂?renderWithHooks node_modules/react-dom/cjs/react-dom-client.development.js:7662:22
+ 鉂?updateFunctionComponent node_modules/react-dom/cjs/react-dom-client.development.js:10166:19
+ 鉂?beginWork node_modules/react-dom/cjs/react-dom-client.development.js:11778:18
+ 鉂?runWithFiberInDEV node_modules/react-dom/cjs/react-dom-client.development.js:874:13
+ 鉂?performUnitOfWork node_modules/react-dom/cjs/react-dom-client.development.js:17641:22
+ 鉂?workLoopSync node_modules/react-dom/cjs/react-dom-client.development.js:17469:41
+ 鉂?renderRootSync node_modules/react-dom/cjs/react-dom-client.development.js:17450:11
+
+鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆[2/8]鈳?
+
+ Test Files  2 failed | 1 passed (3)
+      Tests  8 failed | 4 passed (12)
+   Start at  15:39:23
+   Duration  27.50s (transform 929ms, setup 1.10s, import 68.44s, tests 1.28s, environment 8.34s)
+

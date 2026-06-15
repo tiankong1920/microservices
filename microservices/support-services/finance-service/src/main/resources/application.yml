@@ -1,0 +1,57 @@
+---
+spring:
+  application:
+    name: finance-service
+  cloud:
+    nacos:
+      discovery:
+        server-addr: ${NACOS_HOST:localhost}:${NACOS_PORT:8848}
+        namespace: ${NACOS_NAMESPACE:public}
+        group: support-finance-processing
+        metadata:
+          version: 3.0.0
+          env: ${SPRING_PROFILES_ACTIVE:dev}
+          service-type: microservice
+          framework: spring-boot
+          language: java
+          team: inventory-management
+          region: default
+          zone: default
+          stage: ${SPRING_PROFILES_ACTIVE:dev}
+          gray: false
+          weight: 1.0
+      config:
+        server-addr: ${NACOS_HOST:localhost}:${NACOS_PORT:8848}
+        namespace: ${NACOS_NAMESPACE:public}
+        group: support-finance-processing
+        file-extension: yml
+        refresh-enabled: true
+        encode: UTF-8
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      show-details: when-authorized
+      probes:
+        enabled: true
+  health:
+    livenessstate:
+      enabled: true
+    readinessstate:
+      enabled: true
+  metrics:
+    tags:
+      application: ${spring.application.name}
+    export:
+      prometheus:
+        enabled: true
+
+server:
+  port: 8080
+
+# Service-specific configuration placeholder
+# Add service-specific configuration below this line

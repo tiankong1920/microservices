@@ -1,0 +1,2283 @@
+Type-safe project accessors is an incubating feature.
+Project accessors enabled, but root project name not explicitly set for 'buildSrc'. Checking out the project in different folders will impact the generated code and implicitly the buildscript classpath, breaking caching.
+> Task :buildSrc:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :buildSrc:compileKotlin NO-SOURCE
+> Task :buildSrc:compileJava NO-SOURCE
+> Task :buildSrc:compileGroovy NO-SOURCE
+> Task :buildSrc:pluginDescriptors UP-TO-DATE
+> Task :buildSrc:processResources NO-SOURCE
+> Task :buildSrc:classes UP-TO-DATE
+> Task :buildSrc:jar UP-TO-DATE
+
+> Configure project :
+Configuring inventory-management-system...
+Project accessors enabled, but root project name not explicitly set for 'buildSrc'. Checking out the project in different folders will impact the generated code and implicitly the buildscript classpath, breaking caching.
+
+> Configure project :common
+Configuring common...
+
+> Configure project :core-services
+Configuring core-services...
+
+> Configure project :cross-service-tests
+Configuring cross-service-tests...
+
+> Configure project :monitoring
+Configuring monitoring...
+
+> Configure project :monitoring-core
+Configuring monitoring-core...
+
+> Configure project :monitoring-spring-boot-starter
+Configuring monitoring-spring-boot-starter...
+
+> Configure project :support-services
+Configuring support-services...
+
+> Configure project :core-services:business-partner-service
+Configuring business-partner-service...
+
+> Configure project :core-services:customer-service
+Configuring customer-service...
+
+> Configure project :core-services:datasource-service
+Configuring datasource-service...
+
+> Configure project :core-services:inventory-service
+Configuring inventory-service...
+
+> Configure project :core-services:invoice-service
+Configuring invoice-service...
+
+> Configure project :core-services:mall-service
+Configuring mall-service...
+
+> Configure project :core-services:order-service
+Configuring order-service...
+
+> Configure project :core-services:procurement-service
+Configuring procurement-service...
+
+> Configure project :core-services:product-service
+Configuring product-service...
+
+> Configure project :core-services:sales-service
+Configuring sales-service...
+
+> Configure project :core-services:supplier-service
+Configuring supplier-service...
+
+> Configure project :core-services:template-service
+Configuring template-service...
+
+> Configure project :support-services:admin-service
+Configuring admin-service...
+
+> Configure project :support-services:auth-service
+Configuring auth-service...
+
+> Configure project :support-services:config-service
+Configuring config-service...
+
+> Configure project :support-services:finance-service
+Configuring finance-service...
+
+> Configure project :support-services:gateway-service
+Configuring gateway-service...
+
+> Configure project :support-services:registry-service
+Configuring registry-service...
+
+> Configure project :support-services:report-service
+Configuring report-service...
+
+> Task :core-services:compileJava NO-SOURCE
+> Task :compileJava NO-SOURCE
+> Task :support-services:finance-service:generateEffectiveLombokConfig UP-TO-DATE
+> Task :core-services:sales-service:generateEffectiveLombokConfig UP-TO-DATE
+> Task :common:generateEffectiveLombokConfig UP-TO-DATE
+> Task :monitoring:generateEffectiveLombokConfig UP-TO-DATE
+> Task :cross-service-tests:generateEffectiveLombokConfig UP-TO-DATE
+> Task :cross-service-tests:compileJava NO-SOURCE
+> Task :core-services:customer-service:generateEffectiveLombokConfig UP-TO-DATE
+> Task :core-services:compileGroovy NO-SOURCE
+> Task :compileGroovy NO-SOURCE
+> Task :core-services:inventory-service:generateEffectiveLombokConfig UP-TO-DATE
+> Task :core-services:order-service:generateEffectiveLombokConfig UP-TO-DATE
+> Task :core-services:processResources NO-SOURCE
+> Task :core-services:product-service:generateEffectiveLombokConfig UP-TO-DATE
+> Task :monitoring:processResources UP-TO-DATE
+> Task :processResources NO-SOURCE
+> Task :classes UP-TO-DATE
+> Task :core-services:classes UP-TO-DATE
+> Task :core-services:product-service:processResources UP-TO-DATE
+> Task :monitoring:generateTestEffectiveLombokConfig UP-TO-DATE
+> Task :support-services:finance-service:processResources UP-TO-DATE
+> Task :core-services:sales-service:processResources UP-TO-DATE
+> Task :support-services:compileJava NO-SOURCE
+> Task :cross-service-tests:compileGroovy NO-SOURCE
+> Task :monitoring-spring-boot-starter:generateEffectiveLombokConfig UP-TO-DATE
+> Task :core-services:business-partner-service:generateEffectiveLombokConfig UP-TO-DATE
+> Task :monitoring:processTestResources NO-SOURCE
+> Task :cross-service-tests:processResources NO-SOURCE
+> Task :core-services:customer-service:processResources UP-TO-DATE
+> Task :cross-service-tests:classes UP-TO-DATE
+> Task :core-services:compileTestJava NO-SOURCE
+> Task :core-services:datasource-service:generateEffectiveLombokConfig UP-TO-DATE
+> Task :compileTestJava NO-SOURCE
+> Task :monitoring-spring-boot-starter:processResources UP-TO-DATE
+> Task :core-services:customer-service:generateTestEffectiveLombokConfig UP-TO-DATE
+> Task :cross-service-tests:generateTestEffectiveLombokConfig UP-TO-DATE
+> Task :core-services:inventory-service:processResources UP-TO-DATE
+> Task :monitoring-spring-boot-starter:generateTestEffectiveLombokConfig UP-TO-DATE
+> Task :core-services:order-service:processResources UP-TO-DATE
+> Task :core-services:customer-service:processTestResources UP-TO-DATE
+> Task :core-services:business-partner-service:processResources UP-TO-DATE
+> Task :support-services:compileGroovy NO-SOURCE
+> Task :core-services:compileTestGroovy NO-SOURCE
+> Task :compileTestGroovy NO-SOURCE
+> Task :core-services:invoice-service:generateEffectiveLombokConfig UP-TO-DATE
+> Task :core-services:mall-service:generateEffectiveLombokConfig UP-TO-DATE
+> Task :core-services:inventory-service:generateTestEffectiveLombokConfig UP-TO-DATE
+> Task :core-services:business-partner-service:generateTestEffectiveLombokConfig UP-TO-DATE
+> Task :cross-service-tests:processTestResources UP-TO-DATE
+> Task :core-services:processTestResources NO-SOURCE
+> Task :core-services:testClasses UP-TO-DATE
+> Task :core-services:datasource-service:processResources UP-TO-DATE
+> Task :monitoring-spring-boot-starter:processTestResources NO-SOURCE
+> Task :processTestResources NO-SOURCE
+> Task :testClasses UP-TO-DATE
+> Task :support-services:processResources NO-SOURCE
+> Task :support-services:classes UP-TO-DATE
+> Task :core-services:procurement-service:generateEffectiveLombokConfig UP-TO-DATE
+> Task :core-services:order-service:generateTestEffectiveLombokConfig UP-TO-DATE
+> Task :core-services:datasource-service:generateTestEffectiveLombokConfig UP-TO-DATE
+> Task :core-services:inventory-service:processTestResources UP-TO-DATE
+> Task :core-services:product-service:generateTestEffectiveLombokConfig UP-TO-DATE
+> Task :core-services:product-service:processTestResources UP-TO-DATE
+> Task :core-services:business-partner-service:processTestResources UP-TO-DATE
+> Task :core-services:supplier-service:generateEffectiveLombokConfig UP-TO-DATE
+> Task :support-services:compileTestJava NO-SOURCE
+> Task :core-services:order-service:processTestResources UP-TO-DATE
+> Task :core-services:sales-service:generateTestEffectiveLombokConfig UP-TO-DATE
+> Task :core-services:datasource-service:processTestResources UP-TO-DATE
+> Task :core-services:test NO-SOURCE
+> Task :core-services:template-service:generateEffectiveLombokConfig UP-TO-DATE
+> Task :support-services:auth-service:generateEffectiveLombokConfig UP-TO-DATE
+> Task :core-services:mall-service:processResources UP-TO-DATE
+> Task :core-services:invoice-service:processResources UP-TO-DATE
+> Task :core-services:supplier-service:processResources UP-TO-DATE
+> Task :core-services:procurement-service:processResources UP-TO-DATE
+> Task :test NO-SOURCE
+> Task :core-services:sales-service:processTestResources UP-TO-DATE
+> Task :support-services:compileTestGroovy NO-SOURCE
+> Task :core-services:mall-service:generateTestEffectiveLombokConfig UP-TO-DATE
+> Task :support-services:processTestResources NO-SOURCE
+> Task :support-services:testClasses UP-TO-DATE
+> Task :core-services:supplier-service:generateTestEffectiveLombokConfig UP-TO-DATE
+> Task :core-services:procurement-service:generateTestEffectiveLombokConfig UP-TO-DATE
+> Task :support-services:finance-service:generateTestEffectiveLombokConfig UP-TO-DATE
+> Task :core-services:mall-service:processTestResources NO-SOURCE
+> Task :core-services:invoice-service:generateTestEffectiveLombokConfig UP-TO-DATE
+> Task :core-services:procurement-service:processTestResources UP-TO-DATE
+> Task :support-services:test NO-SOURCE
+> Task :support-services:finance-service:processTestResources UP-TO-DATE
+> Task :support-services:auth-service:processResources UP-TO-DATE
+> Task :core-services:invoice-service:processTestResources UP-TO-DATE
+> Task :core-services:supplier-service:processTestResources UP-TO-DATE
+> Task :core-services:template-service:processResources UP-TO-DATE
+> Task :support-services:auth-service:generateTestEffectiveLombokConfig UP-TO-DATE
+> Task :support-services:auth-service:processTestResources NO-SOURCE
+> Task :core-services:template-service:generateTestEffectiveLombokConfig UP-TO-DATE
+> Task :core-services:template-service:processTestResources UP-TO-DATE
+> Task :support-services:admin-service:generateEffectiveLombokConfig UP-TO-DATE
+> Task :support-services:admin-service:processResources UP-TO-DATE
+> Task :support-services:admin-service:generateTestEffectiveLombokConfig UP-TO-DATE
+> Task :support-services:admin-service:processTestResources UP-TO-DATE
+> Task :support-services:registry-service:generateEffectiveLombokConfig UP-TO-DATE
+> Task :support-services:report-service:generateEffectiveLombokConfig UP-TO-DATE
+> Task :support-services:gateway-service:generateEffectiveLombokConfig UP-TO-DATE
+> Task :support-services:config-service:generateEffectiveLombokConfig UP-TO-DATE
+> Task :support-services:registry-service:processResources UP-TO-DATE
+> Task :support-services:report-service:processResources UP-TO-DATE
+> Task :support-services:registry-service:generateTestEffectiveLombokConfig UP-TO-DATE
+> Task :support-services:config-service:processResources UP-TO-DATE
+> Task :support-services:gateway-service:processResources UP-TO-DATE
+> Task :support-services:report-service:generateTestEffectiveLombokConfig UP-TO-DATE
+> Task :support-services:gateway-service:generateTestEffectiveLombokConfig UP-TO-DATE
+> Task :support-services:registry-service:processTestResources UP-TO-DATE
+> Task :support-services:config-service:generateTestEffectiveLombokConfig UP-TO-DATE
+> Task :support-services:report-service:processTestResources NO-SOURCE
+> Task :support-services:gateway-service:processTestResources UP-TO-DATE
+> Task :support-services:config-service:processTestResources UP-TO-DATE
+> Task :monitoring-core:generateEffectiveLombokConfig UP-TO-DATE
+> Task :common:compileJava UP-TO-DATE
+> Task :common:compileGroovy NO-SOURCE
+> Task :common:processResources UP-TO-DATE
+> Task :common:classes UP-TO-DATE
+> Task :monitoring-core:compileJava UP-TO-DATE
+> Task :monitoring-core:compileGroovy NO-SOURCE
+> Task :monitoring-core:processResources UP-TO-DATE
+> Task :monitoring-core:classes UP-TO-DATE
+> Task :monitoring-core:jar
+> Task :monitoring-core:generateTestEffectiveLombokConfig UP-TO-DATE
+> Task :monitoring-spring-boot-starter:compileJava UP-TO-DATE
+> Task :monitoring-spring-boot-starter:compileGroovy NO-SOURCE
+> Task :monitoring-spring-boot-starter:classes UP-TO-DATE
+> Task :common:jar
+> Task :common:generateTestEffectiveLombokConfig UP-TO-DATE
+> Task :core-services:product-service:compileJava UP-TO-DATE
+> Task :core-services:product-service:compileGroovy NO-SOURCE
+> Task :core-services:product-service:classes UP-TO-DATE
+> Task :core-services:product-service:jar SKIPPED
+> Task :core-services:business-partner-service:compileJava UP-TO-DATE
+> Task :monitoring:compileJava UP-TO-DATE
+> Task :support-services:finance-service:compileJava UP-TO-DATE
+> Task :core-services:sales-service:compileJava UP-TO-DATE
+> Task :core-services:customer-service:compileJava UP-TO-DATE
+> Task :core-services:inventory-service:compileJava UP-TO-DATE
+> Task :core-services:order-service:compileJava UP-TO-DATE
+> Task :monitoring:compileGroovy NO-SOURCE
+> Task :monitoring:classes UP-TO-DATE
+> Task :core-services:sales-service:compileGroovy NO-SOURCE
+> Task :core-services:sales-service:classes UP-TO-DATE
+> Task :core-services:business-partner-service:compileGroovy NO-SOURCE
+> Task :core-services:business-partner-service:classes UP-TO-DATE
+> Task :support-services:finance-service:compileGroovy NO-SOURCE
+> Task :support-services:finance-service:classes UP-TO-DATE
+> Task :core-services:customer-service:compileGroovy NO-SOURCE
+> Task :support-services:finance-service:jar SKIPPED
+> Task :core-services:customer-service:classes UP-TO-DATE
+> Task :core-services:customer-service:jar SKIPPED
+> Task :core-services:inventory-service:compileGroovy NO-SOURCE
+> Task :core-services:inventory-service:classes UP-TO-DATE
+> Task :core-services:inventory-service:jar SKIPPED
+> Task :core-services:business-partner-service:compileTestJava NO-SOURCE
+> Task :core-services:business-partner-service:compileTestGroovy NO-SOURCE
+> Task :core-services:order-service:compileGroovy NO-SOURCE
+> Task :core-services:mall-service:compileJava UP-TO-DATE
+> Task :core-services:order-service:classes UP-TO-DATE
+> Task :core-services:business-partner-service:testClasses UP-TO-DATE
+> Task :core-services:order-service:jar SKIPPED
+> Task :core-services:business-partner-service:test NO-SOURCE
+> Task :core-services:mall-service:compileGroovy NO-SOURCE
+> Task :core-services:mall-service:classes UP-TO-DATE
+> Task :core-services:inventory-service:compileTestJava UP-TO-DATE
+> Task :core-services:inventory-service:compileTestGroovy NO-SOURCE
+> Task :core-services:inventory-service:testClasses UP-TO-DATE
+> Task :monitoring:compileTestJava UP-TO-DATE
+> Task :core-services:invoice-service:compileJava UP-TO-DATE
+> Task :core-services:invoice-service:compileGroovy NO-SOURCE
+> Task :core-services:invoice-service:classes UP-TO-DATE
+> Task :monitoring:compileTestGroovy NO-SOURCE
+> Task :monitoring:testClasses UP-TO-DATE
+> Task :core-services:procurement-service:compileJava UP-TO-DATE
+> Task :core-services:procurement-service:compileGroovy NO-SOURCE
+> Task :core-services:procurement-service:classes UP-TO-DATE
+> Task :core-services:datasource-service:compileJava UP-TO-DATE
+> Task :core-services:datasource-service:compileGroovy NO-SOURCE
+> Task :core-services:datasource-service:classes UP-TO-DATE
+> Task :core-services:sales-service:jar
+> Task :monitoring-spring-boot-starter:compileTestJava UP-TO-DATE
+> Task :monitoring-spring-boot-starter:compileTestGroovy NO-SOURCE
+> Task :monitoring-spring-boot-starter:testClasses UP-TO-DATE
+> Task :core-services:customer-service:compileTestJava UP-TO-DATE
+> Task :core-services:order-service:compileTestJava UP-TO-DATE
+> Task :core-services:procurement-service:compileTestJava UP-TO-DATE
+> Task :core-services:customer-service:compileTestGroovy NO-SOURCE
+> Task :core-services:customer-service:testClasses UP-TO-DATE
+> Task :core-services:mall-service:compileTestJava UP-TO-DATE
+> Task :core-services:order-service:compileTestGroovy NO-SOURCE
+> Task :core-services:order-service:testClasses UP-TO-DATE
+> Task :core-services:procurement-service:compileTestGroovy NO-SOURCE
+> Task :core-services:procurement-service:testClasses UP-TO-DATE
+> Task :core-services:invoice-service:compileTestJava UP-TO-DATE
+> Task :core-services:mall-service:compileTestGroovy NO-SOURCE
+> Task :core-services:mall-service:testClasses UP-TO-DATE
+> Task :core-services:invoice-service:compileTestGroovy NO-SOURCE
+> Task :core-services:invoice-service:testClasses UP-TO-DATE
+> Task :common:compileTestJava UP-TO-DATE
+> Task :common:compileTestGroovy NO-SOURCE
+> Task :common:processTestResources NO-SOURCE
+> Task :common:testClasses UP-TO-DATE
+> Task :common:test UP-TO-DATE
+> Task :core-services:product-service:compileTestJava UP-TO-DATE
+> Task :core-services:product-service:compileTestGroovy NO-SOURCE
+> Task :core-services:product-service:testClasses UP-TO-DATE
+> Task :monitoring-core:compileTestJava UP-TO-DATE
+> Task :monitoring-core:compileTestGroovy NO-SOURCE
+> Task :monitoring-core:processTestResources NO-SOURCE
+> Task :monitoring-core:testClasses UP-TO-DATE
+> Task :monitoring-core:test UP-TO-DATE
+> Task :core-services:sales-service:compileTestJava UP-TO-DATE
+> Task :core-services:sales-service:compileTestGroovy NO-SOURCE
+> Task :core-services:sales-service:testClasses UP-TO-DATE
+
+> Task :monitoring:test
+
+BusinessExceptionTest > testWithErrorCodeAndCause() PASSED
+
+BusinessExceptionTest > testCauseAndErrorCodeConstructor() PASSED
+
+BusinessExceptionTest > testSerializationCompatibility() PASSED
+
+BusinessExceptionTest > testExceptionMessagePropagation() PASSED
+
+BusinessExceptionTest > testWithErrorCode() PASSED
+
+BusinessExceptionTest > testNoArgsConstructor() PASSED
+
+BusinessExceptionTest > testMessageErrorCodeAndCauseConstructor() PASSED
+
+BusinessExceptionTest > testExceptionThrowing() PASSED
+
+BusinessExceptionTest > testMessageAndErrorCodeConstructor() PASSED
+
+BusinessExceptionTest > testMessageAndCauseConstructor() PASSED
+
+BusinessExceptionTest > testStackTraceIntegrity() PASSED
+
+BusinessExceptionTest > testHashCode() PASSED
+
+BusinessExceptionTest > testEquals() PASSED
+
+BusinessExceptionTest > testDifferentErrorCodes() PASSED
+
+BusinessExceptionTest > testWithErrorCodeAndMessage() PASSED
+
+BusinessExceptionTest > testMessageConstructor() PASSED
+
+BusinessExceptionTest > testExceptionWithDifferentParameters(String, String, Throwable) > [1] message=null, errorCode=UNKNOWN_ERROR, cause=null PASSED
+
+BusinessExceptionTest > testExceptionWithDifferentParameters(String, String, Throwable) > [2] message=Test business exception message, errorCode=UNKNOWN_ERROR, cause=null PASSED
+
+BusinessExceptionTest > testExceptionWithDifferentParameters(String, String, Throwable) > [3] message=Test business exception message, errorCode=TEST_ERROR_001, cause=null PASSED
+
+BusinessExceptionTest > testExceptionWithDifferentParameters(String, String, Throwable) > [4] message=Test business exception message, errorCode=UNKNOWN_ERROR, cause=java.lang.RuntimeException: Test cause PASSED
+
+BusinessExceptionTest > testExceptionWithDifferentParameters(String, String, Throwable) > [5] message=Test business exception message, errorCode=TEST_ERROR_001, cause=java.lang.RuntimeException: Test cause PASSED
+
+BusinessExceptionTest > testExceptionWithDifferentParameters(String, String, Throwable) > [6] message=null, errorCode=UNKNOWN_ERROR, cause=java.lang.RuntimeException: Test cause PASSED
+
+BusinessExceptionTest > testExceptionWithDifferentParameters(String, String, Throwable) > [7] message=null, errorCode=TEST_ERROR_001, cause=java.lang.RuntimeException: Test cause PASSED
+
+BusinessExceptionTest > testCauseConstructor() PASSED
+
+> Task :core-services:supplier-service:compileJava UP-TO-DATE
+> Task :core-services:supplier-service:compileGroovy NO-SOURCE
+> Task :core-services:supplier-service:classes UP-TO-DATE
+> Task :core-services:supplier-service:compileTestJava UP-TO-DATE
+> Task :core-services:supplier-service:compileTestGroovy NO-SOURCE
+> Task :core-services:supplier-service:testClasses UP-TO-DATE
+> Task :core-services:inventory-service:test
+> Task :core-services:datasource-service:compileTestJava
+> Task :cross-service-tests:compileTestJava
+> Task :monitoring-spring-boot-starter:test
+> Task :core-services:customer-service:test
+> Task :core-services:order-service:test
+> Task :core-services:procurement-service:test
+> Task :core-services:mall-service:test
+> Task :core-services:invoice-service:test
+
+Java HotSpot(TM) 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+
+> Task :core-services:product-service:test
+> Task :core-services:sales-service:test
+
+Java HotSpot(TM) 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+
+> Task :core-services:invoice-service:test
+
+CustomerInfoServiceTest > testGetCustomerById() PASSED
+
+CustomerInfoServiceTest > testGetCustomerByIdNotFound() PASSED
+
+CustomerInfoServiceTest > testEnableCustomer() PASSED
+
+CustomerInfoServiceTest > testGetAllCustomers() PASSED
+
+CustomerInfoServiceTest > testCreateCustomer() PASSED
+
+CustomerInfoServiceTest > testDeleteCustomer() PASSED
+
+CustomerInfoServiceTest > testCreateCustomerDuplicateTaxNumber() PASSED
+
+CustomerInfoServiceTest > testDisableCustomer() PASSED
+
+InvoiceProductServiceImplTest > getProductById_shouldThrowExceptionWhenNotFound() PASSED
+
+InvoiceProductServiceImplTest > deleteProduct_shouldSoftDelete() PASSED
+
+InvoiceProductServiceImplTest > getProductById_shouldReturnProduct() PASSED
+
+InvoiceProductServiceImplTest > getActiveProducts_shouldReturnActiveOnly() PASSED
+
+InvoiceProductServiceImplTest > createProduct_shouldCreateSuccessfully() PASSED
+
+InvoiceProductServiceImplTest > getAllProducts_shouldReturnList() PASSED
+
+AesEncryptionUtilTest > testDecryptNull() PASSED
+
+AesEncryptionUtilTest > testChineseTextEncryption() PASSED
+
+AesEncryptionUtilTest > testEncryptBankAccount() PASSED
+
+AesEncryptionUtilTest > testEncryptNull() PASSED
+
+AesEncryptionUtilTest > testDifferentEncryptionsProduceDifferentResults() PASSED
+
+AesEncryptionUtilTest > testEncryptAndDecrypt() PASSED
+
+PinyinUtilTest > testSingleCharacter() PASSED
+
+PinyinUtilTest > testGetInitialsEmpty() PASSED
+
+PinyinUtilTest > testGetAllPossibleInitialsEmpty() PASSED
+
+PinyinUtilTest > testGetAllPossibleInitials() PASSED
+
+PinyinUtilTest > testGetFullPinyin() PASSED
+
+PinyinUtilTest > testGetInitialsWithEnglish() PASSED
+
+PinyinUtilTest > testGetFullPinyinEmpty() PASSED
+
+PinyinUtilTest > testGetInitials() PASSED
+
+> Task :core-services:supplier-service:test
+
+> Task :core-services:customer-service:test
+
+CustomerServiceImplCacheTest > testGetCustomerById() PASSED
+
+CustomerServiceImplCacheTest > testUpdateCustomer() PASSED
+
+CustomerServiceImplCacheTest > testCreateCustomer() PASSED
+
+CustomerServiceImplCacheTest > testGetCustomerById_CacheMiss() PASSED
+
+CustomerServiceImplCacheTest > testDeleteCustomer() PASSED
+
+CustomerServiceImplCacheTest > testConcurrentAccess() PASSED
+
+> Task :core-services:order-service:test
+
+InsufficientInventoryException Unit Tests > Should create exception with product id PASSED
+
+InsufficientInventoryException Unit Tests > Should create exception with message and cause PASSED
+
+InsufficientInventoryException Unit Tests > Should create exception with custom message PASSED
+
+InsufficientInventoryException Unit Tests > Should propagate exception correctly PASSED
+
+OrderStatusException Unit Tests > Should create exception with message and cause PASSED
+
+OrderStatusException Unit Tests > Should create exception with message PASSED
+
+OrderStatusException Unit Tests > Should propagate exception correctly PASSED
+
+Java HotSpot(TM) 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+
+> Task :core-services:mall-service:test
+
+鐮嶄环鏈嶅姟娴嬭瘯 > 鍙戣捣鐮嶄环 - 娲诲姩涓嶅瓨鍦ㄥ簲鎶涘嚭寮傚父 PASSED
+
+鐮嶄环鏈嶅姟娴嬭瘯 > 鑾峰彇娲昏穬鐮嶄环娲诲姩 PASSED
+
+鐮嶄环鏈嶅姟娴嬭瘯 > 鑾峰彇鐢ㄦ埛鐮嶄环璇︽儏 PASSED
+
+鐮嶄环鏈嶅姟娴嬭瘯 > 璁＄畻鐮嶄环閲戦搴斿湪鍚堢悊鑼冨洿鍐?PASSED
+
+鐮嶄环鏈嶅姟娴嬭瘯 > 鍒涘缓鐮嶄环娲诲姩 PASSED
+
+鐮嶄环鏈嶅姟娴嬭瘯 > 鍙戣捣鐮嶄环 PASSED
+
+鎷煎洟鏈嶅姟娴嬭瘯 > 鏃犲緟鎴愬洟鏃跺垱寤烘柊鍥?PASSED
+
+鎷煎洟鏈嶅姟娴嬭瘯 > 鑾峰彇娲昏穬鎷煎洟娲诲姩 PASSED
+
+鎷煎洟鏈嶅姟娴嬭瘯 > 鑾峰彇涓嶅瓨鍦ㄧ殑鎷煎洟娲诲姩搴旀姏鍑哄紓甯?PASSED
+
+鎷煎洟鏈嶅姟娴嬭瘯 > 鍔犲叆宸叉湁鎷煎洟 PASSED
+
+鎷煎洟鏈嶅姟娴嬭瘯 > 鍒涘缓鎷煎洟娲诲姩 PASSED
+
+鎷煎洟鏈嶅姟娴嬭瘯 > 鏍规嵁ID鑾峰彇鎷煎洟娲诲姩 PASSED
+
+Java HotSpot(TM) 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+
+> Task :core-services:procurement-service:test
+
+ProcurementReturnServiceImplTest > testCreateProcurementReturnOrder() PASSED
+
+ProcurementReturnServiceImplTest > testDeleteProcurementReturnOrder() PASSED
+
+ProcurementReturnServiceImplTest > testDeleteProcurementReturnOrderNotFound() PASSED
+
+ProcurementReturnServiceImplTest > testGetAllProcurementReturnOrders() PASSED
+
+ProcurementReturnServiceImplTest > testGetProcurementReturnOrdersBySupplierId() PASSED
+
+ProcurementReturnServiceImplTest > testGetProcurementReturnOrdersByStatus() PASSED
+
+ProcurementReturnServiceImplTest > testGetProcurementReturnOrderById() PASSED
+
+ProcurementReturnServiceImplTest > testUpdateProcurementReturnOrderStatus() PASSED
+
+ProcurementReturnServiceImplTest > testUpdateProcurementReturnOrder() PASSED
+
+ProcurementReturnServiceImplTest > testGetProcurementReturnOrderByIdNotFound() PASSED
+
+ProcurementReturnServiceImplTest > testGetProcurementReturnOrdersByWarehouseId() PASSED
+
+ProcurementReturnServiceImplTest > testGetProcurementReturnOrderByReturnNumber() PASSED
+
+Java HotSpot(TM) 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+
+> Task :core-services:procurement-service:test
+
+ProcurementControllerTest > testGetProcurementOrderByIdReturnsOk() PASSED
+
+ProcurementControllerTest > testUpdateProcurementOrderReturnsOk() PASSED
+
+ProcurementControllerTest > testGetAllProcurementOrdersReturnsEmptyList() PASSED
+
+ProcurementControllerTest > testGetAllProcurementOrdersReturnsOk() PASSED
+
+ProcurementControllerTest > testCreateProcurementOrderReturnsCreated() PASSED
+
+ProcurementControllerTest > testGetProcurementOrderByOrderNumberReturnsOk() PASSED
+
+ProcurementControllerTest > testDeleteProcurementOrderReturnsNoContent() PASSED
+
+> Task :core-services:datasource-service:compileTestJava UP-TO-DATE
+> Task :core-services:datasource-service:compileTestGroovy NO-SOURCE
+> Task :core-services:datasource-service:testClasses UP-TO-DATE
+
+> Task :core-services:procurement-service:test
+
+ProcurementOrderStatusTransitionTest > Delivery Date Tests > deliverOrder sets actualDeliveryDate PASSED
+
+ProcurementOrderStatusTransitionTest > Order Not Found Tests > shipOrder throws exception for non-existent order PASSED
+
+ProcurementOrderStatusTransitionTest > Order Not Found Tests > deliverOrder throws exception for non-existent order PASSED
+
+ProcurementOrderStatusTransitionTest > Order Not Found Tests > cancelOrder throws exception for non-existent order PASSED
+
+ProcurementOrderStatusTransitionTest > Order Not Found Tests > getValidStatusTransitions throws exception for non-existent order PASSED
+
+ProcurementOrderStatusTransitionTest > Order Not Found Tests > confirmOrder throws exception for non-existent order PASSED
+
+ProcurementOrderStatusTransitionTest > Order Not Found Tests > startProcessing throws exception for non-existent order PASSED
+
+ProcurementOrderStatusTransitionTest > Get Valid Transitions Tests > PENDING valid transitions PASSED
+
+ProcurementOrderStatusTransitionTest > Get Valid Transitions Tests > CONFIRMED valid transitions PASSED
+
+ProcurementOrderStatusTransitionTest > Get Valid Transitions Tests > DELIVERED has no valid transitions PASSED
+
+ProcurementOrderStatusTransitionTest > Get Valid Transitions Tests > SHIPPED valid transitions PASSED
+
+ProcurementOrderStatusTransitionTest > Cancel Order Tests > CANCELLED order cannot be cancelled again PASSED
+
+ProcurementOrderStatusTransitionTest > Cancel Order Tests > SHIPPED order cannot be cancelled PASSED
+
+ProcurementOrderStatusTransitionTest > Cancel Order Tests > IN_PROGRESS order can be cancelled PASSED
+
+ProcurementOrderStatusTransitionTest > Cancel Order Tests > PENDING order can be cancelled PASSED
+
+ProcurementOrderStatusTransitionTest > Cancel Order Tests > CONFIRMED order can be cancelled PASSED
+
+ProcurementOrderStatusTransitionTest > Cancel Order Tests > DELIVERED order cannot be cancelled PASSED
+
+ProcurementOrderStatusTransitionTest > Status Transition Tests > IN_PROGRESS -> SHIPPED should succeed PASSED
+
+ProcurementOrderStatusTransitionTest > Status Transition Tests > SHIPPED -> DELIVERED should succeed PASSED
+
+ProcurementOrderStatusTransitionTest > Status Transition Tests > Valid transitions should succeed > [1] fromStatus=PENDING, toStatus=CONFIRMED PASSED
+
+ProcurementOrderStatusTransitionTest > Status Transition Tests > Valid transitions should succeed > [2] fromStatus=CONFIRMED, toStatus=IN_PROGRESS PASSED
+
+ProcurementOrderStatusTransitionTest > Status Transition Tests > Valid transitions should succeed > [3] fromStatus=IN_PROGRESS, toStatus=SHIPPED PASSED
+
+ProcurementOrderStatusTransitionTest > Status Transition Tests > Valid transitions should succeed > [4] fromStatus=SHIPPED, toStatus=DELIVERED PASSED
+
+ProcurementOrderStatusTransitionTest > Status Transition Tests > PENDING -> CONFIRMED should succeed PASSED
+
+ProcurementOrderStatusTransitionTest > Status Transition Tests > CONFIRMED -> IN_PROGRESS should succeed PASSED
+
+ProcurementOrderStatusTransitionTest > Status Transition Tests > Invalid transitions should throw exception > [1] fromStatus=PENDING, toStatus=DELIVERED PASSED
+
+ProcurementOrderStatusTransitionTest > Status Transition Tests > Invalid transitions should throw exception > [2] fromStatus=PENDING, toStatus=SHIPPED PASSED
+
+ProcurementOrderStatusTransitionTest > Status Transition Tests > Invalid transitions should throw exception > [3] fromStatus=CONFIRMED, toStatus=DELIVERED PASSED
+
+ProcurementOrderStatusTransitionTest > Status Transition Tests > Invalid transitions should throw exception > [4] fromStatus=CONFIRMED, toStatus=SHIPPED PASSED
+
+ProcurementOrderStatusTransitionTest > Status Transition Tests > Invalid transitions should throw exception > [5] fromStatus=DELIVERED, toStatus=CANCELLED PASSED
+
+ProcurementOrderStatusTransitionTest > Status Transition Tests > Invalid transitions should throw exception > [6] fromStatus=CANCELLED, toStatus=PENDING PASSED
+
+ProcurementServiceImplTest > testUpdateProcurementOrderStatusNotFound() PASSED
+
+ProcurementServiceImplTest > testUpdateProcurementOrderStatus() PASSED
+
+ProcurementServiceImplTest > testDeleteProcurementOrder() PASSED
+
+ProcurementServiceImplTest > testUpdateProcurementOrder() PASSED
+
+ProcurementServiceImplTest > testGetProcurementOrderById() PASSED
+
+ProcurementServiceImplTest > testDeleteProcurementOrderNotFound() PASSED
+
+ProcurementServiceImplTest > testGetAllProcurementOrders() PASSED
+
+ProcurementServiceImplTest > testGetProcurementOrderByIdNotFound() PASSED
+
+ProcurementServiceImplTest > testCreateProcurementOrderWithItems() PASSED
+
+ProcurementServiceImplTest > testCreateProcurementOrderSuccess() PASSED
+
+ProcurementServiceImplTest > testUpdateProcurementOrderNotFound() PASSED
+
+> Task :cross-service-tests:compileTestJava UP-TO-DATE
+> Task :cross-service-tests:compileTestGroovy NO-SOURCE
+> Task :cross-service-tests:testClasses UP-TO-DATE
+> Task :core-services:template-service:compileJava UP-TO-DATE
+> Task :core-services:template-service:compileGroovy NO-SOURCE
+> Task :core-services:template-service:classes UP-TO-DATE
+
+> Task :monitoring-spring-boot-starter:test
+
+MonitoringAutoConfigurationTest > testMessageProcessingTimer() PASSED
+
+MonitoringAutoConfigurationTest > testBusinessExceptionCounter() PASSED
+
+MonitoringAutoConfigurationTest > testRequestProcessingTimer() PASSED
+
+MonitoringAutoConfigurationTest > testCacheOperationTimer() PASSED
+
+MonitoringAutoConfigurationTest > testMonitoringMetricsCollector() PASSED
+
+MonitoringAutoConfigurationTest > testSystemExceptionCounter() PASSED
+
+> Task :core-services:template-service:compileTestJava UP-TO-DATE
+> Task :core-services:template-service:compileTestGroovy NO-SOURCE
+> Task :core-services:template-service:testClasses UP-TO-DATE
+
+> Task :monitoring-spring-boot-starter:test
+
+CustomHealthIndicatorTest > testHealthStatusIsUp() PASSED
+
+CustomHealthIndicatorTest > testHealthContainsDetails() PASSED
+
+CustomHealthIndicatorTest > testHealthReturnsUp() PASSED
+
+MonitoringMetricsCollectorTest > testFlushAllBatchCaches() PASSED
+
+MonitoringMetricsCollectorTest > testIncrementBusinessException() PASSED
+
+MonitoringMetricsCollectorTest > testResetAllMetrics() PASSED
+
+MonitoringMetricsCollectorTest > testIncrementRetryCount() PASSED
+
+MonitoringMetricsCollectorTest > testIncrementGauge() PASSED
+
+MonitoringMetricsCollectorTest > testRecordOperationTime() PASSED
+
+MonitoringMetricsCollectorTest > testIncrementSystemException() PASSED
+
+MonitoringMetricsCollectorTest > testIncrementSeverityCount() PASSED
+
+MonitoringMetricsCollectorTest > testSetGauge() PASSED
+
+> Task :support-services:admin-service:compileJava UP-TO-DATE
+> Task :support-services:admin-service:compileGroovy NO-SOURCE
+> Task :support-services:admin-service:classes UP-TO-DATE
+> Task :support-services:admin-service:compileTestJava UP-TO-DATE
+> Task :support-services:admin-service:compileTestGroovy NO-SOURCE
+> Task :support-services:admin-service:testClasses UP-TO-DATE
+Java HotSpot(TM) 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+> Task :core-services:datasource-service:test
+
+> Task :core-services:inventory-service:test
+
+BatchServiceImplTest > testDeactivateBatch() PASSED
+
+BatchServiceImplTest > testCreateBatchBatchCodeExists() PASSED
+
+BatchServiceImplTest > testDeleteBatch() PASSED
+
+BatchServiceImplTest > testGetBatchByIdNotFound() PASSED
+
+BatchServiceImplTest > testGetAllBatches() PASSED
+
+BatchServiceImplTest > testActivateBatchNotFound() PASSED
+
+BatchServiceImplTest > testGetBatchesByWarehouseId() PASSED
+
+BatchServiceImplTest > testDeactivateBatchNotFound() PASSED
+
+BatchServiceImplTest > testGetBatchByCodeNotFound() PASSED
+
+BatchServiceImplTest > testUpdateBatch() PASSED
+
+BatchServiceImplTest > testCreateBatch() PASSED
+
+BatchServiceImplTest > testGetBatchesBySupplierId() PASSED
+
+BatchServiceImplTest > testActivateBatch() PASSED
+
+BatchServiceImplTest > testGetAvailableQuantity() PASSED
+
+BatchServiceImplTest > testGetAvailableQuantityNotFound() PASSED
+
+BatchServiceImplTest > testGetBatchById() PASSED
+
+BatchServiceImplTest > testGetBatchesExpiringBefore() PASSED
+
+BatchServiceImplTest > testGetBatchesByProductAndWarehouse() PASSED
+
+BatchServiceImplTest > testGetBatchesByProductId() PASSED
+
+BatchServiceImplTest > testDeleteBatchNotFound() PASSED
+
+BatchServiceImplTest > testUpdateBatchBatchCodeChanged() PASSED
+
+BatchServiceImplTest > testUpdateBatchNotFound() PASSED
+
+BatchServiceImplTest > testGetBatchesByStatus() PASSED
+
+BatchServiceImplTest > testGetBatchByCode() PASSED
+
+InventoryServiceImplTest > testGetInventoryByIdNotFound() PASSED
+
+InventoryServiceImplTest > testReserveInventoryNotFound() PASSED
+
+InventoryServiceImplTest > testReserveInventory() PASSED
+
+InventoryServiceImplTest > testDeleteInventory() PASSED
+
+InventoryServiceImplTest > testReserveInventoryInsufficient() PASSED
+
+InventoryServiceImplTest > testDeleteInventoryNotFound() PASSED
+
+InventoryServiceImplTest > testUpdateInventory() PASSED
+
+InventoryServiceImplTest > testCreateInventoryWithReservedQuantity() PASSED
+
+InventoryServiceImplTest > testCreateInventoryWithAvailableQuantity() PASSED
+
+InventoryServiceImplTest > testGetInventoryByWarehouseId() PASSED
+
+InventoryServiceImplTest > testGetInventoryByProductId() PASSED
+
+InventoryServiceImplTest > testAdjustInventory() PASSED
+
+InventoryServiceImplTest > testReleaseInventoryNotFound() PASSED
+
+InventoryServiceImplTest > testGetInventoryById() PASSED
+
+InventoryServiceImplTest > testCreateInventory() PASSED
+
+InventoryServiceImplTest > testReleaseInventory() PASSED
+
+InventoryServiceImplTest > testAdjustInventoryNegative() PASSED
+
+InventoryServiceImplTest > testGetInventoryByProductAndWarehouse() PASSED
+
+InventoryServiceImplTest > testUpdateInventoryNotFound() PASSED
+
+InventoryServiceImplTest > testAdjustInventoryNotFound() PASSED
+
+InventoryServiceImplTest > testReleaseInventoryInsufficientReserved() PASSED
+
+Java HotSpot(TM) 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+
+> Task :cross-service-tests:test
+> Task :core-services:template-service:test
+> Task :support-services:admin-service:test
+
+> Task :core-services:inventory-service:test
+
+InventoryAlertServiceTest > Alert Email Tests > Alert email is saved with SENT status PASSED
+
+InventoryAlertServiceTest > Alert Email Tests > Alert without email is saved with PENDING status PASSED
+
+InventoryAlertServiceTest > Alert Acknowledgment Tests > Acknowledge alert successfully PASSED
+
+InventoryAlertServiceTest > Alert Acknowledgment Tests > Get unacknowledged alerts PASSED
+
+InventoryAlertServiceTest > Threshold Management Tests > Update existing threshold PASSED
+
+InventoryAlertServiceTest > Threshold Management Tests > Create new threshold PASSED
+
+InventoryAlertServiceTest > Threshold Management Tests > Get all thresholds PASSED
+
+InventoryAlertServiceTest > Check All Inventories Tests > Check all inventories returns alerts for problematic items PASSED
+
+InventoryAlertServiceTest > Check All Inventories Tests > Check all handles individual failures gracefully PASSED
+
+InventoryAlertServiceTest > Check and Alert Tests > Low stock inventory triggers LOW_STOCK alert PASSED
+
+InventoryAlertServiceTest > Check and Alert Tests > Disabled threshold returns null PASSED
+
+InventoryAlertServiceTest > Check and Alert Tests > No threshold configured returns null PASSED
+
+InventoryAlertServiceTest > Check and Alert Tests > Normal stock inventory does not trigger alert PASSED
+
+InventoryAlertServiceTest > Check and Alert Tests > Out of stock inventory triggers OUT_OF_STOCK alert PASSED
+
+InventoryAlertServiceTest > Check and Alert Tests > Inventory below reorder point triggers REORDER_POINT alert PASSED
+
+InventoryAlertServiceTest > Check and Alert Tests > Critical stock inventory triggers CRITICAL_STOCK alert PASSED
+
+InventoryServiceImplCacheTest > testGetInventoryByIdCacheMiss() PASSED
+
+InventoryServiceImplCacheTest > testReserveInventory() PASSED
+
+InventoryServiceImplCacheTest > testDeleteInventory() PASSED
+
+InventoryServiceImplCacheTest > testGetInventoryByBatchId() PASSED
+
+InventoryServiceImplCacheTest > testUpdateInventory() PASSED
+
+InventoryServiceImplCacheTest > testGetInventoryByWarehouseId() PASSED
+
+InventoryServiceImplCacheTest > testGetInventoryByProductId() PASSED
+
+InventoryServiceImplCacheTest > testAdjustInventory() PASSED
+
+InventoryServiceImplCacheTest > testGetInventoryById() PASSED
+
+InventoryServiceImplCacheTest > testCreateInventory() PASSED
+
+InventoryServiceImplCacheTest > testReleaseInventory() PASSED
+
+InventoryServiceImplCacheTest > testGetInventoryByStatus() PASSED
+
+InventoryServiceImplCacheTest > testGetInventoryByProductAndWarehouse() PASSED
+
+InventoryServiceImplCacheTest > testConcurrentAccess() PASSED
+
+WarehouseServiceImplTest > testUpdateWarehouseWarehouseCodeChanged() PASSED
+
+WarehouseServiceImplTest > testGetWarehousesByCountry() PASSED
+
+WarehouseServiceImplTest > testCreateWarehouseWarehouseCodeExists() PASSED
+
+WarehouseServiceImplTest > testDeleteWarehouse() PASSED
+
+WarehouseServiceImplTest > testUpdateWarehouse() PASSED
+
+WarehouseServiceImplTest > testDeactivateWarehouseNotFound() PASSED
+
+WarehouseServiceImplTest > testGetPrimaryWarehouses() PASSED
+
+WarehouseServiceImplTest > testGetAllWarehouses() PASSED
+
+WarehouseServiceImplTest > testGetActiveWarehouses() PASSED
+
+WarehouseServiceImplTest > testGetWarehousesByCity() PASSED
+
+WarehouseServiceImplTest > testGetWarehouseByCodeNotFound() PASSED
+
+WarehouseServiceImplTest > testUpdateWarehouseNotFound() PASSED
+
+WarehouseServiceImplTest > testCreateWarehouse() PASSED
+
+WarehouseServiceImplTest > testGetWarehouseById() PASSED
+
+WarehouseServiceImplTest > testGetWarehouseByCode() PASSED
+
+WarehouseServiceImplTest > testGetWarehouseByIdNotFound() PASSED
+
+WarehouseServiceImplTest > testActivateWarehouse() PASSED
+
+WarehouseServiceImplTest > testActivateWarehouseNotFound() PASSED
+
+WarehouseServiceImplTest > testDeactivateWarehouse() PASSED
+
+WarehouseServiceImplTest > testGetWarehousesByProvince() PASSED
+
+WarehouseServiceImplTest > testDeleteWarehouseNotFound() PASSED
+
+> Task :support-services:auth-service:compileJava UP-TO-DATE
+> Task :support-services:auth-service:compileGroovy NO-SOURCE
+> Task :support-services:auth-service:classes UP-TO-DATE
+> Task :support-services:auth-service:compileTestJava UP-TO-DATE
+> Task :support-services:auth-service:compileTestGroovy NO-SOURCE
+> Task :support-services:auth-service:testClasses UP-TO-DATE
+Java HotSpot(TM) 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+Java HotSpot(TM) 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+
+> Task :core-services:datasource-service:test
+
+ConnectionTestController Unit Tests > getTestStatistics() endpoint tests > should get test statistics PASSED
+
+ConnectionTestController Unit Tests > getTestStatistics() endpoint tests > should get test statistics with custom since time PASSED
+
+ConnectionTestController Unit Tests > getTestHistory() endpoint tests > should get test history with pagination PASSED
+
+ConnectionTestController Unit Tests > getTestHistory() endpoint tests > should get test history with filters PASSED
+
+ConnectionTestController Unit Tests > batchTestConnections() endpoint tests > should batch test connections successfully PASSED
+
+ConnectionTestController Unit Tests > testConnection() endpoint tests > should test connection successfully PASSED
+
+DatasourceConfigController Unit Tests > getConfigSchema() endpoint tests > should get config schema for type PASSED
+
+DatasourceConfigController Unit Tests > listByType() endpoint tests > should list datasources by type PASSED
+
+DatasourceConfigController Unit Tests > searchDatasources() endpoint tests > should search datasources by type PASSED
+
+DatasourceConfigController Unit Tests > searchDatasources() endpoint tests > should search datasources by criteria PASSED
+
+DatasourceConfigController Unit Tests > listDatasources() endpoint tests > should list datasources with pagination PASSED
+
+DatasourceConfigController Unit Tests > getDatasource() endpoint tests > should get datasource by id PASSED
+
+DatasourceConfigController Unit Tests > deleteDatasource() endpoint tests > should delete datasource successfully PASSED
+
+DatasourceConfigController Unit Tests > updateDatasource() endpoint tests > should update datasource successfully PASSED
+
+DatasourceConfigController Unit Tests > createDatasource() endpoint tests > should create datasource successfully PASSED
+
+EncryptionService Unit Tests > Round-trip encryption tests > should maintain data integrity through multiple encrypt-decrypt cycles PASSED
+
+EncryptionService Unit Tests > Round-trip encryption tests > should handle various password formats PASSED
+
+EncryptionService Unit Tests > validateEncryptedPassword() method tests > should return false for invalid base64 string PASSED
+
+EncryptionService Unit Tests > validateEncryptedPassword() method tests > should return false for null input PASSED
+
+EncryptionService Unit Tests > validateEncryptedPassword() method tests > should return true for valid encrypted password PASSED
+
+EncryptionService Unit Tests > validateEncryptedPassword() method tests > should return false for too short encrypted data PASSED
+
+EncryptionService Unit Tests > validateEncryptedPassword() method tests > should return false for empty string PASSED
+
+EncryptionService Unit Tests > decrypt() method tests > should throw exception for invalid base64 string PASSED
+
+EncryptionService Unit Tests > decrypt() method tests > should throw exception for too short ciphertext PASSED
+
+EncryptionService Unit Tests > decrypt() method tests > should return empty string when input is empty PASSED
+
+EncryptionService Unit Tests > decrypt() method tests > should return null when input is null PASSED
+
+EncryptionService Unit Tests > decrypt() method tests > should decrypt encrypted text successfully PASSED
+
+EncryptionService Unit Tests > decrypt() method tests > should throw exception for tampered ciphertext PASSED
+
+EncryptionService Unit Tests > encrypt() method tests > should produce different ciphertext for same plaintext PASSED
+
+EncryptionService Unit Tests > encrypt() method tests > should return empty string when input is empty PASSED
+
+EncryptionService Unit Tests > encrypt() method tests > should encrypt special characters correctly PASSED
+
+EncryptionService Unit Tests > encrypt() method tests > should encrypt long text successfully PASSED
+
+EncryptionService Unit Tests > encrypt() method tests > should return null when input is null PASSED
+
+EncryptionService Unit Tests > encrypt() method tests > should encrypt Chinese characters correctly PASSED
+
+EncryptionService Unit Tests > encrypt() method tests > should encrypt plain text successfully PASSED
+
+AlertService Unit Tests > sendConnectionAlert() method tests > should include suggestions in alert message PASSED
+
+AlertService Unit Tests > sendConnectionAlert() method tests > should handle notification failure PASSED
+
+AlertService Unit Tests > sendConnectionAlert() method tests > should send alert when alert configs exist PASSED
+
+AlertService Unit Tests > sendConnectionAlert() method tests > should handle no alert configs PASSED
+
+AlertService Unit Tests > sendConnectionAlert() method tests > should handle exception during notification PASSED
+
+NotificationService Unit Tests > parseReceivers() method tests > should parse valid JSON receivers PASSED
+
+NotificationService Unit Tests > parseReceivers() method tests > should handle invalid JSON receivers PASSED
+
+NotificationService Unit Tests > parseReceivers() method tests > should handle null receivers PASSED
+
+NotificationService Unit Tests > parseReceivers() method tests > should handle empty receivers PASSED
+
+NotificationService Unit Tests > WeChat notification tests > should return false when no WeChat webhooks PASSED
+
+NotificationService Unit Tests > WeChat notification tests > should send WeChat notification successfully PASSED
+
+NotificationService Unit Tests > DingTalk notification tests > should send DingTalk notification successfully PASSED
+
+NotificationService Unit Tests > DingTalk notification tests > should return false when no DingTalk webhooks PASSED
+
+NotificationService Unit Tests > SMS notification tests > should send SMS successfully PASSED
+
+NotificationService Unit Tests > SMS notification tests > should return false when no phone numbers PASSED
+
+NotificationService Unit Tests > Email notification tests > should return false when no email recipients PASSED
+
+NotificationService Unit Tests > Email notification tests > should handle email send failure PASSED
+
+NotificationService Unit Tests > Email notification tests > should send email successfully PASSED
+
+NotificationService Unit Tests > send() method tests > should return false when exception occurs PASSED
+
+NotificationService Unit Tests > send() method tests > should handle unknown channel PASSED
+
+NotificationService Unit Tests > send() method tests > should handle empty channels PASSED
+
+NotificationService Unit Tests > send() method tests > should send notification successfully PASSED
+
+TenantContext Unit Tests > clear() method tests > should clear tenant id from thread local PASSED
+
+TenantContext Unit Tests > clear() method tests > should be safe to call clear multiple times PASSED
+
+TenantContext Unit Tests > setCurrentTenant() method tests > should allow setting different tenant ids PASSED
+
+TenantContext Unit Tests > setCurrentTenant() method tests > should set tenant id in thread local PASSED
+
+TenantContext Unit Tests > getCurrentTenant() method tests > should return default when header is empty PASSED
+
+TenantContext Unit Tests > getCurrentTenant() method tests > should return default when no request attributes PASSED
+
+TenantContext Unit Tests > getCurrentTenant() method tests > should return tenant id from header PASSED
+
+TenantContext Unit Tests > getCurrentTenant() method tests > should return default when header is null PASSED
+
+> Task :core-services:mall-service:test
+
+婊″噺鏈嶅姟娴嬭瘯 > 璁＄畻婊″噺鎶樻墸 - 婊¤冻鏉′欢 PASSED
+
+婊″噺鏈嶅姟娴嬭瘯 > 璁＄畻鏈€浼樻弧鍑忔姌鎵?PASSED
+
+婊″噺鏈嶅姟娴嬭瘯 > 鏍规嵁ID鑾峰彇婊″噺娲诲姩 PASSED
+
+婊″噺鏈嶅姟娴嬭瘯 > 娣诲姞婊″噺瑙勫垯 PASSED
+
+婊″噺鏈嶅姟娴嬭瘯 > 鑾峰彇娲昏穬婊″噺娲诲姩 PASSED
+
+婊″噺鏈嶅姟娴嬭瘯 > 鏍规嵁ID鑾峰彇涓嶅瓨鍦ㄧ殑婊″噺娲诲姩搴旀姏鍑哄紓甯?PASSED
+
+婊″噺鏈嶅姟娴嬭瘯 > 鍒涘缓婊″噺娲诲姩 PASSED
+
+婊″噺鏈嶅姟娴嬭瘯 > 璁＄畻婊″噺鎶樻墸 - 涓嶆弧瓒虫潯浠?PASSED
+
+> Task :support-services:auth-service:test
+
+> Task :core-services:mall-service:test
+
+鐗╂祦鏈嶅姟娴嬭瘯 > 鏍规嵁璁㈠崟ID鑾峰彇鐗╂祦 PASSED
+
+鐗╂祦鏈嶅姟娴嬭瘯 > 鏇存柊杩愬崟鍙?PASSED
+
+鐗╂祦鏈嶅姟娴嬭瘯 > 鍒涘缓鐗╂祦 PASSED
+
+鐗╂祦鏈嶅姟娴嬭瘯 > 鏍规嵁鐘舵€佽幏鍙栫墿娴佸垪琛?PASSED
+
+鐗╂祦鏈嶅姟娴嬭瘯 > 鍒涘缓鐗╂祦 - 璁㈠崟涓嶅瓨鍦ㄥ簲鎶涘嚭寮傚父 PASSED
+
+鐗╂祦鏈嶅姟娴嬭瘯 > 鏍规嵁ID鑾峰彇鐗╂祦 PASSED
+
+鐗╂祦鏈嶅姟娴嬭瘯 > 鏇存柊鐗╂祦鐘舵€佷负宸茬鏀?PASSED
+
+> Task :support-services:config-service:compileJava UP-TO-DATE
+> Task :support-services:config-service:compileGroovy NO-SOURCE
+> Task :support-services:config-service:classes UP-TO-DATE
+> Task :support-services:config-service:compileTestJava NO-SOURCE
+> Task :support-services:config-service:compileTestGroovy NO-SOURCE
+> Task :support-services:config-service:testClasses UP-TO-DATE
+> Task :support-services:config-service:test NO-SOURCE
+> Task :support-services:finance-service:compileTestJava UP-TO-DATE
+> Task :support-services:finance-service:compileTestGroovy NO-SOURCE
+> Task :support-services:finance-service:testClasses UP-TO-DATE
+Java HotSpot(TM) 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+
+> Task :core-services:order-service:test
+
+OrderControllerTest > testDeleteOrder() PASSED
+
+OrderControllerTest > testUpdateOrderStatus() PASSED
+
+OrderControllerTest > testUpdateOrder() PASSED
+
+OrderControllerTest > testCreateOrder() PASSED
+
+OrderControllerTest > testFindOrdersByCustomer() PASSED
+
+OrderControllerTest > testGetAllOrders() PASSED
+
+OrderControllerTest > testGetOrderById() PASSED
+
+OrderControllerTest > testRemoveItemFromOrder() PASSED
+
+OrderControllerTest > testGetOrderByOrderNumber() PASSED
+
+OrderControllerTest > testGetValidTransitions() PASSED
+
+OrderControllerTest > testFindOrdersByStatus() PASSED
+
+OrderControllerTest > testAddItemToOrder() PASSED
+
+OrderControllerTest > testCancelOrder() PASSED
+
+OrderNotFoundExceptionTest > testConstructorWithMessageAndCause() PASSED
+
+OrderNotFoundExceptionTest > testConstructorWithId() PASSED
+
+OrderNotFoundExceptionTest > testConstructorWithMessage() PASSED
+
+Java HotSpot(TM) 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+
+> Task :core-services:order-service:test
+
+OrderServiceImplTest > Remove Item Edge Cases > Should throw exception when removing item from non-PENDING order PASSED
+
+OrderServiceImplTest > Remove Item Edge Cases > Should throw exception when item not found in order PASSED
+
+OrderServiceImplTest > Add Item Edge Cases > Should throw exception when adding item to non-PENDING order PASSED
+
+OrderServiceImplTest > Add Item Edge Cases > Should throw exception when adding item with insufficient inventory PASSED
+
+OrderServiceImplTest > Cancel Order Edge Cases > Should throw exception when cancelling completed order PASSED
+
+OrderServiceImplTest > Cancel Order Edge Cases > Should throw exception when cancelling already cancelled order PASSED
+
+OrderServiceImplTest > Cancel Order Edge Cases > Should compensate when restore stock fails during cancellation PASSED
+
+OrderServiceImplTest > Delete Order Edge Cases > Should throw exception when deleting order in PROCESSING status PASSED
+
+OrderServiceImplTest > Delete Order Edge Cases > Should throw exception when deleting order in COMPLETED status PASSED
+
+OrderServiceImplTest > Validation Tests > Should reject order with null customer name PASSED
+
+OrderServiceImplTest > Validation Tests > Should reject order with empty order number PASSED
+
+OrderServiceImplTest > Validation Tests > Should reject order with empty items PASSED
+
+OrderServiceImplTest > Order Item Management Tests > Should remove item from order and restore inventory PASSED
+
+OrderServiceImplTest > Order Item Management Tests > Should add item to existing order PASSED
+
+OrderServiceImplTest > Order Amount Calculation Tests > Should calculate order total amount PASSED
+
+OrderServiceImplTest > Order Search Tests > Should find orders by order number PASSED
+
+OrderServiceImplTest > Order Search Tests > Should find orders by customer name PASSED
+
+OrderServiceImplTest > Order Search Tests > Should find orders by status PASSED
+
+OrderServiceImplTest > Order Status Transition Tests > Should not allow transition from CANCELLED to any other status PASSED
+
+OrderServiceImplTest > Order Status Transition Tests > Should transition from PROCESSING to COMPLETED PASSED
+
+OrderServiceImplTest > Order Status Transition Tests > Should get valid status transitions PASSED
+
+OrderServiceImplTest > Order Status Transition Tests > Should transition from PENDING to PROCESSING PASSED
+
+OrderServiceImplTest > Order Status Transition Tests > Should transition from PENDING to CANCELLED and restore inventory PASSED
+
+OrderServiceImplTest > Order Status Transition Tests > Should not allow transition from COMPLETED to any other status PASSED
+
+OrderServiceImplTest > Basic CRUD Tests > Should delete order PASSED
+
+OrderServiceImplTest > Basic CRUD Tests > Should update order customer name PASSED
+
+OrderServiceImplTest > Basic CRUD Tests > Should create order with PENDING status PASSED
+
+OrderServiceImplTest > Basic CRUD Tests > Should return empty list when no orders PASSED
+
+OrderServiceImplTest > Basic CRUD Tests > Should return all orders PASSED
+
+OrderServiceImplTest > Basic CRUD Tests > Should throw exception when order not found PASSED
+
+OrderServiceImplTest > Basic CRUD Tests > Should return order by ID PASSED
+
+OrderServiceImplTest > Basic CRUD Tests > Should throw exception when deleting non-existent order PASSED
+
+OrderServiceImplTest > Basic CRUD Tests > Should throw exception when updating non-existent order PASSED
+
+OrderServiceImplTest > Basic CRUD Tests > Should throw exception when inventory deduction fails PASSED
+
+Java HotSpot(TM) 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+
+> Task :support-services:finance-service:test
+
+> Task :core-services:supplier-service:test
+
+SupplierControllerIntegrationTest > testGetAllSuppliers() SKIPPED
+
+> Task :support-services:gateway-service:compileJava UP-TO-DATE
+> Task :support-services:gateway-service:compileGroovy NO-SOURCE
+> Task :support-services:gateway-service:classes UP-TO-DATE
+> Task :support-services:gateway-service:compileTestJava UP-TO-DATE
+> Task :support-services:gateway-service:compileTestGroovy NO-SOURCE
+> Task :support-services:gateway-service:testClasses UP-TO-DATE
+
+> Task :core-services:sales-service:test
+
+RetailServiceImplTest > testGetRetailOrdersByDateRange() PASSED
+
+RetailServiceImplTest > testGetRetailOrdersByCustomerId() PASSED
+
+RetailServiceImplTest > testUpdateRetailOrderPaymentStatus() PASSED
+
+RetailServiceImplTest > testUpdateRetailOrder() PASSED
+
+RetailServiceImplTest > testGetRetailOrdersByPaymentStatus() PASSED
+
+RetailServiceImplTest > testDeleteRetailOrderNotFound() PASSED
+
+RetailServiceImplTest > testGetAllRetailOrders() PASSED
+
+RetailServiceImplTest > testGetRetailOrdersByWarehouseId() PASSED
+
+RetailServiceImplTest > testCreateRetailOrderWithItems() PASSED
+
+RetailServiceImplTest > testGetRetailOrderById() PASSED
+
+RetailServiceImplTest > testDeleteRetailOrder() PASSED
+
+RetailServiceImplTest > testGetRetailOrderByIdNotFound() PASSED
+
+RetailServiceImplTest > testGetTotalRetailByCustomerId() PASSED
+
+RetailServiceImplTest > testCreateRetailOrder() PASSED
+
+RetailServiceImplTest > testGetRetailOrderByRetailNumber() PASSED
+
+> Task :support-services:registry-service:compileJava UP-TO-DATE
+> Task :support-services:registry-service:compileGroovy NO-SOURCE
+> Task :support-services:registry-service:classes UP-TO-DATE
+> Task :support-services:registry-service:compileTestJava UP-TO-DATE
+> Task :support-services:registry-service:compileTestGroovy NO-SOURCE
+> Task :support-services:registry-service:testClasses UP-TO-DATE
+
+> Task :core-services:sales-service:test
+
+SalesReturnServiceImplTest > testGetSalesReturnOrdersByCustomerId() PASSED
+
+SalesReturnServiceImplTest > testGetSalesReturnOrderById() PASSED
+
+SalesReturnServiceImplTest > testUpdateSalesReturnOrderStatus() PASSED
+
+SalesReturnServiceImplTest > testCreateSalesReturnOrder() PASSED
+
+SalesReturnServiceImplTest > testGetSalesReturnOrdersByOriginalOrderId() PASSED
+
+SalesReturnServiceImplTest > testGetAllSalesReturnOrders() PASSED
+
+SalesReturnServiceImplTest > testGetSalesReturnOrderByIdNotFound() PASSED
+
+SalesReturnServiceImplTest > testDeleteSalesReturnOrder() PASSED
+
+SalesReturnServiceImplTest > testGetSalesReturnOrdersByStatus() PASSED
+
+SalesReturnServiceImplTest > testUpdateSalesReturnOrder() PASSED
+
+SalesReturnServiceImplTest > testGetSalesReturnOrderByReturnNumber() PASSED
+
+SalesOrderServiceImplTest > testUpdateSalesOrderStatusNotFound() PASSED
+
+SalesOrderServiceImplTest > testGetAllSalesOrders() PASSED
+
+SalesOrderServiceImplTest > testCreateSalesOrderProductNotFound() PASSED
+
+SalesOrderServiceImplTest > testGetSalesOrderByIdNotFound() PASSED
+
+SalesOrderServiceImplTest > testCreateSalesOrderSuccess() PASSED
+
+SalesOrderServiceImplTest > testDeleteSalesOrder() PASSED
+
+SalesOrderServiceImplTest > testDeleteSalesOrderNotFound() PASSED
+
+SalesOrderServiceImplTest > testUpdateSalesOrder() PASSED
+
+SalesOrderServiceImplTest > testCreateSalesOrderCustomerNotFound() PASSED
+
+SalesOrderServiceImplTest > testUpdateSalesOrderStatus() PASSED
+
+SalesOrderServiceImplTest > testCreateSalesOrderInsufficientInventory() PASSED
+
+SalesOrderServiceImplTest > testGetSalesOrderById() PASSED
+
+SalesOrderServiceImplTest > testUpdateSalesOrderNotFound() PASSED
+
+> Task :core-services:product-service:test
+
+OrderServiceClientFallbackTest > testGetOrdersByProduct_fallbackReturnsError() PASSED
+
+> Task :support-services:report-service:compileJava UP-TO-DATE
+> Task :support-services:report-service:compileGroovy NO-SOURCE
+> Task :support-services:report-service:classes UP-TO-DATE
+> Task :support-services:report-service:compileTestJava UP-TO-DATE
+> Task :support-services:report-service:compileTestGroovy NO-SOURCE
+> Task :support-services:report-service:testClasses UP-TO-DATE
+Java HotSpot(TM) 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+
+> Task :core-services:product-service:test
+
+ProductServiceImplTest > testGetProductBySku() PASSED
+
+ProductServiceImplTest > testUpdateProductNotFound() PASSED
+
+ProductServiceImplTest > testGetProductByIdNotFound() PASSED
+
+ProductServiceImplTest > testCreateProduct() PASSED
+
+ProductServiceImplTest > testUpdateProduct() PASSED
+
+ProductServiceImplTest > testGetProductBySkuNotFound() PASSED
+
+ProductServiceImplTest > testGetProductById() PASSED
+
+ProductServiceImplTest > testDeleteProduct() PASSED
+
+ProductServiceImplTest > testGetAllProducts() PASSED
+
+ProductServiceImplTest > testDeleteProductNotFound() PASSED
+
+InventoryServiceClientFallbackTest > testGetInventoryForProduct_fallbackReturnsError() PASSED
+
+Java HotSpot(TM) 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+
+> Task :core-services:product-service:test
+
+ProductServiceImplCacheTest > testCacheEvictionOnUpdateProduct() PASSED
+
+ProductServiceImplCacheTest > testCacheEvictionOnDeleteProduct() PASSED
+
+ProductServiceImplCacheTest > testCacheEvictionOnCreateProduct() PASSED
+
+Java HotSpot(TM) 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+
+> Task :support-services:gateway-service:test
+> Task :support-services:registry-service:test
+> Task :support-services:report-service:test
+
+> Task :support-services:admin-service:test
+
+UserServiceImplTest > testFindUserByUsername() PASSED
+
+UserServiceImplTest > testGetUserById_NotFound() PASSED
+
+UserServiceImplTest > testAssignRoles_UserNotFound() PASSED
+
+UserServiceImplTest > testGetAllUsers() PASSED
+
+UserServiceImplTest > testUpdateUser() PASSED
+
+UserServiceImplTest > testDeleteUser_NotFound() PASSED
+
+UserServiceImplTest > testFindUserByUsername_NotFound() PASSED
+
+UserServiceImplTest > testGetUsersByRoleId_RoleNotFound() PASSED
+
+UserServiceImplTest > testUpdateUser_NotFound() PASSED
+
+UserServiceImplTest > testGetUserByUsername() PASSED
+
+UserServiceImplTest > testCreateUser() PASSED
+
+UserServiceImplTest > testDeleteUser() PASSED
+
+UserServiceImplTest > testAssignRoles() PASSED
+
+UserServiceImplTest > testGetUserById() PASSED
+
+UserServiceImplTest > testAssignRoles_RoleNotFound() PASSED
+
+UserServiceImplTest > testGetUserByUsername_NotFound() PASSED
+
+UserServiceImplTest > testGetUsersByRoleId() PASSED
+
+Java HotSpot(TM) 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+
+> Task :cross-service-tests:test
+
+ReportServiceIntegrationTest > testFinancialReportGeneration() PASSED
+
+> Task :core-services:invoice-service:test
+
+CustomerInfoDTOValidationTest > testValidTaxNumber15Digits() PASSED
+
+CustomerInfoDTOValidationTest > testShortTaxNumber() PASSED
+
+CustomerInfoDTOValidationTest > testEmptyName() PASSED
+
+CustomerInfoDTOValidationTest > testValidTaxNumber20Digits() PASSED
+
+CustomerInfoDTOValidationTest > testValidMobilePhone() PASSED
+
+CustomerInfoDTOValidationTest > testValidCustomerInfo() PASSED
+
+CustomerInfoDTOValidationTest > testInvalidMobilePhone() PASSED
+
+CustomerInfoDTOValidationTest > testInvalidContactPhone() PASSED
+
+CustomerInfoDTOValidationTest > testValidContactPhone() PASSED
+
+CustomerInfoDTOValidationTest > testInvalidBankAccount() PASSED
+
+CustomerInfoDTOValidationTest > testInvalidEmail() PASSED
+
+CustomerInfoDTOValidationTest > testInvalidTaxNumber() PASSED
+
+InvoiceCalculationServiceTest > testValidateCalculationCorrect() PASSED
+
+InvoiceCalculationServiceTest > testZeroDiscountCalculation() PASSED
+
+InvoiceCalculationServiceTest > testCalculateItemAmount9Percent() PASSED
+
+InvoiceCalculationServiceTest > testCalculateInvoiceMultipleItems() PASSED
+
+InvoiceCalculationServiceTest > testCalculateItemAmount13Percent() PASSED
+
+InvoiceCalculationServiceTest > testRoundingHalfUp() PASSED
+
+InvoiceCalculationServiceTest > testCalculateItemAmount3Percent() PASSED
+
+InvoiceCalculationServiceTest > testValidateCalculationIncorrect() PASSED
+
+InvoiceCalculationServiceTest > testCalculateItemAmount6Percent() PASSED
+
+InvoiceCalculationServiceTest > testLargeQuantityCalculation() PASSED
+
+InvoiceCalculationServiceTest > testCalculateItemWithDiscount() PASSED
+
+InvoiceCalculationServiceTest > testNullDiscountCalculation() PASSED
+
+Java HotSpot(TM) 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+
+> Task :cross-service-tests:test
+
+OrderCreationIntegrationTest > testOrderCreationWithInventoryCheck() PASSED
+
+OrderCreationIntegrationTest > testOrderTotalCalculation() PASSED
+
+OrderCreationIntegrationTest > testOrderCreationWithInvoiceGeneration() PASSED
+
+OrderCreationIntegrationTest > testCreateOrderWithAllValidations() PASSED
+
+OrderCreationIntegrationTest > testOrderItemsMapping() PASSED
+
+OrderCreationIntegrationTest > testWarehouseAllocationFlow() PASSED
+
+OrderCreationIntegrationTest > testOrderFulfillmentWorkflow() PASSED
+
+OrderCreationIntegrationTest > testMultiWarehouseInventoryAllocation() PASSED
+
+OrderCreationIntegrationTest > testSupplierReorderTrigger() PASSED
+
+OrderCreationIntegrationTest > testOrderDeliveryConfirmation() PASSED
+
+OrderCreationIntegrationTest > testOrderCreationWithPaymentProcessing() PASSED
+
+OrderCreationIntegrationTest > testOrderShippingNotification() PASSED
+
+OrderCreationIntegrationTest > testOrderRefundWorkflow() PASSED
+
+OrderCreationIntegrationTest > testOrderReturnWorkflow() PASSED
+
+OrderCreationIntegrationTest > testOrderCreationFailsWhenCustomerNotFound() PASSED
+
+OrderCreationIntegrationTest > testCustomerCreditCheckFlow() PASSED
+
+OrderCreationIntegrationTest > testCancelOrder() PASSED
+
+> Task :core-services:invoice-service:test
+
+UnitInfoServiceTest > testDeleteUnitNotFound() PASSED
+
+UnitInfoServiceTest > testIncrementUsageCount() PASSED
+
+UnitInfoServiceTest > testUpdateUnitNotFound() PASSED
+
+UnitInfoServiceTest > testSearchUnits() PASSED
+
+UnitInfoServiceTest > testGetAllUnits() PASSED
+
+UnitInfoServiceTest > testUpdateUnit() PASSED
+
+UnitInfoServiceTest > testCreateUnitDuplicate() PASSED
+
+UnitInfoServiceTest > testFindOrCreateUnitExisting() PASSED
+
+UnitInfoServiceTest > testFindOrCreateUnitNew() PASSED
+
+UnitInfoServiceTest > testGetUnitByIdNotFound() PASSED
+
+UnitInfoServiceTest > testCreateUnit() PASSED
+
+UnitInfoServiceTest > testDeleteUnit() PASSED
+
+UnitInfoServiceTest > testGetUnitById() PASSED
+
+UnitInfoServiceTest > testUpdateUnitPartial() PASSED
+
+LevenshteinDistanceUtilTest > testInsertionAndDeletion() PASSED
+
+LevenshteinDistanceUtilTest > testEmptyStrings() PASSED
+
+LevenshteinDistanceUtilTest > testNullStrings() PASSED
+
+LevenshteinDistanceUtilTest > testIdenticalStrings() PASSED
+
+LevenshteinDistanceUtilTest > testChineseStrings() PASSED
+
+LevenshteinDistanceUtilTest > testSingleEdit() PASSED
+
+LevenshteinDistanceUtilTest > testSimilarityThreshold() PASSED
+
+LevenshteinDistanceUtilTest > testCompleteDifference() PASSED
+Java HotSpot(TM) 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+
+> Task :core-services:customer-service:test
+
+CustomerControllerIntegrationTest > testExample() SKIPPED
+
+> Task :core-services:template-service:test
+
+AuditLogServiceTest > 璁板綍鎿嶄綔鏃ュ織 - 鎴愬姛 PASSED
+
+AuditLogServiceTest > 鑾峰彇妯℃澘瀹¤鏃ュ織 PASSED
+
+AuditLogServiceTest > 鑾峰彇鏈€杩戞搷浣?PASSED
+
+AuditLogServiceTest > 鑾峰彇瀹¤缁熻 PASSED
+
+TemplateServiceTest > 鏇存柊妯℃澘 - 鎴愬姛 PASSED
+
+TemplateServiceTest > 鍒犻櫎妯℃澘 - 宸插彂甯冪姸鎬佸綊妗?PASSED
+
+TemplateServiceTest > 鑾峰彇妯℃澘 - 鎴愬姛 PASSED
+
+TemplateServiceTest > 鏇存柊妯℃澘 - 宸插彂甯冩ā鏉夸笉鍙慨鏀?PASSED
+
+TemplateServiceTest > 鍒涘缓妯℃澘 - 鎴愬姛 PASSED
+
+TemplateServiceTest > 鎸夐鍩熻幏鍙栨ā鏉?PASSED
+
+TemplateServiceTest > 鍙戝竷妯℃澘 - 闈炲鏍搁€氳繃鐘舵€佷笉鍙彂甯?PASSED
+
+TemplateServiceTest > 鍙戝竷妯℃澘 - 鎴愬姛 PASSED
+
+TemplateServiceTest > 鍒涘缓妯℃澘 - 妯℃澘缂栫爜宸插瓨鍦?PASSED
+
+TemplateServiceTest > 鑾峰彇妯℃澘 - 涓嶅瓨鍦?PASSED
+
+TemplateServiceTest > 鍒犻櫎妯℃澘 - 鑽夌鐘舵€佺洿鎺ュ垹闄?PASSED
+
+CodeGeneratorTest > 鐢熸垚鐭璉D PASSED
+
+CodeGeneratorTest > 鐢熸垚鏍￠獙瑙勫垯缂栫爜 PASSED
+
+CodeGeneratorTest > 鐢熸垚浜嬪姟ID PASSED
+
+CodeGeneratorTest > 鐢熸垚瀛楁缂栫爜 PASSED
+
+CodeGeneratorTest > 鐢熸垚瀵煎嚭鎵规ID PASSED
+
+CodeGeneratorTest > 鐢熸垚鐗堟湰缂栫爜 PASSED
+
+CodeGeneratorTest > 鐢熸垚瀹¤鏃ュ織ID PASSED
+
+CodeGeneratorTest > 鐢熸垚瀵煎叆鎵规ID PASSED
+
+CodeGeneratorTest > 鐢熸垚妯℃澘缂栫爜 PASSED
+
+> Task :core-services:invoice-service:jacocoTestReport
+Java HotSpot(TM) 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+Java HotSpot(TM) 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+
+> Task :support-services:registry-service:test
+
+ServiceRegistryServiceImplTest > testIsServiceHealthyReturnsFalseForNonexistentService() PASSED
+
+ServiceRegistryServiceImplTest > testGetAllServiceNamesReturnsMultipleServices() PASSED
+
+ServiceRegistryServiceImplTest > testGetServiceInstanceDTOWithDefaultMetadata() PASSED
+
+ServiceRegistryServiceImplTest > testGetServiceInfoWithMixedHealthInstances() PASSED
+
+ServiceRegistryServiceImplTest > testGetServiceInfoWithNoInstances() PASSED
+
+ServiceRegistryServiceImplTest > testGetAllServiceNamesReturnsEmptyList() PASSED
+
+ServiceRegistryServiceImplTest > testGetServiceInstancesReturnsAllInstances() PASSED
+
+ServiceRegistryServiceImplTest > testGetAllServicesHealthReturnsMultipleServices() PASSED
+
+ServiceRegistryServiceImplTest > testIsServiceHealthyReturnsTrueForHealthyService() PASSED
+
+ServiceRegistryServiceImplTest > testGetServiceInstancesReturnsEmptyList() PASSED
+
+ServiceRegistryServiceImplTest > testGetServiceInfoWithHealthyInstance() PASSED
+
+ServiceRegistryServiceImplTest > testIsServiceHealthyReturnsFalseForUnhealthyService() PASSED
+
+ServiceRegistryServiceImplTest > testGetAllServicesHealthReturnsEmptyList() PASSED
+
+> Task :core-services:template-service:test
+
+TemplateControllerTest > 鑾峰彇鐗堟湰缁熻 PASSED
+
+TemplateControllerTest > 鍒犻櫎妯℃澘 - 鎴愬姛 PASSED
+
+TemplateControllerTest > 鏇存柊妯℃澘 - 鎴愬姛 PASSED
+
+TemplateControllerTest > 鑾峰彇妯℃澘璇︽儏 - 涓嶅瓨鍦?PASSED
+
+TemplateControllerTest > 鎼滅储妯℃澘 PASSED
+
+TemplateControllerTest > 鏍规嵁缂栫爜鑾峰彇妯℃澘 - 鎴愬姛 PASSED
+
+TemplateControllerTest > 褰掓。妯℃澘 - 鎴愬姛 PASSED
+
+TemplateControllerTest > 搴熷純妯℃澘 - 鎴愬姛 PASSED
+
+TemplateControllerTest > 鑾峰彇鐗堟湰鍘嗗彶 PASSED
+
+TemplateControllerTest > 鍒涘缓妯℃澘 - 鎴愬姛 PASSED
+
+TemplateControllerTest > 鑾峰彇妯℃澘璇︽儏 - 鎴愬姛 PASSED
+
+TemplateControllerTest > 鎸夐鍩熻幏鍙栨ā鏉?PASSED
+
+TemplateControllerTest > 鍙戝竷妯℃澘 - 鎴愬姛 PASSED
+
+TemplateControllerTest > 楠岃瘉鏁版嵁 PASSED
+
+Java HotSpot(TM) 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+
+> Task :core-services:template-service:test
+
+CustomFieldServiceTest > 鍒涘缓鑷畾涔夊瓧娈?- 鎴愬姛 PASSED
+
+CustomFieldServiceTest > 楠岃瘉瀛楁鍊?- 绌哄€间笖闈炲繀濉?PASSED
+
+CustomFieldServiceTest > 鑾峰彇妯℃澘鐨勮嚜瀹氫箟瀛楁 PASSED
+
+CustomFieldServiceTest > 鍒涘缓鏍￠獙瑙勫垯 - 瑙勫垯缂栫爜宸插瓨鍦?PASSED
+
+CustomFieldServiceTest > 鍒涘缓鑷畾涔夊瓧娈?- 妯℃澘涓嶅厑璁歌嚜瀹氫箟瀛楁 PASSED
+
+CustomFieldServiceTest > 楠岃瘉瀛楁鍊?- 绌哄€间笖蹇呭～ PASSED
+
+CustomFieldServiceTest > 鍒涘缓鏍￠獙瑙勫垯 - 鎴愬姛 PASSED
+
+CustomFieldServiceTest > 鑾峰彇鎵€鏈夋牎楠岃鍒?PASSED
+
+TemplateVersionServiceTest > 鍒涘缓鐗堟湰 - 娆＄増鏈洿鏂?PASSED
+
+TemplateVersionServiceTest > 鍒涘缓鐗堟湰 - 棣栦釜鐗堟湰 PASSED
+
+TemplateVersionServiceTest > 鐗堟湰鍏煎鎬ф鏌?- 涓嶅吋瀹?PASSED
+
+TemplateVersionServiceTest > 鐢熸垚涓嬩竴涓増鏈彿 - 涓荤増鏈?PASSED
+
+TemplateVersionServiceTest > 鐢熸垚涓嬩竴涓増鏈彿 - 娆＄増鏈?PASSED
+
+TemplateVersionServiceTest > 鐢熸垚涓嬩竴涓増鏈彿 - 琛ヤ竵鐗堟湰 PASSED
+
+TemplateVersionServiceTest > 鑾峰彇鐗堟湰鍘嗗彶 PASSED
+
+TemplateVersionServiceTest > 鍒涘缓鐗堟湰 - 琛ヤ竵鐗堟湰鏇存柊 PASSED
+
+TemplateVersionServiceTest > 鐗堟湰鍏煎鎬ф鏌?- 鍏煎 PASSED
+
+VersionUtilsTest > 瑙ｆ瀽鐗堟湰鍙?PASSED
+
+VersionUtilsTest > 楠岃瘉鐗堟湰鍙锋牸寮?PASSED
+
+VersionUtilsTest > 鑾峰彇娆＄増鏈彿 PASSED
+
+VersionUtilsTest > 鐗堟湰鍙锋瘮杈冩柟娉?PASSED
+
+VersionUtilsTest > 姣旇緝鐗堟湰鍙?PASSED
+
+VersionUtilsTest > 鐗堟湰鍙烽€掑 PASSED
+
+VersionUtilsTest > 鑾峰彇涓荤増鏈彿 PASSED
+
+VersionUtilsTest > 鑾峰彇涓嬩竴涓増鏈彿 PASSED
+
+VersionUtilsTest > 鏍煎紡鍖栫増鏈彿 PASSED
+
+> Task :support-services:gateway-service:test
+
+AuditLogFilterTest > testFilterLogsSuccessfulRequest() PASSED
+
+AuditLogFilterTest > testGetOrder() PASSED
+
+AuditLogFilterTest > testFilterLogsWithNullRemoteAddress() PASSED
+
+IpFilterTest > testIsLocalhost() PASSED
+
+IpFilterTest > testFilterWithWhitelistedIp() PASSED
+
+IpFilterTest > testFilterWithBlacklistedIp() PASSED
+
+IpFilterTest > testFilterWithLocalhostAllowed() PASSED
+
+IpFilterTest > testFilterWithIpFilterDisabled() PASSED
+
+AuditLogServiceTest > testLogWithNullApiKey() PASSED
+
+AuditLogServiceTest > testLogWithError() PASSED
+
+AuditLogServiceTest > testLogWithShortApiKey() PASSED
+
+AuditLogServiceTest > testLogWithValidEntry() PASSED
+
+JwtUtilTest > testValidateTokenWithNullToken() PASSED
+
+JwtUtilTest > testGetRolesFromClaimsWithRoles() PASSED
+
+JwtUtilTest > testGetRolesFromTokenWithNullToken() PASSED
+
+JwtUtilTest > testValidateTokenWithValidToken() PASSED
+
+JwtUtilTest > testGetRolesFromTokenWithRoles() PASSED
+
+JwtUtilTest > testGetRolesFromClaimsWithNull() PASSED
+
+JwtUtilTest > testGetUsernameFromTokenWithNullToken() PASSED
+
+JwtUtilTest > testGetUsernameFromToken() PASSED
+
+JwtUtilTest > testIsTokenExpiredWithInvalidToken() PASSED
+
+JwtUtilTest > testValidateTokenWithInvalidToken() PASSED
+
+JwtUtilTest > testGetUsernameFromTokenWithInvalidToken() PASSED
+
+JwtUtilTest > testIsTokenExpiredWithExpiredToken() PASSED
+
+JwtUtilTest > testValidateTokenWithExpiredToken() PASSED
+
+JwtUtilTest > testGetRolesFromTokenWithoutRoles() PASSED
+
+JwtUtilTest > testIsTokenExpiredWithValidToken() PASSED
+
+JwtUtilTest > testGetRolesFromTokenWithInvalidToken() PASSED
+
+> Task :support-services:auth-service:test
+
+PasswordPolicyValidatorTest > Null password should fail PASSED
+
+PasswordPolicyValidatorTest > Valid password should pass validation PASSED
+
+PasswordPolicyValidatorTest > 11-character password should fail (below 12 minimum) PASSED
+
+PasswordPolicyValidatorTest > Password without digit should fail PASSED
+
+PasswordPolicyValidatorTest > Password without special character should fail PASSED
+
+PasswordPolicyValidatorTest > Password without uppercase should fail PASSED
+
+PasswordPolicyValidatorTest > Empty password should fail PASSED
+
+PasswordPolicyValidatorTest > Password without lowercase should fail PASSED
+
+Java HotSpot(TM) 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+> Task :core-services:template-service:jacocoTestReport
+
+> Task :support-services:auth-service:test
+
+JwtBlacklistServiceTest > Blacklist all user tokens should blacklist each token PASSED
+
+JwtBlacklistServiceTest > Non-blacklisted token should return false PASSED
+
+JwtBlacklistServiceTest > Register user token should add to set PASSED
+
+JwtBlacklistServiceTest > Blacklist token should store in Redis PASSED
+
+JwtBlacklistServiceTest > Remove token from whitelist should remove from set PASSED
+
+JwtBlacklistServiceTest > Is blacklisted should check Redis PASSED
+
+Java HotSpot(TM) 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+
+> Task :support-services:auth-service:test
+
+TokenServiceTest > Access token and refresh token should be different PASSED
+
+TokenServiceTest > Extract all claims should return proper claims PASSED
+
+TokenServiceTest > Valid token should pass validation PASSED
+
+TokenServiceTest > Token should not be expired immediately after generation PASSED
+
+TokenServiceTest > Refresh token should be usable to get new access token PASSED
+
+TokenServiceTest > Generate refresh token should create valid JWT PASSED
+
+TokenServiceTest > Invalid refresh token should throw exception PASSED
+
+TokenServiceTest > Generate access token should create valid JWT PASSED
+
+AccountLockoutServiceTest > Is locked should return false initially PASSED
+
+AccountLockoutServiceTest > Get remaining attempts should return correct count PASSED
+
+AccountLockoutServiceTest > Account should be locked after max failed attempts PASSED
+
+AccountLockoutServiceTest > Get remaining lock time should return 0 when not locked PASSED
+
+AccountLockoutServiceTest > Reset failed attempts should clear counter PASSED
+
+AccountLockoutServiceTest > Record failed attempt should increment counter PASSED
+
+> Task :support-services:admin-service:test
+
+PasswordStrengthServiceTest > testValidatePassword_MissingSpecialChar() PASSED
+
+PasswordStrengthServiceTest > testValidatePassword_MissingDigit() PASSED
+
+PasswordStrengthServiceTest > testValidatePassword_MissingLowercase() PASSED
+
+PasswordStrengthServiceTest > testValidatePassword_WeakPassword() PASSED
+
+PasswordStrengthServiceTest > testValidatePassword_EmptyPassword() PASSED
+
+PasswordStrengthServiceTest > testValidatePassword_NullPassword() PASSED
+
+PasswordStrengthServiceTest > testValidatePassword_TooLong() PASSED
+
+PasswordStrengthServiceTest > testValidatePassword_MissingUppercase() PASSED
+
+PasswordStrengthServiceTest > testValidatePassword_StrongPassword() PASSED
+
+PasswordStrengthServiceTest > testValidatePassword_TooShort() PASSED
+
+PasswordStrengthServiceTest > testGetPasswordImprovementSuggestions_StrongPassword() PASSED
+
+PasswordStrengthServiceTest > testGetPasswordImprovementSuggestions() PASSED
+
+Java HotSpot(TM) 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+Java HotSpot(TM) 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+Java HotSpot(TM) 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+
+> Task :support-services:auth-service:test
+
+MFAServiceTest > Generate MFA secret should return non-null secret PASSED
+
+MFAServiceTest > Validate MFA session should return false for null session PASSED
+
+MFAServiceTest > Validate MFA session should return false for empty session PASSED
+
+MFAServiceTest > Regenerate recovery code should return new code and update user PASSED
+
+MFAServiceTest > Validate MFA session should return true for valid session PASSED
+
+MFAServiceTest > Generate QR code URL should return non-null URL PASSED
+
+MFAServiceTest > Create MFA session should return unique session ID PASSED
+
+UserDetailsServiceImplTest > testLoadUserByUsername_Success() PASSED
+
+UserDetailsServiceImplTest > testLoadUserByUsername_UserNotFound() PASSED
+
+Java HotSpot(TM) 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+
+> Task :support-services:registry-service:test
+
+ServiceRegistryControllerTest > testIsServiceHealthyReturnsFalse() PASSED
+
+ServiceRegistryControllerTest > testGetAllServicesHealthReturnsSuccess() PASSED
+
+ServiceRegistryControllerTest > testGetServiceInstancesReturnsSuccess() PASSED
+
+ServiceRegistryControllerTest > testGetAllServicesReturnsEmptyList() PASSED
+
+ServiceRegistryControllerTest > testGetServiceInfoReturnsSuccess() PASSED
+
+ServiceRegistryControllerTest > testGetAllServicesReturnsSuccess() PASSED
+
+ServiceRegistryControllerTest > testIsServiceHealthyReturnsTrue() PASSED
+
+> Task :support-services:report-service:test
+
+ReportServiceImplTest > testGetReportContent() PASSED
+
+ReportServiceImplTest > testGetReportStatistics() PASSED
+
+ReportServiceImplTest > testGetReportById() PASSED
+
+ReportServiceImplTest > testQueryReports() PASSED
+
+ReportServiceImplTest > testExportReport() PASSED
+
+ReportServiceImplTest > testGetReportContentNotFound() PASSED
+
+ReportServiceImplTest > testDeleteReport() PASSED
+
+ReportServiceImplTest > testGetReportByIdNotFound() PASSED
+
+ReportServiceImplTest > testGenerateReport() PASSED
+
+ReportServiceImplTest > testDeleteReportNotFound() PASSED
+
+> Task :support-services:finance-service:test
+
+FinanceVoucherServiceImplTest > testGetFinanceVoucherByIdNotFound() PASSED
+
+FinanceVoucherServiceImplTest > testUpdateFinanceVoucher() PASSED
+
+FinanceVoucherServiceImplTest > testUpdateFinanceVoucherNotFound() PASSED
+
+FinanceVoucherServiceImplTest > testCreateFinanceVoucher() PASSED
+
+FinanceVoucherServiceImplTest > testDeleteFinanceVoucher() PASSED
+
+FinanceVoucherServiceImplTest > testGetFinanceVoucherById() PASSED
+
+FinanceVoucherServiceImplTest > testGetAllFinanceVouchers() PASSED
+
+Java HotSpot(TM) 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+Java HotSpot(TM) 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+
+> Task :support-services:report-service:test
+
+FinancialReportServiceTest > testGenerateFinancialReportWithRealData() PASSED
+
+FinancialReportServiceTest > testGenerateFinancialReport() PASSED
+
+> Task :support-services:gateway-service:test
+
+ApiKeyFilterTest > testGetOrder() PASSED
+
+ApiKeyFilterTest > testFilterWithMissingApiKey() PASSED
+
+ApiKeyFilterTest > testFilterWithInvalidApiKey() PASSED
+
+ApiKeyFilterTest > testFilterWithValidApiKeyInHeader() PASSED
+
+ApiKeyFilterTest > testFilterWithApiKeyInQueryParam() PASSED
+
+AuthorizationFilterTest > testFilterWithInvalidBearerToken() PASSED
+
+AuthorizationFilterTest > testGetOrder() PASSED
+
+AuthorizationFilterTest > testFilterWithNonBearerAuthorization() PASSED
+
+AuthorizationFilterTest > testFilterWithPublicPath() PASSED
+
+AuthorizationFilterTest > testFilterWithMissingAuthorizationHeader() PASSED
+
+AuthorizationFilterTest > testFilterWithWhitelistedPath() PASSED
+
+AuthorizationFilterTest > testFilterWithOAuthPath() PASSED
+
+ApiKeyServiceTest > testIsValidApiKeyWithInvalidKey() PASSED
+
+ApiKeyServiceTest > testIsWhitelistedPathWithNonWhitelistedPath() PASSED
+
+ApiKeyServiceTest > testIsWhitelistedPathWithActuatorHealthPath() PASSED
+
+ApiKeyServiceTest > testIsWhitelistedPathWithHealthPath() PASSED
+
+ApiKeyServiceTest > testIsWhitelistedPathWithPublicPath() PASSED
+
+ApiKeyServiceTest > testIsValidApiKeyWithPredefinedKey() PASSED
+
+ApiKeyServiceTest > testAddAndRemoveApiKey() PASSED
+
+AuthServiceTest > testIsTokenExpiredTrue() PASSED
+
+AuthServiceTest > testGetRolesFromTokenEmptyRoles() PASSED
+
+AuthServiceTest > testGetRolesFromTokenValid() PASSED
+
+AuthServiceTest > testGetUsernameFromToken() PASSED
+
+AuthServiceTest > testGetRolesFromTokenInvalid() PASSED
+
+AuthServiceTest > testIsTokenExpiredFalse() PASSED
+
+AuthServiceTest > testValidateTokenValid() PASSED
+
+AuthServiceTest > testValidateTokenInvalid() PASSED
+
+AuthServiceTest > testGetUsernameFromTokenFailure() PASSED
+Java HotSpot(TM) 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+
+> Task :core-services:datasource-service:test
+
+Datasource API Contract Tests > 楠岃瘉鑾峰彇鏁版嵁婧愯鎯?API 濂戠害 PASSED
+
+Datasource API Contract Tests > 楠岃瘉鍒涘缓鏁版嵁婧?API 濂戠害 PASSED
+
+DashboardController Unit Tests > getHealthOverview() endpoint tests > should return UNKNOWN status when no connection status exists PASSED
+
+DashboardController Unit Tests > getHealthOverview() endpoint tests > should return health overview successfully PASSED
+
+DashboardController Unit Tests > getHealthOverview() endpoint tests > should return multiple datasources with different statuses PASSED
+
+DashboardController Unit Tests > getDashboardStats() endpoint tests > should return dashboard stats successfully PASSED
+
+DashboardController Unit Tests > getDashboardStats() endpoint tests > should return zero stats when no datasources exist PASSED
+
+DashboardController Unit Tests > getDashboardStats() endpoint tests > should calculate correct success rate PASSED
+
+PluginRegistryTest > getAllPluginInfo() method tests > should return empty list when no plugins registered PASSED
+
+PluginRegistryTest > getAllPluginInfo() method tests > should return all plugin info PASSED
+
+PluginRegistryTest > getPluginInfo() method tests > should return plugin info when plugin exists PASSED
+
+PluginRegistryTest > getPluginInfo() method tests > should return empty map when plugin not found PASSED
+
+PluginRegistryTest > isSupported() method tests > should return false when type is not supported PASSED
+
+PluginRegistryTest > isSupported() method tests > should return true when type is supported PASSED
+
+PluginRegistryTest > getSupportedTypes() method tests > should return all supported types PASSED
+
+PluginRegistryTest > getSupportedTypes() method tests > should return empty list when no plugins registered PASSED
+
+PluginRegistryTest > getAllPlugins() method tests > should return all registered plugins PASSED
+
+PluginRegistryTest > getAllPlugins() method tests > should return empty list when no plugins registered PASSED
+
+PluginRegistryTest > getRequiredPlugin() method tests > should throw exception when plugin not found PASSED
+
+PluginRegistryTest > getRequiredPlugin() method tests > should return plugin when exists PASSED
+
+PluginRegistryTest > getPlugin() method tests > should return empty when plugin not found PASSED
+
+PluginRegistryTest > getPlugin() method tests > should return plugin when exists PASSED
+
+PluginRegistryTest > registerPlugin() method tests > should overwrite existing plugin for same type PASSED
+
+PluginRegistryTest > registerPlugin() method tests > should register multiple plugins PASSED
+
+PluginRegistryTest > registerPlugin() method tests > should register plugin successfully PASSED
+
+ElasticsearchDataSourcePlugin Unit Tests > discoverMetadata() method tests > should throw exception when connection fails PASSED
+
+ElasticsearchDataSourcePlugin Unit Tests > detectVersion() method tests > should return null when connection fails PASSED
+
+ElasticsearchDataSourcePlugin Unit Tests > testConnection() method tests > should return failure result when connection fails PASSED
+
+ElasticsearchDataSourcePlugin Unit Tests > diagnoseError() method tests > should diagnose forbidden error PASSED
+
+ElasticsearchDataSourcePlugin Unit Tests > diagnoseError() method tests > should return generic suggestions for unknown error PASSED
+
+ElasticsearchDataSourcePlugin Unit Tests > diagnoseError() method tests > should diagnose connection refused error PASSED
+
+ElasticsearchDataSourcePlugin Unit Tests > diagnoseError() method tests > should diagnose authentication error PASSED
+
+ElasticsearchDataSourcePlugin Unit Tests > diagnoseError() method tests > should diagnose SSL error PASSED
+
+ElasticsearchDataSourcePlugin Unit Tests > getConfigFields() method tests > should return all required config fields PASSED
+
+ElasticsearchDataSourcePlugin Unit Tests > getConfigFields() method tests > should have correct field properties for host PASSED
+
+ElasticsearchDataSourcePlugin Unit Tests > getConfigFields() method tests > should have correct field properties for port PASSED
+
+ElasticsearchDataSourcePlugin Unit Tests > getConfigFields() method tests > should have useSSL field with correct type PASSED
+
+ElasticsearchDataSourcePlugin Unit Tests > getDefaultConfig() method tests > should return default configuration values PASSED
+
+ElasticsearchDataSourcePlugin Unit Tests > Plugin metadata tests > should return correct plugin name PASSED
+
+ElasticsearchDataSourcePlugin Unit Tests > Plugin metadata tests > should return supported versions PASSED
+
+ElasticsearchDataSourcePlugin Unit Tests > Plugin metadata tests > should return correct plugin version PASSED
+
+ElasticsearchDataSourcePlugin Unit Tests > Plugin metadata tests > should return correct supported type PASSED
+
+KuduDataSourcePlugin Unit Tests > discoverMetadata() method tests > should throw exception when connection fails PASSED
+
+KuduDataSourcePlugin Unit Tests > detectVersion() method tests > should return Unknown when connection fails PASSED
+
+KuduDataSourcePlugin Unit Tests > testConnection() method tests > should return failure result when connection fails PASSED
+
+KuduDataSourcePlugin Unit Tests > diagnoseError() method tests > should diagnose network error PASSED
+
+KuduDataSourcePlugin Unit Tests > diagnoseError() method tests > should diagnose timeout error PASSED
+
+KuduDataSourcePlugin Unit Tests > diagnoseError() method tests > should return generic suggestions for unknown error PASSED
+
+KuduDataSourcePlugin Unit Tests > diagnoseError() method tests > should diagnose connection refused error PASSED
+
+KuduDataSourcePlugin Unit Tests > diagnoseError() method tests > should diagnose tablet server error PASSED
+
+KuduDataSourcePlugin Unit Tests > getConfigFields() method tests > should return all required config fields PASSED
+
+KuduDataSourcePlugin Unit Tests > getConfigFields() method tests > should have correct field properties for host PASSED
+
+KuduDataSourcePlugin Unit Tests > getConfigFields() method tests > should have correct field properties for port PASSED
+
+KuduDataSourcePlugin Unit Tests > getConfigFields() method tests > should have timeout configuration fields PASSED
+
+KuduDataSourcePlugin Unit Tests > getDefaultConfig() method tests > should return default configuration values PASSED
+
+KuduDataSourcePlugin Unit Tests > Plugin metadata tests > should return correct plugin name PASSED
+
+KuduDataSourcePlugin Unit Tests > Plugin metadata tests > should return supported versions PASSED
+
+KuduDataSourcePlugin Unit Tests > Plugin metadata tests > should return correct plugin version PASSED
+
+KuduDataSourcePlugin Unit Tests > Plugin metadata tests > should return correct supported type PASSED
+
+MySQLDataSourcePlugin Unit Tests > discoverMetadata() method tests > should throw exception when connection fails PASSED
+
+MySQLDataSourcePlugin Unit Tests > detectVersion() method tests > should return null when connection fails PASSED
+
+MySQLDataSourcePlugin Unit Tests > testConnection() method tests > should return failure result when connection fails PASSED
+
+MySQLDataSourcePlugin Unit Tests > getDriverClassName() method tests > should return correct driver class name PASSED
+
+MySQLDataSourcePlugin Unit Tests > diagnoseError() method tests > should diagnose public key retrieval error PASSED
+
+MySQLDataSourcePlugin Unit Tests > diagnoseError() method tests > should return generic suggestions for unknown error PASSED
+
+MySQLDataSourcePlugin Unit Tests > diagnoseError() method tests > should diagnose connection refused error PASSED
+
+MySQLDataSourcePlugin Unit Tests > diagnoseError() method tests > should diagnose access denied error PASSED
+
+MySQLDataSourcePlugin Unit Tests > diagnoseError() method tests > should diagnose SSL connection error PASSED
+
+MySQLDataSourcePlugin Unit Tests > diagnoseError() method tests > should diagnose unknown database error PASSED
+
+MySQLDataSourcePlugin Unit Tests > getConfigFields() method tests > should have password field with correct type PASSED
+
+MySQLDataSourcePlugin Unit Tests > getConfigFields() method tests > should return all required config fields PASSED
+
+MySQLDataSourcePlugin Unit Tests > getConfigFields() method tests > should have select options for charset field PASSED
+
+MySQLDataSourcePlugin Unit Tests > getConfigFields() method tests > should have correct field properties for host PASSED
+
+MySQLDataSourcePlugin Unit Tests > getConfigFields() method tests > should have correct field properties for port PASSED
+
+MySQLDataSourcePlugin Unit Tests > getDefaultConfig() method tests > should return default configuration values PASSED
+
+MySQLDataSourcePlugin Unit Tests > buildJdbcUrl() method tests > should include custom host and port PASSED
+
+MySQLDataSourcePlugin Unit Tests > buildJdbcUrl() method tests > should build correct JDBC URL with database name PASSED
+
+MySQLDataSourcePlugin Unit Tests > buildJdbcUrl() method tests > should build JDBC URL with empty database when null PASSED
+
+MySQLDataSourcePlugin Unit Tests > Plugin metadata tests > should return correct plugin name PASSED
+
+MySQLDataSourcePlugin Unit Tests > Plugin metadata tests > should return supported versions PASSED
+
+MySQLDataSourcePlugin Unit Tests > Plugin metadata tests > should return correct plugin version PASSED
+
+MySQLDataSourcePlugin Unit Tests > Plugin metadata tests > should return correct supported type PASSED
+
+PostgreSQLDataSourcePlugin Unit Tests > discoverMetadata() method tests > should throw exception when connection fails PASSED
+
+PostgreSQLDataSourcePlugin Unit Tests > detectVersion() method tests > should return null when connection fails PASSED
+
+PostgreSQLDataSourcePlugin Unit Tests > testConnection() method tests > should return failure result when connection fails PASSED
+
+PostgreSQLDataSourcePlugin Unit Tests > getDriverClassName() method tests > should return correct driver class name PASSED
+
+PostgreSQLDataSourcePlugin Unit Tests > diagnoseError() method tests > should diagnose database does not exist error PASSED
+
+PostgreSQLDataSourcePlugin Unit Tests > diagnoseError() method tests > should return generic suggestions for unknown error PASSED
+
+PostgreSQLDataSourcePlugin Unit Tests > diagnoseError() method tests > should diagnose connection refused error PASSED
+
+PostgreSQLDataSourcePlugin Unit Tests > diagnoseError() method tests > should diagnose SSL error PASSED
+
+PostgreSQLDataSourcePlugin Unit Tests > diagnoseError() method tests > should diagnose authentication failed error PASSED
+
+PostgreSQLDataSourcePlugin Unit Tests > getConfigFields() method tests > should return all required config fields PASSED
+
+PostgreSQLDataSourcePlugin Unit Tests > getConfigFields() method tests > should have schema field with correct default PASSED
+
+PostgreSQLDataSourcePlugin Unit Tests > getConfigFields() method tests > should have correct field properties for host PASSED
+
+PostgreSQLDataSourcePlugin Unit Tests > getConfigFields() method tests > should have correct field properties for port PASSED
+
+PostgreSQLDataSourcePlugin Unit Tests > getDefaultConfig() method tests > should return default configuration values PASSED
+
+PostgreSQLDataSourcePlugin Unit Tests > buildJdbcUrl() method tests > should include custom host and port PASSED
+
+PostgreSQLDataSourcePlugin Unit Tests > buildJdbcUrl() method tests > should build correct JDBC URL with database name PASSED
+
+PostgreSQLDataSourcePlugin Unit Tests > buildJdbcUrl() method tests > should build JDBC URL with empty database when null PASSED
+
+PostgreSQLDataSourcePlugin Unit Tests > Plugin metadata tests > should return correct plugin name PASSED
+
+PostgreSQLDataSourcePlugin Unit Tests > Plugin metadata tests > should return supported versions PASSED
+
+PostgreSQLDataSourcePlugin Unit Tests > Plugin metadata tests > should return correct plugin version PASSED
+
+PostgreSQLDataSourcePlugin Unit Tests > Plugin metadata tests > should return correct supported type PASSED
+
+ConnectionTestService Unit Tests > Should throw exception when datasource not found PASSED
+
+ConnectionTestService Unit Tests > Should send alert when connection test fails PASSED
+
+DatasourceConfigService Unit Tests > getConfigSchema() method tests > should throw exception for unsupported type PASSED
+
+DatasourceConfigService Unit Tests > getConfigSchema() method tests > should return config schema for valid type PASSED
+
+DatasourceConfigService Unit Tests > listByType() method tests > should return empty list when no datasources of type PASSED
+
+DatasourceConfigService Unit Tests > listByType() method tests > should return datasources filtered by type PASSED
+
+DatasourceConfigService Unit Tests > listDatasources() method tests > should return paginated list of datasources PASSED
+
+DatasourceConfigService Unit Tests > listDatasources() method tests > should return empty list when no datasources PASSED
+
+DatasourceConfigService Unit Tests > getDatasource() method tests > should return datasource when found PASSED
+
+DatasourceConfigService Unit Tests > getDatasource() method tests > should throw exception when datasource not found PASSED
+
+DatasourceConfigService Unit Tests > deleteDatasource() method tests > should throw exception when deleting non-existent datasource PASSED
+
+DatasourceConfigService Unit Tests > deleteDatasource() method tests > should soft delete datasource successfully PASSED
+
+DatasourceConfigService Unit Tests > updateDatasource() method tests > should not update password when null PASSED
+
+DatasourceConfigService Unit Tests > updateDatasource() method tests > should update datasource successfully PASSED
+
+DatasourceConfigService Unit Tests > updateDatasource() method tests > should throw exception when datasource not found PASSED
+
+DatasourceConfigService Unit Tests > updateDatasource() method tests > should not update password when empty PASSED
+
+DatasourceConfigService Unit Tests > createDatasource() method tests > should create datasource successfully PASSED
+
+DatasourceConfigService Unit Tests > createDatasource() method tests > should throw exception when datasource name already exists PASSED
+
+DatasourceConfigService Unit Tests > createDatasource() method tests > should set tenantId from context PASSED
+
+DatasourceConfigService Unit Tests > createDatasource() method tests > should set default status to ACTIVE PASSED
+
+UserContext Unit Tests > getUserAgent() method tests > should return user agent from header PASSED
+
+UserContext Unit Tests > getUserAgent() method tests > should return null when no request attributes PASSED
+
+UserContext Unit Tests > getClientIp() method tests > should return remote address when headers are empty PASSED
+
+UserContext Unit Tests > getClientIp() method tests > should return IP from X-Real-IP header when X-Forwarded-For is empty PASSED
+
+UserContext Unit Tests > getClientIp() method tests > should return unknown when no request attributes PASSED
+
+UserContext Unit Tests > getClientIp() method tests > should skip unknown value in X-Forwarded-For PASSED
+
+UserContext Unit Tests > getClientIp() method tests > should return first IP from comma-separated X-Forwarded-For PASSED
+
+UserContext Unit Tests > getClientIp() method tests > should return IP from X-Forwarded-For header PASSED
+
+UserContext Unit Tests > getCurrentUsername() method tests > should return default when no request attributes PASSED
+
+UserContext Unit Tests > getCurrentUsername() method tests > should return username from header PASSED
+
+UserContext Unit Tests > getCurrentUserId() method tests > should return default when header is empty PASSED
+
+UserContext Unit Tests > getCurrentUserId() method tests > should return default when no request attributes PASSED
+
+UserContext Unit Tests > getCurrentUserId() method tests > should return user id from header PASSED
+
+UserContext Unit Tests > getCurrentUserId() method tests > should return default when header is null PASSED
+
+> Task :core-services:datasource-service:jacocoTestReport
+
+BUILD SUCCESSFUL in 9m 6s
+163 actionable tasks: 26 executed, 137 up-to-date

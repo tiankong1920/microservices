@@ -1,0 +1,61 @@
+---
+# Spring应用基础配置
+spring:
+  # 应用信息配置
+  application:
+    # 应用名称
+    # 功能描述：定义应用的唯一标识，用于服务发现和配置管理
+    # 允许取值范围：任意字符串
+    # 默认值：supplier-service
+    # 注意事项：服务名称需唯一
+    # 修改记录：
+    # - 2025-12-28 架构师团队：初始配置
+    name: supplier-service
+  
+  # 配置引用机制
+  # 功能描述：引用公共配置模块，实现配置的层次化管理
+  # 允许取值范围：有效的配置文件路径
+  # 默认值：无
+  # 注意事项：使用optional:前缀允许配置文件不存在
+  # 修改记录：
+  # - 2025-12-28 架构师团队：添加公共配置引用
+  config:
+    import:
+      - optional:classpath:/config-modules/nacos-common.yml
+      - optional:classpath:/config-modules/monitoring-common.yml
+      - optional:classpath:/config-modules/logging-common.yml
+  
+  # Spring Cloud配置
+  cloud:
+    # Nacos配置
+    nacos:
+      # 服务发现配置
+      discovery:
+        # 服务分组
+        # 功能描述：指定服务所属的分组
+        # 允许取值范围：任意字符串
+        # 默认值：core-supplier-management
+        # 注意事项：按业务域划分服务分组
+        # 修改记录：
+        # - 2025-12-28 架构师团队：初始配置
+        group: core-supplier-management
+      
+      # 配置中心配置
+      config:
+        # 配置分组
+        # 功能描述：指定配置所属的分组
+        # 允许取值范围：任意字符串
+        # 默认值：core-supplier-management
+        # 注意事项：与discovery.group保持一致
+        group: core-supplier-management
+
+# 服务器配置
+server:
+  # 服务端口
+  # 功能描述：指定服务监听的端口
+  # 允许取值范围：1~65535
+  # 默认值：8080
+  # 注意事项：需确保端口不被占用
+  # 修改记录：
+  # - 2025-12-28 架构师团队：初始配置
+  port: 8080

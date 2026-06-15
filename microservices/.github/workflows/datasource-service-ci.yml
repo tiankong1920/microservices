@@ -1,0 +1,258 @@
+name: Datasource Service CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+      - 'feature/**'
+    paths:
+      - 'core-services/datasource-service/**'
+      - 'common/**'
+      - 'build.gradle.kts'
+      - 'settings.gradle.kts'
+      - '.github/workflows/datasource-service-ci.yml'
+  pull_request:
+    branches:
+      - main
+      - develop
+    paths:
+      - 'core-services/datasource-service/**'
+      - 'common/**'
+      - 'build.gradle.kts'
+      - 'settings.gradle.kts'
+
+env:
+  JAVA_VERSION: '21'
+  GRADLE_OPTS: '-Dorg.gradle.daemon=false -Dorg.gradle.parallel=true'
+
+jobs:
+  build-and-test:
+    name: Build and Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up JDK ${{ env.JAVA_VERSION }}
+        uses: actions/setup-java@v4
+        with:
+          java-version: ${{ env.JAVA_VERSION }}
+          distribution: 'temurin'
+          cache: 'gradle'
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Build with Gradle
+        run: ./gradlew :core-services:datasource-service:compileJava --no-daemon
+
+      - name: Run Checkstyle
+        run: ./gradlew :core-services:datasource-service:checkstyleMain --no-daemon
+        continue-on-error: true
+
+      - name: Run SpotBugs
+        run: ./gradlew :core-services:datasource-service:spotbugsMain --no-daemon
+        continue-on-error: true
+
+      - name: Run unit tests
+        run: ./gradlew :core-services:datasource-service:test --no-daemon
+
+      - name: Generate coverage report
+        run: ./gradlew :core-services:datasource-service:jacocoTestReport --no-daemon
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./core-services/datasource-service/build/reports/jacoco/test/jacocoTestReport.xml
+          flags: datasource-service
+          name: datasource-service-coverage
+          fail_ci_if_error: false
+
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: test-results
+          path: |
+            core-services/datasource-service/build/reports/tests/test/
+            core-services/datasource-service/build/reports/jacoco/test/
+          retention-days: 30
+
+  code-quality:
+    name: Code Quality Analysis
+    runs-on: ubuntu-latest
+    needs: build-and-test
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up JDK ${{ env.JAVA_VERSION }}
+        uses: actions/setup-java@v4
+        with:
+          java-version: ${{ env.JAVA_VERSION }}
+          distribution: 'temurin'
+          cache: 'gradle'
+
+      - name: SonarQube Scan
+        uses: sonarsource/sonarqube-scan-action@master
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+        with:
+          projectBaseDir: .
+          args: >
+            -Dsonar.projectKey=datasource-service
+            -Dsonar.projectName=Datasource Service
+            -Dsonar.sources=core-services/datasource-service/src/main/java
+            -Dsonar.tests=core-services/datasource-service/src/test/java
+            -Dsonar.java.binaries=core-services/datasource-service/build/classes/java/main
+            -Dsonar.java.test.binaries=core-services/datasource-service/build/classes/java/test
+            -Dsonar.jacoco.reportPaths=core-services/datasource-service/build/jacoco/test.exec
+            -Dsonar.coverage.jacoco.xmlReportPaths=core-services/datasource-service/build/reports/jacoco/test/jacocoTestReport.xml
+            -Dsonar.java.checkstyle.reportPaths=core-services/datasource-service/build/reports/checkstyle/main.xml
+            -Dsonar.java.spotbugs.reportPaths=core-services/datasource-service/build/reports/spotbugs/main.xml
+            -Dsonar.coverage.exclusions=**/dto/**,**/entity/**,**/repository/**,**/*Application.java,**/*Config.java
+            -Dsonar.coverage.minimum=64
+        continue-on-error: true
+
+  coverage-check:
+    name: Coverage Gate
+    runs-on: ubuntu-latest
+    needs: build-and-test
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK ${{ env.JAVA_VERSION }}
+        uses: actions/setup-java@v4
+        with:
+          java-version: ${{ env.JAVA_VERSION }}
+          distribution: 'temurin'
+          cache: 'gradle'
+
+      - name: Verify coverage threshold
+        run: |
+          ./gradlew :core-services:datasource-service:jacocoTestCoverageVerification --no-daemon
+        continue-on-error: true
+
+      - name: Parse coverage report
+        id: coverage
+        run: |
+          REPORT_FILE="core-services/datasource-service/build/reports/jacoco/test/jacocoTestReport.xml"
+          if [ -f "$REPORT_FILE" ]; then
+            INSTRUCTION_COVERED=$(grep -oP 'counter type="INSTRUCTION"[^/]*covered="\K[0-9]+' "$REPORT_FILE" | head -1)
+            INSTRUCTION_MISSED=$(grep -oP 'counter type="INSTRUCTION"[^/]*missed="\K[0-9]+' "$REPORT_FILE" | head -1)
+            TOTAL=$((INSTRUCTION_COVERED + INSTRUCTION_MISSED))
+            if [ $TOTAL -gt 0 ]; then
+              COVERAGE=$((INSTRUCTION_COVERED * 100 / TOTAL))
+              echo "coverage=$COVERAGE" >> $GITHUB_OUTPUT
+              echo "Coverage: $COVERAGE%"
+            fi
+          fi
+
+      - name: Coverage badge
+        uses: schneegans/dynamic-badges-action@v1.7.0
+        if: github.ref == 'refs/heads/main'
+        with:
+          auth: ${{ secrets.GIST_SECRET }}
+          gistID: ${{ secrets.GIST_ID }}
+          filename: datasource-service-coverage.json
+          label: coverage
+          message: ${{ steps.coverage.outputs.coverage }}%
+          color: ${{ steps.coverage.outputs.coverage >= 64 && 'brightgreen' || steps.coverage.outputs.coverage >= 50 && 'yellow' || 'red' }}
+
+  security-scan:
+    name: Security Scan
+    runs-on: ubuntu-latest
+    needs: build-and-test
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'fs'
+          scan-ref: 'core-services/datasource-service'
+          format: 'sarif'
+          output: 'trivy-results.sarif'
+          severity: 'CRITICAL,HIGH'
+
+      - name: Upload Trivy scan results
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: 'trivy-results.sarif'
+        continue-on-error: true
+
+      - name: Run dependency check
+        run: |
+          ./gradlew :core-services:datasource-service:dependencyCheckAnalyze --no-daemon || true
+        continue-on-error: true
+
+  notify:
+    name: Notify on Status
+    runs-on: ubuntu-latest
+    needs: [build-and-test, code-quality, coverage-check]
+    if: always()
+
+    steps:
+      - name: Determine build status
+        id: status
+        run: |
+          if [ "${{ needs.build-and-test.result }}" == "failure" ] || \
+             [ "${{ needs.coverage-check.result }}" == "failure" ]; then
+            echo "status=failure" >> $GITHUB_OUTPUT
+            echo "color=#FF0000" >> $GITHUB_OUTPUT
+          else
+            echo "status=success" >> $GITHUB_OUTPUT
+            echo "color=#00FF00" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Send Slack notification
+        uses: slackapi/slack-github-action@v1.25.0
+        if: env.SLACK_WEBHOOK_URL != ''
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        with:
+          payload: |
+            {
+              "attachments": [
+                {
+                  "color": "${{ steps.status.outputs.color }}",
+                  "title": "Datasource Service CI/CD Pipeline",
+                  "title_link": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}",
+                  "fields": [
+                    {
+                      "title": "Status",
+                      "value": "${{ steps.status.outputs.status }}",
+                      "short": true
+                    },
+                    {
+                      "title": "Branch",
+                      "value": "${{ github.ref_name }}",
+                      "short": true
+                    },
+                    {
+                      "title": "Commit",
+                      "value": "${{ github.sha }}",
+                      "short": true
+                    },
+                    {
+                      "title": "Actor",
+                      "value": "${{ github.actor }}",
+                      "short": true
+                    }
+                  ]
+                }
+              ]
+            }

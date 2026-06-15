@@ -1,0 +1,15 @@
+server:
+  port: 8080
+  ssl:
+    enabled: false
+
+spring.cloud.nacos:
+  discovery:
+    server-addr: ${NACOS_HOST:localhost}:${NACOS_PORT:8848}
+  config:
+    server-addr: ${NACOS_HOST:localhost}:${NACOS_PORT:8848}
+
+spring.data.redis:
+  host: ${REDIS_HOST:localhost}
+  port: ${REDIS_PORT:6379}
+  password: ${REDIS_PASSWORD:}

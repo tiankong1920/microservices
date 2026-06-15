@@ -1,0 +1,283 @@
+
+> web-frontend@0.0.0 test
+> vitest run
+
+
+ RUN  v4.1.2 E:/101/web-frontend
+
+ 鉂?src/pages/__tests__/ProductManagement.test.tsx (3 tests | 1 failed) 4317ms
+     脳 搴旇鏄剧ず鏂板鍟嗗搧鎸夐挳 1408ms
+
+鈳幆鈳幆鈳幆鈳?Failed Tests 1 鈳幆鈳幆鈳幆鈳?
+ FAIL  src/pages/__tests__/ProductManagement.test.tsx > ProductManagement > 搴旇鏄剧ず鏂板鍟嗗搧鎸夐挳
+TestingLibraryElementError: Unable to find an element with the text: 鍟嗗搧绠＄悊. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+
+Ignored nodes: comments, script, style
+<body>
+  <div>
+    <div
+      class="MuiBox-root css-0"
+    >
+      <div
+        class="MuiBox-root css-v08z5u"
+      >
+        <h4
+          class="MuiTypography-root MuiTypography-h4 MuiTypography-gutterBottom css-1it4a80-MuiTypography-root"
+        >
+          浜у搧绠＄悊
+        </h4>
+        <div
+          class="MuiBox-root css-huskxe"
+        >
+          <button
+            class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary css-74d805-MuiButtonBase-root-MuiButton-root"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="MuiButton-icon MuiButton-startIcon MuiButton-iconSizeMedium css-1sh91j5-MuiButton-startIcon"
+            >
+              <svg
+                aria-hidden="true"
+                class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1umw9bq-MuiSvgIcon-root"
+                data-testid="AddIcon"
+                focusable="false"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z"
+                />
+              </svg>
+            </span>
+            鏂板浜у搧
+          </button>
+          <button
+            class="MuiButtonBase-root MuiButton-root MuiButton-outlined MuiButton-outlinedPrimary MuiButton-sizeMedium MuiButton-outlinedSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-outlined MuiButton-outlinedPrimary MuiButton-sizeMedium MuiButton-outlinedSizeMedium MuiButton-colorPrimary css-1blvszr-MuiButtonBase-root-MuiButton-root"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="MuiButton-icon MuiButton-startIcon MuiButton-iconSizeMedium css-1sh91j5-MuiButton-startIcon"
+            >
+              <svg
+                aria-hidden="true"
+                class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1umw9bq-MuiSvgIcon-root"
+                data-testid="DownloadIcon"
+                focusable="false"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M5 20h14v-2H5zM19 9h-4V3H9v6H5l7 7z"
+                />
+              </svg>
+            </span>
+            瀵煎嚭
+          </button>
+        </div>
+      </div>
+      <div
+        class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 css-14qp0y7-MuiPaper-root"
+        style="--Paper-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12);"
+      >
+        <div
+          class="MuiToolbar-root MuiToolbar-gutters MuiToolbar-regular css-1pdetez-MuiToolbar-root"
+        >
+          <div
+            class="MuiFormControl-root MuiTextField-root css-18fwyi0-MuiFormControl-root-MuiTextField-root"
+          >
+            <div
+              class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl MuiInputBase-sizeSmall MuiInputBase-adornedStart css-4bojcr-MuiInputBase-root-MuiOutlinedInput-root"
+            >
+              <svg
+                aria-hidden="true"
+                class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1umw9bq-MuiSvgIcon-root"
+                data-testid="SearchIcon"
+                focusable="false"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"
+                />
+              </svg>
+              <input
+                aria-invalid="false"
+                class="MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputSizeSmall MuiInputBase-inputAdornedStart css-1q55ijt-MuiInputBase-input-MuiOutlinedInput-input"
+                id="_r_u_"
+                placeholder="鎼滅储浜у搧鍚嶇О銆佺紪鐮佹垨鍒嗙被..."
+                type="text"
+                value=""
+              />
+              <fieldset
+                aria-hidden="true"
+                class="MuiOutlinedInput-notchedOutline css-18p5xg2-MuiNotchedOutlined-root-MuiOutlinedInput-notchedOutline"
+              >
+                <legend
+                  class="css-1nf2c5d-MuiNotchedOutlined-root"
+                >
+                  <span
+                    aria-hidden="true"
+                    class="notranslate"
+                  >
+                    鈥?[0m
+                  </span>
+                </legend>
+              </fieldset>
+            </div>
+          </div>
+          <div
+            class="MuiBox-root css-0"
+          >
+            <h6
+              class="MuiTypography-root MuiTypography-subtitle2 MuiTypography-gutterBottom css-5pffyy-MuiTypography-root"
+            >
+              鍒涘缓鏃ユ湡
+            </h6>
+            <div
+              class="MuiStack-root css-1sos3zc-MuiStack-root"
+            >
+              <div
+                class="MuiFormControl-root MuiFormControl-fullWidth MuiTextField-root css-cmpglg-MuiFormControl-root-MuiTextField-root"
+              >
+               ...
+
+Ignored nodes: comments, script, style
+<html>
+  <head>
+    <meta
+      content=""
+      name="emotion-insertion-point"
+    />
+  </head>
+  <body>
+    <div>
+      <div
+        class="MuiBox-root css-0"
+      >
+        <div
+          class="MuiBox-root css-v08z5u"
+        >
+          <h4
+            class="MuiTypography-root MuiTypography-h4 MuiTypography-gutterBottom css-1it4a80-MuiTypography-root"
+          >
+            浜у搧绠＄悊
+          </h4>
+          <div
+            class="MuiBox-root css-huskxe"
+          >
+            <button
+              class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary css-74d805-MuiButtonBase-root-MuiButton-root"
+              tabindex="0"
+              type="button"
+            >
+              <span
+                class="MuiButton-icon MuiButton-startIcon MuiButton-iconSizeMedium css-1sh91j5-MuiButton-startIcon"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1umw9bq-MuiSvgIcon-root"
+                  data-testid="AddIcon"
+                  focusable="false"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z"
+                  />
+                </svg>
+              </span>
+              鏂板浜у搧
+            </button>
+            <button
+              class="MuiButtonBase-root MuiButton-root MuiButton-outlined MuiButton-outlinedPrimary MuiButton-sizeMedium MuiButton-outlinedSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-outlined MuiButton-outlinedPrimary MuiButton-sizeMedium MuiButton-outlinedSizeMedium MuiButton-colorPrimary css-1blvszr-MuiButtonBase-root-MuiButton-root"
+              tabindex="0"
+              type="button"
+            >
+              <span
+                class="MuiButton-icon MuiButton-startIcon MuiButton-iconSizeMedium css-1sh91j5-MuiButton-startIcon"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1umw9bq-MuiSvgIcon-root"
+                  data-testid="DownloadIcon"
+                  focusable="false"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M5 20h14v-2H5zM19 9h-4V3H9v6H5l7 7z"
+                  />
+                </svg>
+              </span>
+              瀵煎嚭
+            </button>
+          </div>
+        </div>
+        <div
+          class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 css-14qp0y7-MuiPaper-root"
+          style="--Paper-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12);"
+        >
+          <div
+            class="MuiToolbar-root MuiToolbar-gutters MuiToolbar-regular css-1pdetez-MuiToolbar-root"
+          >
+            <div
+              class="MuiFormControl-root MuiTextField-root css-18fwyi0-MuiFormControl-root-MuiTextField-root"
+            >
+              <div
+                class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl MuiInputBase-sizeSmall MuiInputBase-adornedStart css-4bojcr-MuiInputBase-root-MuiOutlinedInput-root"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1umw9bq-MuiSvgIcon-root"
+                  data-testid="SearchIcon"
+                  focusable="false"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"
+                  />
+                </svg>
+                <input
+                  aria-invalid="false"
+                  class="MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputSizeSmall MuiInputBase-inputAdornedStart css-1q55ijt-MuiInputBase-input-MuiOutlinedInput-input"
+                  id="_r_u_"
+                  placeholder="鎼滅储浜у搧鍚嶇О銆佺紪鐮佹垨鍒嗙被..."
+                  type="text"
+                  value=""
+                />
+                <fieldset
+                  aria-hidden="true"
+                  class="MuiOutlinedInput-notchedOutline css-18p5xg2-MuiNotchedOutlined-root-MuiOutlinedInput-notchedOutline"
+                >
+                  <legend
+                    class="css-1nf2c5d-MuiNotchedOutlined-root"
+                  >
+                    <span
+                      aria-hidden="true"
+                      class="notranslate"
+                    >
+                      鈥?[0m
+                    </span>
+                  </legend>
+                </fieldset>
+              </div>
+            </div>
+            <div
+              class="MuiBox-root css-0"
+            >
+              <h6
+                class="MuiTypography-root MuiTypography-subtitle2 MuiTypography-gutterBottom css-5pffyy-MuiTypography-root"
+              ...
+ 鉂?Proxy.waitForWrapper node_modules/@testing-library/dom/dist/wait-for.js:163:27
+ 鉂?src/pages/__tests__/ProductManagement.test.tsx:109:11
+    107|     );
+    108|
+    109|     await waitFor(() => {
+       |           ^
+    110|       expect(screen.getByText('鍟嗗搧绠＄悊')).toBeInTheDocument();
+    111|     });
+
+鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆[1/1]鈳?
+
+ Test Files  1 failed | 9 passed (10)
+      Tests  1 failed | 36 passed (37)
+   Start at  18:53:31
+   Duration  227.73s (transform 4.56s, setup 10.46s, import 448.26s, tests 41.90s, environment 52.76s)
+

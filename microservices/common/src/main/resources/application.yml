@@ -1,0 +1,273 @@
+---
+# Spring应用基础配置
+spring:
+  # 应用信息配置
+  application:
+    # 应用名称
+    # 功能描述：定义应用的唯一标识，用于服务发现和配置管理
+    # 允许取值范围：任意字符串
+    # 默认值：common
+    # 注意事项：其他服务会覆盖此值
+    # 修改记录：
+    # - 2025-12-28 架构师团队：初始配置
+    name: ${SPRING_APPLICATION_NAME:common}
+  
+  # 配置引用机制
+  # 功能描述：引用公共配置模块，实现配置的层次化管理
+  # 允许取值范围：有效的配置文件路径
+  # 默认值：无
+  # 注意事项：使用optional:前缀允许配置文件不存在
+  # 修改记录：
+  # - 2025-12-28 架构师团队：初始配置
+  config:
+    import:
+      - optional:classpath:/config-modules/nacos-common.yml
+      - optional:classpath:/config-modules/monitoring-common.yml
+      - optional:classpath:/config-modules/logging-common.yml
+  
+  # Spring Cloud Sleuth配置
+  sleuth:
+    # Sleuth功能开关
+    # 功能描述：启用或禁用分布式链路追踪
+    # 允许取值范围：true（启用）、false（禁用）
+    # 默认值：true
+    # 注意事项：与OpenTelemetry配合使用
+    # 修改记录：
+    # - 2025-12-28 架构师团队：初始配置
+    enabled: ${SPRING_SLEUTH_ENABLED:true}
+    
+    # 采样配置
+    sampler:
+      # 采样概率
+      # 功能描述：设置链路追踪的采样比例
+      # 允许取值范围：0.0（不采样）~ 1.0（全采样）
+      # 默认值：1.0
+      # 注意事项：生产环境建议降低采样率以减少性能开销
+      # 修改记录：
+      # - 2025-12-28 架构师团队：初始配置
+      probability: ${SPRING_SLEUTH_SAMPLER_PROBABILITY:1.0}
+  
+  # OpenTelemetry配置
+  opentelemetry:
+    # OpenTelemetry功能开关
+    # 功能描述：启用或禁用OpenTelemetry分布式追踪
+    # 允许取值范围：true（启用）、false（禁用）
+    # 默认值：true
+    # 注意事项：与Sleuth配合使用
+    # 修改记录：
+    # - 2025-12-28 架构师团队：初始配置
+    enabled: ${SPRING_OPENTELEMETRY_ENABLED:true}
+    
+    # 导出器配置
+    exporter:
+      # Jaeger导出器配置
+      jaeger:
+        # Jaeger服务端点
+        # 功能描述：指定Jaeger服务器的地址
+        # 允许取值范围：有效的HTTP/HTTPS URL
+        # 默认值：http://localhost:14250
+        # 注意事项：需与实际部署的Jaeger服务地址一致
+        # 修改记录：
+        # - 2025-12-28 架构师团队：初始配置
+        endpoint: ${SPRING_OPENTELEMETRY_EXPORTER_JAEGER_ENDPOINT:http://localhost:14250}
+        
+        # TLS配置
+        tls:
+          # TLS启用开关
+          # 功能描述：是否启用TLS加密
+          # 允许取值范围：true（启用）、false（禁用）
+          # 默认值：false
+          # 注意事项：生产环境建议启用
+          # 修改记录：
+          # - 2025-12-28 架构师团队：初始配置
+          enabled: ${SPRING_OPENTELEMETRY_EXPORTER_JAEGER_TLS_ENABLED:false}
+    
+    # 资源属性配置
+    resource:
+      attributes:
+        # 服务名称
+        # 功能描述：定义服务的唯一标识
+        # 允许取值范围：任意字符串
+        # 默认值：${spring.application.name:common}
+        # 注意事项：与Spring应用名称保持一致
+        # 修改记录：
+        # - 2025-12-28 架构师团队：初始配置
+        service.name: ${SPRING_APPLICATION_NAME:common}
+        
+        # 服务版本
+        # 功能描述：定义服务的版本号
+        # 允许取值范围：有效的版本字符串
+        # 默认值：3.0.0
+        # 注意事项：需与实际服务版本保持一致
+        # 修改记录：
+        # - 2025-12-28 架构师团队：初始配置
+        service.version: ${SERVICE_VERSION:3.0.0}
+        
+        # 部署环境
+        # 功能描述：定义服务部署的环境
+        # 允许取值范围：dev（开发）、test（测试）、staging（预发布）、prod（生产）
+        # 默认值：${spring.profiles.active:dev}
+        # 注意事项：与Spring profiles保持一致
+        # 修改记录：
+        # - 2025-12-28 架构师团队：初始配置
+        deployment.environment: ${SPRING_PROFILES_ACTIVE:dev}
+    
+    # 追踪配置
+    trace:
+      # 采样配置
+      sampling:
+        # 采样概率
+        # 功能描述：设置OpenTelemetry的采样比例
+        # 允许取值范围：0.0（不采样）~ 1.0（全采样）
+        # 默认值：1.0
+        # 注意事项：与Sleuth采样率保持一致
+        # 修改记录：
+        # - 2025-12-28 架构师团队：初始配置
+        probability: ${SPRING_OPENTELEMETRY_TRACE_SAMPLING_PROBABILITY:1.0}
+        
+        # 基于父级的采样配置
+        parent-based:
+          # 远程父级采样开关
+          # 功能描述：是否基于远程父级的采样决策
+          # 允许取值范围：true（启用）、false（禁用）
+          # 默认值：true
+          # 注意事项：建议启用以保持采样决策的一致性
+          # 修改记录：
+          # - 2025-12-28 架构师团队：初始配置
+          remote-parent-sampling:
+            enabled: ${SPRING_OPENTELEMETRY_TRACE_SAMPLING_PARENT_BASED_REMOTE_PARENT_SAMPLING_ENABLED:true}
+      
+      # 传播配置
+      propagation:
+        # TraceContext传播开关
+        # 功能描述：是否启用TraceContext格式的传播
+        # 允许取值范围：true（启用）、false（禁用）
+        # 默认值：true
+        # 注意事项：W3C标准格式，建议启用
+        # 修改记录：
+        # - 2025-12-28 架构师团队：初始配置
+        tracecontext:
+          enabled: ${SPRING_OPENTELEMETRY_TRACE_PROPAGATION_TRACECONTEXT_ENABLED:true}
+        
+        # Baggage传播开关
+        # 功能描述：是否启用Baggage传播
+        # 允许取值范围：true（启用）、false（禁用）
+        # 默认值：true
+        # 注意事项：用于传递业务上下文
+        # 修改记录：
+        # - 2025-12-28 架构师团队：初始配置
+        baggage:
+          enabled: ${SPRING_OPENTELEMETRY_TRACE_PROPAGATION_BAGGAGE_ENABLED:true}
+        
+        # B3传播开关
+        # 功能描述：是否启用B3格式的传播
+        # 允许取值范围：true（启用）、false（禁用）
+        # 默认值：true
+        # 注意事项：Zipkin兼容格式，建议启用
+        # 修改记录：
+        # - 2025-12-28 架构师团队：初始配置
+        b3:
+          enabled: ${SPRING_OPENTELEMETRY_TRACE_PROPAGATION_B3_ENABLED:true}
+        
+        # Jaeger传播开关
+        # 功能描述：是否启用Jaeger格式的传播
+        # 允许取值范围：true（启用）、false（禁用）
+        # 默认值：true
+        # 注意事项：Jaeger兼容格式，建议启用
+        # 修改记录：
+        # - 2025-12-28 架构师团队：初始配置
+        jaeger:
+          enabled: ${SPRING_OPENTELEMETRY_TRACE_PROPAGATION_JAEGER_ENABLED:true}
+
+# 日志配置
+logging:
+  # 日志级别配置
+  level:
+    # 根日志级别
+    # 功能描述：设置所有日志的默认级别
+    # 允许取值范围：TRACE、DEBUG、INFO、WARN、ERROR、FATAL、OFF
+    # 默认值：INFO
+    # 注意事项：生产环境建议设置为INFO或WARN
+    # 修改记录：
+    # - 2025-12-28 架构师团队：初始配置
+    root: ${LOGGING_LEVEL_ROOT:INFO}
+    
+    # 应用特定日志级别
+    # 功能描述：设置common模块的日志级别
+    # 允许取值范围：TRACE、DEBUG、INFO、WARN、ERROR、FATAL、OFF
+    # 默认值：DEBUG
+    # 注意事项：开发环境可设置为DEBUG，生产环境建议设置为INFO
+    # 修改记录：
+    # - 2025-12-28 架构师团队：初始配置
+    com.inventory.common: ${LOGGING_LEVEL_COM_INVENTORY_COMMON:DEBUG}
+  
+  # 日志格式配置
+  pattern:
+    # 控制台日志格式
+    # 功能描述：定义控制台输出的日志格式
+    # 允许取值范围：有效的日志格式字符串
+    # 默认值：'%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} -- %msg%n'
+    # 注意事项：包含时间戳、线程名、日志级别、 logger名称和消息
+    # 修改记录：
+    # - 2025-12-28 架构师团队：初始配置
+    console: ${LOGGING_PATTERN_CONSOLE:'%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} -- %msg%n'}
+    
+    # 文件日志格式
+    # 功能描述：定义文件输出的日志格式
+    # 允许取值范围：有效的日志格式字符串
+    # 默认值：'%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} -- %msg%n'
+    # 注意事项：与控制台格式保持一致
+    # 修改记录：
+    # - 2025-12-28 架构师团队：初始配置
+    file: ${LOGGING_PATTERN_FILE:'%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} -- %msg%n'}
+
+# 公共配置
+common:
+  # 批处理配置
+  batch:
+    # 默认批处理大小
+    # 功能描述：设置批处理的默认大小
+    # 允许取值范围：正整数
+    # 默认值：100
+    # 注意事项：根据实际业务需求调整
+    # 修改记录：
+    # - 2025-12-28 架构师团队：初始配置
+    default-batch-size: ${COMMON_BATCH_DEFAULT_BATCH_SIZE:100}
+    
+    # 最大批处理大小
+    # 功能描述：设置批处理的最大大小
+    # 允许取值范围：正整数，大于等于default-batch-size
+    # 默认值：1000
+    # 注意事项：根据系统性能调整
+    # 修改记录：
+    # - 2025-12-28 架构师团队：初始配置
+    max-batch-size: ${COMMON_BATCH_MAX_BATCH_SIZE:1000}
+    
+    # 线程池大小
+    # 功能描述：设置批处理线程池的大小
+    # 允许取值范围：正整数
+    # 默认值：8
+    # 注意事项：根据CPU核心数调整
+    # 修改记录：
+    # - 2025-12-28 架构师团队：初始配置
+    thread-pool-size: ${COMMON_BATCH_THREAD_POOL_SIZE:8}
+    
+    # 验证超时时间
+    # 功能描述：设置批处理验证的超时时间（毫秒）
+    # 允许取值范围：正整数
+    # 默认值：30000
+    # 注意事项：根据验证逻辑复杂度调整
+    # 修改记录：
+    # - 2025-12-28 架构师团队：初始配置
+    validation-timeout: ${COMMON_BATCH_VALIDATION_TIMEOUT:30000}
+    
+    # 预处理超时时间
+    # 功能描述：设置批处理预处理的超时时间（毫秒）
+    # 允许取值范围：正整数
+    # 默认值：60000
+    # 注意事项：根据预处理逻辑复杂度调整
+    # 修改记录：
+    # - 2025-12-28 架构师团队：初始配置
+    preprocessing-timeout: ${COMMON_BATCH_PREPROCESSING_TIMEOUT:60000}
+
+

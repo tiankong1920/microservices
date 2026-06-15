@@ -1,0 +1,145 @@
+---
+# 预生产环境配置文件
+# 功能描述：预生产环境的特定配置，继承并覆盖基础配置
+# 配置来源：环境变量
+# 修改记录：
+# - 2025-12-28 架构师团队：初始配置
+
+# Spring应用配置
+spring:
+  # 应用信息配置
+  application:
+    # 应用名称
+    # 功能描述：预生产环境的应用名称
+    # 允许取值范围：任意字符串
+    # 默认值：inventory-management-system-staging
+    # 注意事项：用于服务发现和配置管理
+    # 修改记录：
+    # - 2025-12-28 架构师团队：初始配置
+    name: ${SPRING_APPLICATION_NAME:inventory-management-system-staging}
+  
+  # 数据源配置
+  # 功能描述：预生产环境的数据库连接配置
+  # 注意事项：所有敏感信息通过环境变量注入
+  datasource:
+    url: ${DB_URL:jdbc:mysql://staging-db:3306/inventory_staging}
+    driver-class-name: ${DB_DRIVER_CLASS_NAME:com.mysql.cj.jdbc.Driver}
+    username: ${DB_USERNAME:staging_user}
+    password: ${DB_PASSWORD}
+    hikari:
+      maximum-pool-size: ${DB_HIKARI_MAXIMUM_POOL_SIZE:80}
+      minimum-idle: ${DB_HIKARI_MINIMUM_IDLE:15}
+      connection-timeout: ${DB_HIKARI_CONNECTION_TIMEOUT:30000}
+
+# 日志配置
+logging:
+  # 日志级别配置
+  level:
+    # 根日志级别
+    # 功能描述：预生产环境的根日志级别
+    # 允许取值范围：TRACE、DEBUG、INFO、WARN、ERROR、FATAL、OFF
+    # 默认值：INFO
+    # 注意事项：预生产环境建议使用INFO级别
+    # 修改记录：
+    # - 2025-12-28 架构师团队：初始配置
+    root: ${LOGGING_LEVEL_ROOT:INFO}
+    
+    # 应用日志级别
+    # 功能描述：预生产环境的应用日志级别
+    # 允许取值范围：TRACE、DEBUG、INFO、WARN、ERROR、FATAL、OFF
+    # 默认值：INFO
+    # 注意事项：预生产环境建议使用INFO级别，接近生产环境
+    # 修改记录：
+    # - 2025-12-28 架构师团队：初始配置
+    com.inventory: ${LOGGING_LEVEL_COM_INVENTORY:INFO}
+  
+  # 文件日志配置
+  file:
+    # 日志文件名称
+    # 功能描述：预生产环境日志文件名称
+    # 允许取值范围：有效的文件路径
+    # 默认值：logs/inventory-management-system-staging.log
+    # 注意事项：便于日志收集和分析
+    # 修改记录：
+    # - 2025-12-28 架构师团队：初始配置
+    name: ${LOGGING_FILE_NAME:logs/inventory-management-system-staging.log}
+    
+    # 日志文件大小限制
+    # 功能描述：预生产环境单个日志文件的最大大小
+    # 允许取值范围：有效的大小值，如100MB、500MB等
+    # 默认值：100MB
+    # 注意事项：根据磁盘空间调整
+    # 修改记录：
+    # - 2025-12-28 架构师团队：初始配置
+    max-size: ${LOGGING_FILE_MAX_SIZE:100MB}
+    
+    # 日志文件保留天数
+    # 功能描述：预生产环境日志文件的保留天数
+    # 允许取值范围：正整数
+    # 默认值：30
+    # 注意事项：根据审计要求调整
+    # 修改记录：
+    # - 2025-12-28 架构师团队：初始配置
+    max-history: ${LOGGING_FILE_MAX_HISTORY:30}
+
+# 管理端点配置
+management:
+  # 端点配置
+  endpoints:
+    # Web端点配置
+    web:
+      # 暴露的端点
+      # 功能描述：预生产环境暴露的管理端点
+      # 允许取值范围：health、info、metrics、prometheus等
+      # 默认值：health,info,metrics,prometheus
+      # 注意事项：预生产环境只暴露必要的端点
+      # 修改记录：
+      # - 2025-12-28 架构师团队：初始配置
+      exposure:
+        include: ${MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE:health,info,metrics,prometheus}
+  
+  # 端点详细配置
+  endpoint:
+    # 健康检查端点配置
+    health:
+      # 显示详情
+      # 功能描述：预生产环境健康检查端点显示详情的条件
+      # 允许取值范围：never、when-authorized、always
+      # 默认值：when-authorized
+      # 注意事项：预生产环境建议在授权后显示详情
+      # 修改记录：
+      # - 2025-12-28 架构师团队：初始配置
+      show-details: ${MANAGEMENT_ENDPOINT_HEALTH_SHOW_DETAILS:when-authorized}
+
+# 应用特定配置
+app:
+  # 功能标志配置
+  feature-flags:
+    # 实验性功能开关
+    # 功能描述：预生产环境是否启用实验性功能
+    # 允许取值范围：true（启用）、false（禁用）
+    # 默认值：false
+    # 注意事项：预生产环境一般禁用实验性功能
+    # 修改记录：
+    # - 2025-12-28 架构师团队：初始配置
+    experimental-feature: ${APP_FEATURE_FLAGS_EXPERIMENTAL_FEATURE:false}
+    
+    # 新UI开关
+    # 功能描述：预生产环境是否启用新UI
+    # 允许取值范围：true（启用）、false（禁用）
+    # 默认值：true
+    # 注意事项：预生产环境可以启用新UI进行验证
+    # 修改记录：
+    # - 2025-12-28 架构师团队：初始配置
+    new-ui: ${APP_FEATURE_FLAGS_NEW_UI:true}
+  
+  # CORS配置
+  cors:
+    # 允许的源
+    # 功能描述：预生产环境允许的CORS源
+    # 允许取值范围：*（所有）或具体的URL列表
+    # 默认值：https://staging.inventory-system.com
+    # 注意事项：预生产环境应该限制允许的源
+    # 修改记录：
+    # - 2025-12-28 架构师团队：初始配置
+    allowed-origins: ${APP_CORS_ALLOWED_ORIGINS:https://staging.inventory-system.com}

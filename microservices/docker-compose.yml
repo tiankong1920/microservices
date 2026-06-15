@@ -1,0 +1,379 @@
+services:
+  postgres:
+    image: postgres:18-alpine
+    container_name: inventory-postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=inventory_db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=1234
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./init-scripts:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d inventory_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - inventory-net-dev
+
+  redis:
+    image: redis:7-alpine
+    container_name: inventory-redis
+    ports:
+      - "7379:6379"
+    command: redis-server --appendonly yes
+    volumes:
+      - redis-data:/data
+    networks:
+      - inventory-net-dev
+
+  nacos:
+    image: nacos/nacos-server:v2.3.0
+    container_name: inventory-nacos
+    ports:
+      - "8848:8848"
+      - "9848:9848"
+    environment:
+      - MODE=standalone
+      - PREFER_HOST_MODE=hostname
+      - SPRING_DATASOURCE_PLATFORM=
+    networks:
+      - inventory-net-dev
+
+  product-service:
+    build:
+      context: .
+      dockerfile: core-services/product-service/Dockerfile
+    container_name: inventory-product-service
+    ports:
+      - "8081:8081"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_DB=inventory_db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=1234
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - NACOS_HOST=nacos
+      - NACOS_PORT=8848
+    networks:
+      - inventory-net-dev
+
+  order-service:
+    build:
+      context: .
+      dockerfile: core-services/order-service/Dockerfile
+    container_name: inventory-order-service
+    ports:
+      - "8082:8082"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_DB=inventory_db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=1234
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - NACOS_HOST=nacos
+      - NACOS_PORT=8848
+    networks:
+      - inventory-net-dev
+
+  inventory-service:
+    build:
+      context: .
+      dockerfile: core-services/inventory-service/Dockerfile
+    container_name: inventory-inventory-service
+    ports:
+      - "8083:8083"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_DB=inventory_db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=1234
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - NACOS_HOST=nacos
+      - NACOS_PORT=8848
+    networks:
+      - inventory-net-dev
+
+  sales-service:
+    build:
+      context: .
+      dockerfile: core-services/sales-service/Dockerfile
+    container_name: inventory-sales-service
+    ports:
+      - "8084:8084"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_DB=inventory_db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=1234
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - NACOS_HOST=nacos
+      - NACOS_PORT=8848
+    networks:
+      - inventory-net-dev
+
+  procurement-service:
+    build:
+      context: .
+      dockerfile: core-services/procurement-service/Dockerfile
+    container_name: inventory-procurement-service
+    ports:
+      - "8085:8085"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_DB=inventory_db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=1234
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - NACOS_HOST=nacos
+      - NACOS_PORT=8848
+    networks:
+      - inventory-net-dev
+
+  customer-service:
+    build:
+      context: .
+      dockerfile: core-services/customer-service/Dockerfile
+    container_name: inventory-customer-service
+    ports:
+      - "8086:8086"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_DB=inventory_db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=1234
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - NACOS_HOST=nacos
+      - NACOS_PORT=8848
+    networks:
+      - inventory-net-dev
+
+  supplier-service:
+    build:
+      context: .
+      dockerfile: core-services/supplier-service/Dockerfile
+    container_name: inventory-supplier-service
+    ports:
+      - "8087:8087"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_DB=inventory_db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=1234
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - NACOS_HOST=nacos
+      - NACOS_PORT=8848
+    networks:
+      - inventory-net-dev
+
+  business-partner-service:
+    build:
+      context: .
+      dockerfile: core-services/business-partner-service/Dockerfile
+    container_name: inventory-business-partner-service
+    ports:
+      - "8088:8088"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_DB=inventory_db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=1234
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - NACOS_HOST=nacos
+      - NACOS_PORT=8848
+    networks:
+      - inventory-net-dev
+
+  admin-service:
+    build:
+      context: .
+      dockerfile: support-services/admin-service/Dockerfile
+    container_name: inventory-admin-service
+    ports:
+      - "8091:8091"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_DB=inventory_db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=1234
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - NACOS_HOST=nacos
+      - NACOS_PORT=8848
+    networks:
+      - inventory-net-dev
+
+  finance-service:
+    build:
+      context: .
+      dockerfile: support-services/finance-service/Dockerfile
+    container_name: inventory-finance-service
+    ports:
+      - "8092:8092"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_DB=inventory_db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=1234
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - NACOS_HOST=nacos
+      - NACOS_PORT=8848
+    networks:
+      - inventory-net-dev
+
+  auth-service:
+    build:
+      context: .
+      dockerfile: support-services/auth-service/Dockerfile
+    container_name: inventory-auth-service
+    ports:
+      - "8093:8093"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_DB=inventory_db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=1234
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - NACOS_HOST=nacos
+      - NACOS_PORT=8848
+    networks:
+      - inventory-net-dev
+
+  gateway-service:
+    build:
+      context: .
+      dockerfile: support-services/gateway-service/Dockerfile
+    container_name: inventory-gateway-service
+    ports:
+      - "8080:8080"
+    depends_on:
+      - nacos
+      - auth-service
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - NACOS_HOST=nacos
+      - NACOS_PORT=8848
+    networks:
+      - inventory-net-dev
+
+  registry-service:
+    build:
+      context: .
+      dockerfile: support-services/registry-service/Dockerfile
+    container_name: inventory-registry-service
+    ports:
+      - "8761:8761"
+    networks:
+      - inventory-net-dev
+
+  config-service:
+    build:
+      context: .
+      dockerfile: support-services/config-service/Dockerfile
+    container_name: inventory-config-service
+    ports:
+      - "8888:8888"
+    networks:
+      - inventory-net-dev
+
+  report-service:
+    build:
+      context: .
+      dockerfile: support-services/report-service/Dockerfile
+    container_name: inventory-report-service
+    ports:
+      - "8094:8094"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_DB=inventory_db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=1234
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - NACOS_HOST=nacos
+      - NACOS_PORT=8848
+    networks:
+      - inventory-net-dev
+
+networks:
+  inventory-net-dev:
+    driver: bridge
+
+volumes:
+  postgres-data:
+  redis-data:

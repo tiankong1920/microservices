@@ -1,0 +1,79 @@
+
+> web-frontend@0.0.0 build
+> vite build
+
+Both esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored. The following esbuild options were set: `{ drop: [ 'console', 'debugger' ] }`
+[36mvite v8.0.3 [32mbuilding client environment for production...[36m[39m
+[2K
+transforming...鉁?13267 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                                          1.04 kB 鈹?gzip:   0.45 kB
+dist/assets/index-BbWqB_3W.css                           1.11 kB 鈹?gzip:   0.58 kB
+dist/assets/typeof-DibsKvOx.js                           0.27 kB 鈹?gzip:   0.17 kB
+dist/assets/rolldown-runtime-km5iIlDX.js                 0.68 kB 鈹?gzip:   0.41 kB
+dist/assets/ConfirmDialog-omiRtXBy.js                    1.53 kB 鈹?gzip:   0.74 kB
+dist/assets/ToastContext-7O4xIAKG.js                     1.54 kB 鈹?gzip:   0.76 kB
+dist/assets/Login-DNI2QRQn.js                            1.90 kB 鈹?gzip:   1.03 kB
+dist/assets/Skeleton-DVsr_Osv.js                         2.62 kB 鈹?gzip:   0.80 kB
+dist/assets/EmptyState-DyGUPlCG.js                       3.16 kB 鈹?gzip:   1.45 kB
+dist/assets/ProcurementReturnManagement-BfKVLyMl.js      3.55 kB 鈹?gzip:   1.51 kB
+dist/assets/StockTransferManagement-BnSPmkPa.js          3.64 kB 鈹?gzip:   1.50 kB
+dist/assets/StockTransferDetail-BKcR2TCi.js              3.80 kB 鈹?gzip:   1.37 kB
+dist/assets/ProcurementReturnDetail-CsXQuVIJ.js          3.85 kB 鈹?gzip:   1.42 kB
+dist/assets/SalesReport-kJFuFUMJ.js                      3.86 kB 鈹?gzip:   1.41 kB
+dist/assets/PurchaseReport-DkARGfQ9.js                   3.88 kB 鈹?gzip:   1.41 kB
+dist/assets/ProductDetail-DCuMbPSk.js                    4.05 kB 鈹?gzip:   1.48 kB
+dist/assets/CustomerEdit-D7EA86Xz.js                     4.23 kB 鈹?gzip:   1.73 kB
+dist/assets/SupplierEdit-jNIC_Xji.js                     4.25 kB 鈹?gzip:   1.74 kB
+dist/assets/ProductEdit-CMrFadkX.js                      4.93 kB 鈹?gzip:   2.12 kB
+dist/assets/OtherStockDetail-8VTNXRiA.js                 4.95 kB 鈹?gzip:   1.78 kB
+dist/assets/SalesReturnDetail-CuWB6AUm.js                5.26 kB 鈹?gzip:   1.80 kB
+dist/assets/CustomerDetail-4wZdueKf.js                   5.46 kB 鈹?gzip:   1.45 kB
+dist/assets/RetailDetail-B6ENFK9c.js                     5.52 kB 鈹?gzip:   1.85 kB
+dist/assets/SupplierDetail-De66Q0cf.js                   5.54 kB 鈹?gzip:   1.46 kB
+dist/assets/SettlementAccountDetail-CveOIjHS.js          6.27 kB 鈹?gzip:   2.08 kB
+dist/assets/SalesDetail-Dk3-DrVs.js                      6.39 kB 鈹?gzip:   2.15 kB
+dist/assets/InventoryManagement-CtiLXFix.js              6.45 kB 鈹?gzip:   2.13 kB
+dist/assets/ProcurementDetail-oIRrKMuY.js                6.48 kB 鈹?gzip:   2.16 kB
+dist/assets/OrderDetail-ANopzBzi.js                      6.61 kB 鈹?gzip:   2.24 kB
+dist/assets/Dashboard-BQNlZwfA.js                        6.68 kB 鈹?gzip:   2.57 kB
+dist/assets/IncomeDetail-B3IlM_-_.js                     6.96 kB 鈹?gzip:   2.03 kB
+dist/assets/SalesManagement-C3_LbdiH.js                  7.13 kB 鈹?gzip:   2.96 kB
+dist/assets/ReceiptManagement-CGYGgmAu.js                7.15 kB 鈹?gzip:   2.94 kB
+dist/assets/PaymentManagement-B9iDUEdp.js                7.19 kB 鈹?gzip:   2.96 kB
+dist/assets/OrderManagement-CC_OwaFP.js                  7.20 kB 鈹?gzip:   2.97 kB
+dist/assets/SalesReturnManagement-tf6dpIYr.js            7.22 kB 鈹?gzip:   2.97 kB
+dist/assets/ProcurementManagement-UiA9VC_T.js            7.28 kB 鈹?gzip:   3.00 kB
+dist/assets/RetailManagement-DFg9e-22.js                 7.29 kB 鈹?gzip:   2.98 kB
+dist/assets/SystemManagement-BDs3TnHc.js                 7.30 kB 鈹?gzip:   2.45 kB
+dist/assets/ReceiptDetail-CyU17ElL.js                    7.49 kB 鈹?gzip:   2.16 kB
+dist/assets/IncomeManagement-DgxkaRaB.js                 7.51 kB 鈹?gzip:   2.99 kB
+dist/assets/SupplierManagement-Dx48EWn1.js               7.72 kB 鈹?gzip:   3.05 kB
+dist/assets/ProductManagement-DfU1aLih.js                7.82 kB 鈹?gzip:   3.10 kB
+dist/assets/OtherStockManagement-DsGqeNoM.js             7.86 kB 鈹?gzip:   3.13 kB
+dist/assets/PaymentDetail-DuUd1z4L.js                    7.87 kB 鈹?gzip:   2.15 kB
+dist/assets/SettlementAccountManagement-CbTwREzc.js      7.97 kB 鈹?gzip:   3.08 kB
+dist/assets/CustomerManagement-C0Ki5o0_.js               8.12 kB 鈹?gzip:   3.17 kB
+dist/assets/UserManagement-B8_5WvT-.js                   9.33 kB 鈹?gzip:   3.42 kB
+dist/assets/InventoryReport-3rSlZl7x.js                  9.88 kB 鈹?gzip:   2.97 kB
+dist/assets/OrderCreate-Lf-T_uXr.js                      9.94 kB 鈹?gzip:   3.00 kB
+dist/assets/FinancialReport-DOAKlDrk.js                 10.31 kB 鈹?gzip:   2.78 kB
+dist/assets/vendor-date-Cna_jxmu.js                     14.25 kB 鈹?gzip:   5.57 kB
+dist/assets/index-B6shxFfp.js                           16.45 kB 鈹?gzip:   4.54 kB
+dist/assets/purify.es-Ck_nPqwg.js                       23.99 kB 鈹?gzip:   9.08 kB
+dist/assets/api-BeY-Qdu2.js                             44.17 kB 鈹?gzip:  16.79 kB
+dist/assets/index.es-DR1y3IB9.js                       152.95 kB 鈹?gzip:  50.45 kB
+dist/assets/html2canvas-MnfGHQEB.js                    200.72 kB 鈹?gzip:  47.64 kB
+dist/assets/vendor-react-SwzEvQJG.js                   226.71 kB 鈹?gzip:  73.43 kB
+dist/assets/vendor-charts-C1gIOfRp.js                  405.49 kB 鈹?gzip: 119.58 kB
+dist/assets/exportService-C5pEVjLx.js                  443.67 kB 鈹?gzip: 144.64 kB
+dist/assets/vendor-mui-CmEJjn5L.js                     513.04 kB 鈹?gzip: 155.22 kB
+dist/assets/vendor-echarts-JRgzdU4I.js               1,124.14 kB 鈹?gzip: 376.14 kB
+
+[32m鉁?built in 10.26s[39m
+[plugin builtin:vite-reporter] 
+(!) Some chunks are larger than 1000 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <property name="LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n" />
+    <property name="LOG_LEVEL" value="INFO" />
+    <property name="APP_NAME" value="config-service" />
+    <property name="ENVIRONMENT" value="${ENVIRONMENT:dev}" />
+    
+    <!-- 控制台输出 -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+            <customFields>{"app_name":"${APP_NAME}","environment":"${ENVIRONMENT}","service_type":"support-service"}</customFields>
+            <fieldNames>
+                <timestamp>@timestamp</timestamp>
+                <version>[ignore]</version>
+                <levelValue>[ignore]</levelValue>
+            </fieldNames>
+        </encoder>
+    </appender>
+    
+    <!-- 文件输出 -->
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/${APP_NAME}.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>logs/${APP_NAME}.%d{yyyy-MM-dd}.log.gz</fileNamePattern>
+            <maxHistory>30</maxHistory>
+            <totalSizeCap>1GB</totalSizeCap>
+        </rollingPolicy>
+        <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+            <customFields>{"app_name":"${APP_NAME}","environment":"${ENVIRONMENT}","service_type":"support-service"}</customFields>
+            <fieldNames>
+                <timestamp>@timestamp</timestamp>
+                <version>[ignore]</version>
+                <levelValue>[ignore]</levelValue>
+            </fieldNames>
+        </encoder>
+    </appender>
+    
+    <!-- Logstash输出 -->
+    <appender name="LOGSTASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+        <destination>localhost:5044</destination>
+        <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+            <customFields>{"app_name":"${APP_NAME}","environment":"${ENVIRONMENT}","service_type":"support-service"}</customFields>
+            <fieldNames>
+                <timestamp>@timestamp</timestamp>
+                <version>[ignore]</version>
+                <levelValue>[ignore]</levelValue>
+            </fieldNames>
+        </encoder>
+        <connectionStrategy>
+            <reconnectDelay>5000</reconnectDelay>
+        </connectionStrategy>
+    </appender>
+    
+    <!-- Loki输出 -->
+    <appender name="LOKI" class="com.grafana.loki.logback.LokiAppender">
+        <url>http://localhost:3100/loki/api/v1/push</url>
+        <encoder class="ch.qos.logback.core.encoder.PatternLayoutEncoder">
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+        <labels>
+            <application>${APP_NAME}</application>
+            <environment>${ENVIRONMENT}</environment>
+            <service_type>support-service</service_type>
+        </labels>
+        <batchSize>100</batchSize>
+        <batchTimeoutMs>5000</batchTimeoutMs>
+    </appender>
+    
+    <!-- 根日志级别 -->
+    <root level="${LOG_LEVEL}">
+        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="FILE" />
+        <appender-ref ref="LOGSTASH" />
+        <appender-ref ref="LOKI" />
+    </root>
+    
+    <!-- Spring日志级别 -->
+    <logger name="org.springframework" level="INFO" additivity="false">
+        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="FILE" />
+        <appender-ref ref="LOGSTASH" />
+        <appender-ref ref="LOKI" />
+    </logger>
+    
+    <!-- Spring Cloud Config日志级别 -->
+    <logger name="org.springframework.cloud.config" level="DEBUG" additivity="false">
+        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="FILE" />
+        <appender-ref ref="LOGSTASH" />
+        <appender-ref ref="LOKI" />
+    </logger>
+    
+    <!-- 应用日志级别 -->
+    <logger name="com.inventory" level="INFO" additivity="false">
+        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="FILE" />
+        <appender-ref ref="LOGSTASH" />
+        <appender-ref ref="LOKI" />
+    </logger>
+</configuration>

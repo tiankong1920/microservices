@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  OWASP Dependency Check Suppressions
+  OWASP依赖检查抑制配置
+  
+  功能说明:
+  - 抑制已知的误报或已评估的风险
+  - 记录每个抑制的原因和审查日期
+  - 定期审查和更新抑制规则
+  
+  使用说明:
+  1. 仅在确认风险可接受的情况下添加抑制
+  2. 必须记录抑制原因和审查日期
+  3. 定期审查（建议每季度）所有抑制规则
+  4. 优先修复漏洞而非抑制
+  
+  安全策略:
+  - 高危漏洞(CVSS >= 7.0)原则上不允许抑制
+  - 中危漏洞需要技术负责人审批
+  - 低危漏洞需要记录和定期审查
+  
+  版本: 1.0
+  更新日期: 2026-03-15
+  下次审查日期: 2026-06-15
+-->
+<suppressions xmlns="https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.3.xsd">
+    
+    <!--
+      抑制规则模板
+      <suppress>
+          <notes><![CDATA[
+            抑制原因: [详细说明]
+            风险评估: [风险评估结果]
+            审查人: [审查人姓名]
+            审查日期: [审查日期]
+            下次审查: [下次审查日期]
+          ]]></notes>
+          <gav regex="true">^groupId:artifactId:.*$</gav>
+          <cve>CVE-XXXX-XXXXX</cve>
+          <cvssBelow>7.0</cvssBelow>
+      </suppress>
+    -->
+    
+    <!--
+      示例抑制规则 - 仅作为参考，实际使用前需要评估
+      
+      注意: 以下示例展示如何添加抑制规则
+      实际项目中应该根据具体情况评估后添加
+    -->
+    
+    <!--
+      示例1: 开发工具依赖的抑制
+      <suppress>
+          <notes><![CDATA[
+            抑制原因: Lombok是编译时依赖，不影响运行时安全
+            风险评估: 低风险 - 仅在编译时使用，不进入生产环境
+            审查人: 技术负责人
+            审查日期: 2026-03-15
+            下次审查: 2026-06-15
+          ]]></notes>
+          <gav regex="true">^org\.projectlombok:lombok:.*$</gav>
+          <cvssBelow>7.0</cvssBelow>
+      </suppress>
+    -->
+    
+    <!--
+      示例2: 测试依赖的抑制
+      <suppress>
+          <notes><![CDATA[
+            抑制原因: Testcontainers仅在测试环境使用
+            风险评估: 低风险 - 不影响生产环境
+            审查人: 测试负责人
+            审查日期: 2026-03-15
+            下次审查: 2026-06-15
+          ]]></notes>
+          <gav regex="true">^org\.testcontainers:.*:.*$</gav>
+          <scope>test</scope>
+          <cvssBelow>7.0</cvssBelow>
+      </suppress>
+    -->
+    
+    <!--
+      示例3: 特定CVE的抑制（需要详细评估）
+      <suppress>
+          <notes><![CDATA[
+            抑制原因: [详细说明为什么这个CVE不影响本项目]
+            风险评估: [详细的风险评估]
+            缓解措施: [已采取的缓解措施]
+            审查人: [审查人姓名]
+            审查日期: [审查日期]
+            下次审查: [下次审查日期]
+          ]]></notes>
+          <gav regex="true">^com\.example:library:.*$</gav>
+          <cve>CVE-2024-XXXXX</cve>
+      </suppress>
+    -->
+    
+    <!--
+      抑制规则审查清单:
+      
+      添加新抑制规则前，请确认:
+      □ 已详细评估漏洞影响
+      □ 已尝试升级依赖版本
+      □ 已记录抑制原因
+      □ 已指定审查人和审查日期
+      □ 已设置下次审查日期
+      □ 已获得技术负责人批准（高危漏洞）
+      
+      定期审查时，请确认:
+      □ 抑制原因是否仍然有效
+      □ 是否有新的修复版本可用
+      □ 风险等级是否发生变化
+      □ 是否需要更新抑制规则
+      □ 是否需要移除抑制规则
+    -->
+    
+</suppressions>

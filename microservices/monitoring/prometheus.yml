@@ -1,0 +1,47 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+rule_files:
+  - 'alerting-rules.yml'
+
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets:
+            - 'alertmanager:9093'
+
+scrape_configs:
+  - job_name: 'inventory-services'
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets:
+          - 'product-service:8081'
+          - 'order-service:8082'
+          - 'inventory-service:8083'
+          - 'sales-service:8084'
+          - 'procurement-service:8085'
+          - 'customer-service:8086'
+          - 'supplier-service:8087'
+          - 'datasource-service:8088'
+          - 'template-service:8089'
+          - 'admin-service:8091'
+          - 'finance-service:8092'
+          - 'auth-service:8093'
+          - 'gateway-service:8080'
+          - 'registry-service:8761'
+          - 'config-service:8888'
+          - 'report-service:8094'
+          - 'mall-service:8090'
+          - 'business-partner-service:8095'
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: instance
+
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+
+  - job_name: 'alertmanager'
+    static_configs:
+      - targets: ['alertmanager:9093']

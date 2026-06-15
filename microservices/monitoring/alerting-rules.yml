@@ -1,0 +1,154 @@
+groups:
+  - name: service-health
+    rules:
+      - alert: ServiceDown
+        expr: up == 0
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Service {{ $labels.instance }} is down"
+          description: "Service {{ $labels.job }} (instance {{ $labels.instance }}) has been down for more than 2 minutes."
+
+      - alert: HighErrorRate
+        expr: rate(http_server_requests_seconds_count{status=~"5.."}[5m]) > 0.1
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High error rate on {{ $labels.instance }}"
+          description: "Service {{ $labels.job }} is experiencing a high error rate ({{ $value }} errors/sec)."
+
+      - alert: HighLatency
+        expr: histogram_quantile(0.95, rate(http_server_requests_seconds_bucket[5m])) > 2
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High latency on {{ $labels.instance }}"
+          description: "95th percentile latency is {{ $value }}s for {{ $labels.job }}."
+
+  - name: resource-usage
+    rules:
+      - alert: HighMemoryUsage
+        expr: jvm_memory_used_bytes{area="heap"} / jvm_memory_max_bytes{area="heap"} > 0.85
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High JVM memory usage on {{ $labels.instance }}"
+          description: "JVM heap usage is {{ $value | humanizePercentage }} on {{ $labels.instance }}."
+
+      - alert: HighCpuUsage
+        expr: rate(process_cpu_seconds_total[5m]) > 0.8
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High CPU usage on {{ $labels.instance }}"
+          description: "CPU usage is {{ $value | humanizePercentage }} on {{ $labels.instance }}."
+
+  - name: business-metrics
+    rules:
+      - alert: LowInventoryLevel
+        expr: inventory_level_total < 10
+        for: 15m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Low inventory level for {{ $labels.product }}"
+          description: "Inventory level for product {{ $labels.product }} is below 10 units."
+
+      - alert: OrderProcessingDelay
+        expr: order_processing_duration_seconds > 30
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Order processing delay detected"
+          description: "Order processing time is {{ $value }}s, exceeding 30s threshold."
+
+      - alert: ProcurementOrderStuck
+        expr: procurement_order_status == 1
+        for: 30m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Procurement order stuck in PENDING"
+          description: "Procurement order {{ $labels.order_number }} has been in PENDING status for over 30 minutes."
+
+      - alert: HighOrderCancellationRate
+        expr: rate(orders_total{status="CANCELLED"}[1h]) / rate(orders_total[1h]) > 0.15
+        for: 15m
+        labels:
+          severity: critical
+        annotations:
+          summary: "High order cancellation rate on {{ $labels.instance }}"
+          description: "Order cancellation rate is {{ $value | humanizePercentage }}, exceeding 15% threshold."
+
+      - alert: PaymentFailureRate
+        expr: rate(payment_failures_total[5m]) / rate(payment_requests_total[5m]) > 0.05
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "High payment failure rate on {{ $labels.instance }}"
+          description: "Payment failure rate is {{ $value | humanizePercentage }}, exceeding 5% threshold."
+
+      - alert: SagaCompensationActive
+        expr: increase(saga_compensations_total[15m]) > 10
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High number of saga compensations on {{ $labels.instance }}"
+          description: "{{ $value }} saga compensations occurred in the last 15 minutes, indicating potential transaction issues."
+
+  - name: infrastructure-health
+    rules:
+      - alert: KafkaConsumerLag
+        expr: kafka_consumer_lag_sum > 10000
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Kafka consumer lag detected"
+          description: "Consumer lag is {{ $value }} messages behind on {{ $labels.topic }}."
+
+      - alert: RedisMemoryHigh
+        expr: redis_memory_used_bytes / redis_memory_max_bytes > 0.85
+        for: 15m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Redis memory usage high"
+          description: "Redis memory usage is {{ $value | humanizePercentage }}."
+
+      - alert: ElasticsearchClusterHealth
+        expr: elasticsearch_cluster_health < 2
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Elasticsearch cluster health is {{ $value }}"
+          description: "Elasticsearch cluster health is {{ $labels.status }}."
+
+  - name: database-health
+    rules:
+      - alert: DatabaseConnectionPoolExhausted
+        expr: hikaricp_connections_active / hikaricp_connections_max > 0.9
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Database connection pool nearly exhausted on {{ $labels.instance }}"
+          description: "Connection pool usage is {{ $value | humanizePercentage }} on {{ $labels.instance }}."
+
+      - alert: SlowDatabaseQueries
+        expr: rate(hikaricp_connections_timeout_total[5m]) > 0
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Database connection timeouts on {{ $labels.instance }}"
+          description: "Connection timeouts detected on {{ $labels.instance }}."

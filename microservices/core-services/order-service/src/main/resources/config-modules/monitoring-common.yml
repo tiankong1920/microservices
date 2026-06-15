@@ -1,0 +1,27 @@
+---
+# 监控公共配置
+# 功能描述:包含Prometheus、Actuator等监控相关配置
+# 适用范围:所有需要监控的服务
+# 修改记录:
+# - 2025-02-05 修复模块联动
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+      base-path: /actuator
+  endpoint:
+    health:
+      show-details: always
+    metrics:
+      enabled: true
+    prometheus:
+      enabled: true
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+    tags:
+      application: ${spring.application.name}
+      environment: ${SPRING_PROFILES_ACTIVE:dev}

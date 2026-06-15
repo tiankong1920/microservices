@@ -1,0 +1,57 @@
+global:
+  resolve_timeout: 5m
+  smtp_smarthost: 'smtp.example.com:587'
+  smtp_from: 'alerts@inventory-system.com'
+  smtp_auth_username: 'alerts@inventory-system.com'
+  smtp_auth_password: '${SMTP_PASSWORD}'
+
+route:
+  receiver: 'default-receiver'
+  group_by: ['alertname', 'service', 'severity']
+  group_wait: 30s
+  group_interval: 5m
+  repeat_interval: 4h
+  routes:
+    - receiver: 'critical-alerts'
+      match:
+        severity: 'critical'
+      repeat_interval: 1h
+    - receiver: 'warning-alerts'
+      match:
+        severity: 'warning'
+      repeat_interval: 4h
+    - receiver: 'info-alerts'
+      match:
+        severity: 'info'
+      repeat_interval: 12h
+
+receivers:
+  - name: 'default-receiver'
+    webhook_configs:
+      - url: '${WEBHOOK_URL}'
+        send_resolved: true
+
+  - name: 'critical-alerts'
+    webhook_configs:
+      - url: '${CRITICAL_WEBHOOK_URL}'
+        send_resolved: true
+    email_configs:
+      - to: 'ops-team@inventory-system.com'
+        send_resolved: true
+
+  - name: 'warning-alerts'
+    webhook_configs:
+      - url: '${WARNING_WEBHOOK_URL}'
+        send_resolved: true
+
+  - name: 'info-alerts'
+    webhook_configs:
+      - url: '${INFO_WEBHOOK_URL}'
+        send_resolved: true
+
+inhibit_rules:
+  - source_match:
+      severity: 'critical'
+    target_match:
+      severity: 'warning'
+    equal: ['alertname', 'service']

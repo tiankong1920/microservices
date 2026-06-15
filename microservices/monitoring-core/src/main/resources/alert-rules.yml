@@ -1,0 +1,19 @@
+# Alert Rules for Spring Cloud Microservices
+alerts:
+  circuit_breaker:
+    failure_rate_threshold: 50  # percentage
+    slow_call_rate_threshold: 80  # percentage
+    wait_duration_open_state: 60000  # milliseconds
+  
+  service_health:
+    response_time_p95: 2000  # milliseconds
+    error_rate: 5  # percentage
+    availability: 99.9  # percentage target
+  
+  gateway:
+    rate_limit_rejected: 100  # per minute
+    circuit_breaker_open: 1  # count
+  
+  resilience:
+    retry_attempts_exceeded: 10  # count per minute
+    bulkhead_rejected: 50  # count per minute

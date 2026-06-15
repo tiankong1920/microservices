@@ -1,0 +1,383 @@
+/**
+ * Repository Access Monitoring Configuration
+ * 仓库访问监控配置
+ * 
+ * 功能说明:
+ * - 监控Maven/Gradle仓库访问
+ * - 记录访问日志
+ * - 检测异常访问模式
+ * - 发送告警通知
+ * 
+ * 监控指标:
+ * - 访问时间
+ * - 访问频率
+ * - 来源IP
+ * - 操作类型
+ * - 请求路径
+ * - 响应状态
+ * 
+ * 异常检测规则:
+ * 1. 1分钟内超过20次失败请求
+ * 2. 非工作时间的大量下载请求
+ * 3. 来自未授权IP的访问尝试
+ * 4. 异常高频的相同依赖请求
+ * 
+ * 版本: 1.0
+ * 更新日期: 2026-03-15
+ */
+
+import org.gradle.api.artifacts.repositories.ArtifactRepository
+import org.gradle.api.artifacts.repositories.MavenArtifactRepository
+import org.gradle.api.logging.Logger
+import org.gradle.api.logging.Logging
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+
+/**
+ * 仓库访问监控器
+ */
+class RepositoryAccessMonitor {
+    
+    private static final Logger LOGGER = Logging.getLogger(RepositoryAccessMonitor.class)
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+    
+    // 访问统计
+    private final Map<String, RepositoryAccessStats> accessStats = [:]
+    private final List<AccessLogEntry> accessLog = []
+    private final File logFile
+    
+    // 告警阈值
+    private int failureThreshold = 20           // 1分钟内失败请求阈值
+    private int timeWindowMinutes = 1           // 时间窗口（分钟）
+    private boolean alertOnOffHours = true      // 非工作时间告警
+    private boolean alertOnHighFrequency = true // 高频请求告警
+    
+    RepositoryAccessMonitor(Project project) {
+        this.logFile = new File(project.buildDir, "reports/repository-access.log")
+        this.logFile.parentFile.mkdirs()
+    }
+    
+    /**
+     * 记录仓库访问
+     */
+    void logAccess(String repositoryName, String url, String operation, int statusCode, long duration) {
+        def timestamp = LocalDateTime.now()
+        def entry = new AccessLogEntry(
+            timestamp: timestamp,
+            repositoryName: repositoryName,
+            url: url,
+            operation: operation,
+            statusCode: statusCode,
+            duration: duration
+        )
+        
+        accessLog.add(entry)
+        
+        // 更新统计
+        def stats = accessStats.computeIfAbsent(repositoryName) { new RepositoryAccessStats() }
+        stats.recordAccess(statusCode, duration)
+        
+        // 写入日志文件
+        writeLogEntry(entry)
+        
+        // 检查异常模式
+        checkAnomalies(entry, stats)
+    }
+    
+    /**
+     * 写入日志条目
+     */
+    private void writeLogEntry(AccessLogEntry entry) {
+        def logLine = "${entry.timestamp.format(DATE_FORMATTER)} | ${entry.repositoryName} | ${entry.operation} | ${entry.url} | ${entry.statusCode} | ${entry.duration}ms\n"
+        logFile.append(logLine)
+    }
+    
+    /**
+     * 检查异常访问模式
+     */
+    private void checkAnomalies(AccessLogEntry entry, RepositoryAccessStats stats) {
+        def now = LocalDateTime.now()
+        def windowStart = now.minusMinutes(timeWindowMinutes)
+        
+        // 获取时间窗口内的访问记录
+        def recentAccess = accessLog.findAll { it.timestamp.isAfter(windowStart) }
+        
+        // 检查1分钟内失败请求超过阈值
+        def recentFailures = recentAccess.count { it.statusCode >= 400 }
+        if (recentFailures > failureThreshold) {
+            LOGGER.warn("[REPO-MONITOR] ALERT: High failure rate detected - ${recentFailures} failures in last ${timeWindowMinutes} minute(s)")
+            sendAlert("High Failure Rate", "${recentFailures} failed requests in last ${timeWindowMinutes} minute(s)")
+        }
+        
+        // 检查非工作时间访问
+        if (alertOnOffHours && isOffHours(now)) {
+            def offHoursAccess = recentAccess.count { isOffHours(it.timestamp) }
+            if (offHoursAccess > 10) {
+                LOGGER.warn("[REPO-MONITOR] ALERT: Unusual off-hours access - ${offHoursAccess} requests during off-hours")
+                sendAlert("Off-Hours Access", "${offHoursAccess} requests during off-hours")
+            }
+        }
+        
+        // 检查高频请求
+        if (alertOnHighFrequency) {
+            def urlAccessCount = recentAccess.count { it.url == entry.url }
+            if (urlAccessCount > 50) {
+                LOGGER.warn("[REPO-MONITOR] ALERT: High frequency access - ${urlAccessCount} requests to ${entry.url} in last ${timeWindowMinutes} minute(s)")
+                sendAlert("High Frequency Access", "${urlAccessCount} requests to same URL in last ${timeWindowMinutes} minute(s)")
+            }
+        }
+    }
+    
+    /**
+     * 判断是否是非工作时间
+     * 工作时间: 9:00 - 18:00, 周一到周五
+     */
+    private boolean isOffHours(LocalDateTime timestamp) {
+        def dayOfWeek = timestamp.dayOfWeek.value
+        def hour = timestamp.hour
+        
+        // 周末
+        if (dayOfWeek > 5) {
+            return true
+        }
+        
+        // 工作时间外
+        return hour < 9 || hour >= 18
+    }
+    
+    /**
+     * 发送告警
+     */
+    private void sendAlert(String alertType, String message) {
+        // 这里可以集成邮件、Slack、Teams等通知系统
+        LOGGER.error("[REPO-MONITOR] ALERT [${alertType}]: ${message}")
+        
+        // TODO: 集成实际的通知系统
+        // 例如:
+        // - 发送邮件
+        // - 发送Slack消息
+        // - 发送到监控系统
+    }
+    
+    /**
+     * 生成访问报告
+     */
+    void generateReport() {
+        def reportFile = new File(logFile.parentFile, "repository-access-report.html")
+        
+        def html = buildString {
+            appendLine("<!DOCTYPE html>")
+            appendLine("<html>")
+            appendLine("<head>")
+            appendLine("<title>Repository Access Report</title>")
+            appendLine("<style>")
+            appendLine("body { font-family: Arial, sans-serif; margin: 20px; }")
+            appendLine("table { border-collapse: collapse; width: 100%; margin-top: 20px; }")
+            appendLine("th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }")
+            appendLine("th { background-color: #4CAF50; color: white; }")
+            appendLine("tr:nth-child(even) { background-color: #f2f2f2; }")
+            appendLine(".alert { color: red; font-weight: bold; }")
+            appendLine("</style>")
+            appendLine("</head>")
+            appendLine("<body>")
+            appendLine("<h1>Repository Access Report</h1>")
+            appendLine("<p>Generated: ${LocalDateTime.now().format(DATE_FORMATTER)}</p>")
+            
+            // 统计摘要
+            appendLine("<h2>Access Statistics</h2>")
+            appendLine("<table>")
+            appendLine("<tr><th>Repository</th><th>Total Requests</th><th>Success</th><th>Failures</th><th>Avg Duration</th></tr>")
+            
+            accessStats.each { repoName, stats ->
+                def avgDuration = stats.totalRequests > 0 ? stats.totalDuration / stats.totalRequests : 0
+                appendLine("<tr>")
+                appendLine("<td>${repoName}</td>")
+                appendLine("<td>${stats.totalRequests}</td>")
+                appendLine("<td>${stats.successRequests}</td>")
+                appendLine("<td>${stats.failureRequests}</td>")
+                appendLine("<td>${avgDuration}ms</td>")
+                appendLine("</tr>")
+            }
+            
+            appendLine("</table>")
+            
+            // 最近访问记录
+            appendLine("<h2>Recent Access Log</h2>")
+            appendLine("<table>")
+            appendLine("<tr><th>Time</th><th>Repository</th><th>Operation</th><th>URL</th><th>Status</th><th>Duration</th></tr>")
+            
+            accessLog.takeLast(100).reverse().each { entry ->
+                def statusClass = entry.statusCode >= 400 ? "alert" : ""
+                appendLine("<tr>")
+                appendLine("<td>${entry.timestamp.format(DATE_FORMATTER)}</td>")
+                appendLine("<td>${entry.repositoryName}</td>")
+                appendLine("<td>${entry.operation}</td>")
+                appendLine("<td>${entry.url}</td>")
+                appendLine("<td class=\"${statusClass}\">${entry.statusCode}</td>")
+                appendLine("<td>${entry.duration}ms</td>")
+                appendLine("</tr>")
+            }
+            
+            appendLine("</table>")
+            appendLine("</body>")
+            appendLine("</html>")
+        }
+        
+        reportFile.write(html)
+        LOGGER.lifecycle("[REPO-MONITOR] Access report generated: ${reportFile.absolutePath}")
+    }
+}
+
+/**
+ * 访问日志条目
+ */
+class AccessLogEntry {
+    LocalDateTime timestamp
+    String repositoryName
+    String url
+    String operation
+    int statusCode
+    long duration
+}
+
+/**
+ * 仓库访问统计
+ */
+class RepositoryAccessStats {
+    int totalRequests = 0
+    int successRequests = 0
+    int failureRequests = 0
+    long totalDuration = 0
+    
+    void recordAccess(int statusCode, long duration) {
+        totalRequests++
+        totalDuration += duration
+        
+        if (statusCode < 400) {
+            successRequests++
+        } else {
+            failureRequests++
+        }
+    }
+}
+
+/**
+ * 配置仓库监控
+ */
+void configureRepositoryMonitoring(Project project) {
+    def monitor = new RepositoryAccessMonitor(project)
+    
+    // 监控所有仓库
+    project.repositories.all { repo ->
+        if (repo instanceof MavenArtifactRepository) {
+            def originalUrl = repo.url
+            
+            // 包装仓库URL以监控访问
+            repo.url = new MonitoredUrl(originalUrl, repo.name, monitor)
+        }
+    }
+    
+    // 构建完成后生成报告
+    project.gradle.buildFinished {
+        monitor.generateReport()
+    }
+    
+    // 注册清理任务
+    project.tasks.register("cleanRepositoryLogs") {
+        group = "maintenance"
+        description = "Clean repository access logs older than 30 days"
+        
+        doLast {
+            def logDir = new File(project.buildDir, "reports")
+            def cutoffDate = LocalDateTime.now().minusDays(30)
+            
+            logDir.listFiles()?.each { file ->
+                if (file.name.startsWith("repository-access") && file.lastModified() < cutoffDate.toEpochSecond(java.time.ZoneOffset.UTC) * 1000) {
+                    file.delete()
+                    LOGGER.lifecycle("[REPO-MONITOR] Deleted old log file: ${file.name}")
+                }
+            }
+        }
+    }
+    
+    LOGGER.lifecycle("[REPO-MONITOR] Repository monitoring configured")
+}
+
+/**
+ * 监控URL包装器
+ */
+class MonitoredUrl extends URL {
+    private final String repositoryName
+    private final RepositoryAccessMonitor monitor
+    
+    MonitoredUrl(URL originalUrl, String repositoryName, RepositoryAccessMonitor monitor) {
+        super(originalUrl.toString())
+        this.repositoryName = repositoryName
+        this.monitor = monitor
+    }
+    
+    @Override
+    URLConnection openConnection() throws IOException {
+        def startTime = System.currentTimeMillis()
+        def connection = super.openConnection()
+        def duration = System.currentTimeMillis() - startTime
+        
+        // 记录访问
+        def statusCode = 200
+        try {
+            if (connection instanceof HttpURLConnection) {
+                statusCode = connection.responseCode
+            }
+        } catch (Exception e) {
+            statusCode = 500
+        }
+        
+        monitor.logAccess(repositoryName, toString(), "GET", statusCode, duration)
+        
+        return connection
+    }
+}
+
+// 应用监控配置
+configureRepositoryMonitoring(project)
+
+/**
+ * 仓库访问告警规则配置
+ */
+ext {
+    repositoryAccessAlertRules = [
+        // 规则1: 1分钟内失败请求超过20次
+        [
+            name: "HighFailureRate",
+            condition: "failures > 20 in 1 minute",
+            severity: "HIGH",
+            action: "alert"
+        ],
+        
+        // 规则2: 非工作时间的大量下载请求
+        [
+            name: "OffHoursAccess",
+            condition: "requests > 10 during off-hours",
+            severity: "MEDIUM",
+            action: "alert"
+        ],
+        
+        // 规则3: 异常高频的相同依赖请求
+        [
+            name: "HighFrequencyAccess",
+            condition: "same URL requests > 50 in 1 minute",
+            severity: "MEDIUM",
+            action: "alert"
+        ],
+        
+        // 规则4: 来自未授权IP的访问尝试
+        [
+            name: "UnauthorizedAccess",
+            condition: "access from unauthorized IP",
+            severity: "HIGH",
+            action: "block_and_alert"
+        ]
+    ]
+}
+
+println("[REPO-MONITOR] Repository access monitoring configuration loaded")

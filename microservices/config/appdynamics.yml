@@ -1,0 +1,148 @@
+# AppDynamics Configuration
+# This file contains configuration for AppDynamics APM integration
+
+appdynamics:
+  enabled: true
+  
+  # Controller Configuration
+  controller:
+    host: ${APPDYNAMICS_CONTROLLER_HOST:localhost}
+    port: ${APPDYNAMICS_CONTROLLER_PORT:8090}
+    ssl-enabled: ${APPDYNAMICS_SSL_ENABLED:true}
+    account:
+      name: ${APPDYNAMICS_ACCOUNT_NAME:customer1}
+      access-key: ${APPDYNAMICS_ACCESS_KEY:}
+  
+  # Application Configuration
+  application:
+    name: ${APPDYNAMICS_APPLICATION_NAME:InventoryManagementSystem}
+    tier: ${APPDYNAMICS_TIER_NAME:${spring.application.name:unknown-service}}
+    node: ${APPDYNAMICS_NODE_NAME:${HOSTNAME:unknown-node}}
+  
+  # Agent Configuration
+  agent:
+    # Unique identifier for this agent
+    unique-host-id: ${APPDYNAMICS_UNIQUE_HOST_ID:}
+    
+    # Reuse node name across restarts
+    reuse-node-name: ${APPDYNAMICS_REUSE_NODE_NAME:true}
+    
+    # Reuse node name prefix
+    reuse-node-name-prefix: ${APPDYNAMICS_REUSE_NODE_NAME_PREFIX:}
+  
+  # Transaction Configuration
+  transactions:
+    # Entry point types to monitor
+    entry-point-types: ${APPDYNAMICS_ENTRY_POINT_TYPES:SPRING_REST,SERVLET,WEB_SERVICE}
+    
+    # Business transaction naming configuration
+    naming:
+      scheme: ${APPDYNAMICS_NAMING_SCHEME:URI}
+      use-fully-qualified-class-names: ${APPDYNAMICS_USE_FQN:false}
+  
+  # Error Configuration
+  errors:
+    # Mark transactions as error when these exceptions occur
+    mark-transaction-as-error-on-exception: ${APPDYNAMICS_MARK_ERROR_ON_EXCEPTION:true}
+    
+    # Capture error detail
+    capture-error-detail: ${APPDYNAMICS_CAPTURE_ERROR_DETAIL:true}
+  
+  # Snapshot Configuration
+  snapshots:
+    # Enable transaction snapshots
+    enabled: ${APPDYNAMICS_SNAPSHOTS_ENABLED:true}
+    
+    # Snapshot collection interval (ms)
+    collection-interval: ${APPDYNAMICS_SNAPSHOT_INTERVAL:60000}
+    
+    # Slow transaction threshold (ms)
+    slow-threshold: ${APPDYNAMICS_SLOW_THRESHOLD:3000}
+  
+  # Backend Detection
+  backends:
+    # Database backends
+    database:
+      enabled: ${APPDYNAMICS_DATABASE_BACKEND_ENABLED:true}
+      name-format: ${APPDYNAMICS_DATABASE_NAME_FORMAT:{host}}
+    
+    # HTTP backends
+    http:
+      enabled: ${APPDYNAMICS_HTTP_BACKEND_ENABLED:true}
+      name-format: ${APPDYNAMICS_HTTP_NAME_FORMAT:{host}}
+    
+    # Cache backends
+    cache:
+      enabled: ${APPDYNAMICS_CACHE_BACKEND_ENABLED:true}
+      name-format: ${APPDYNAMICS_CACHE_NAME_FORMAT:{host}}
+  
+  # Custom Metrics
+  metrics:
+    # Enable custom metrics
+    enabled: ${APPDYNAMICS_CUSTOM_METRICS_ENABLED:true}
+    
+    # Metric prefix
+    prefix: ${APPDYNAMICS_METRIC_PREFIX:Custom Metrics}
+  
+  # Health Rules
+  health-rules:
+    # Enable default health rules
+    default-enabled: ${APPDYNAMICS_DEFAULT_HEALTH_RULES:true}
+    
+    # Custom health rules
+    custom:
+      - name: "High Error Rate"
+        condition:
+          metric: "Errors per Minute"
+          threshold: 10
+          duration: 5
+      - name: "Slow Response Time"
+        condition:
+          metric: "Average Response Time"
+          threshold: 5000
+          duration: 10
+  
+  # Analytics
+  analytics:
+    # Enable analytics
+    enabled: ${APPDYNAMICS_ANALYTICS_ENABLED:true}
+    
+    # Analytics endpoint
+    endpoint: ${APPDYNAMICS_ANALYTICS_ENDPOINT:}
+    
+    # API key for analytics
+    api-key: ${APPDYNAMICS_ANALYTICS_API_KEY:}
+
+---
+# Profile-specific configurations
+spring:
+  config:
+    activate:
+      on-profile: dev
+
+appdynamics:
+  enabled: false
+
+---
+spring:
+  config:
+    activate:
+      on-profile: test
+
+appdynamics:
+  enabled: false
+
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+
+appdynamics:
+  enabled: true
+  controller:
+    ssl-enabled: true
+  agent:
+    reuse-node-name: true
+  transactions:
+    entry-point-types: SPRING_REST,SERVLET,WEB_SERVICE,JMS

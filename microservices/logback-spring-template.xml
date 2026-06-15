@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <!-- 环境变量 -->
+    <springProfile name="dev">
+        <property name="LOG_LEVEL" value="DEBUG" />
+    </springProfile>
+    <springProfile name="test">
+        <property name="LOG_LEVEL" value="INFO" />
+    </springProfile>
+    <springProfile name="prod">
+        <property name="LOG_LEVEL" value="INFO" />
+    </springProfile>
+    <springProfile name="default">
+        <property name="LOG_LEVEL" value="INFO" />
+    </springProfile>
+    
+    <!-- 日志模式：包含时间戳、服务名、模块名、日志级别、用户ID、请求ID、消息 -->
+    <property name="LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [${APP_NAME:-app}] [%thread] %-5level %logger{36} user_id=%X{userId:-unknown} request_id=%X{requestId:-unknown} - %msg%n" />
+    
+    <!-- 控制台输出 -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+    
+    <!-- 文件输出 -->
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/${APP_NAME:-app}.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>logs/${APP_NAME:-app}.%d{yyyy-MM-dd}.log.gz</fileNamePattern>
+            <maxHistory>30</maxHistory>
+            <totalSizeCap>1GB</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+    
+    <!-- Logstash输出 -->
+    <appender name="LOGSTASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+        <destination>localhost:5044</destination>
+        <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+            <customFields>{"app_name":"${APP_NAME:-app}","environment":"${ENVIRONMENT:-dev}"}</customFields>
+            <fieldNames>
+                <timestamp>@timestamp</timestamp>
+                <version>[ignore]</version>
+                <levelValue>[ignore]</levelValue>
+            </fieldNames>
+            <!-- 包含MDC字段 -->
+            <includeMdc>true</includeMdc>
+        </encoder>
+    </appender>
+    
+    <!-- 根日志级别 -->
+    <root level="${LOG_LEVEL}">
+        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="FILE" />
+        <appender-ref ref="LOGSTASH" />
+    </root>
+    
+    <!-- Spring日志级别 -->
+    <logger name="org.springframework" level="${LOG_LEVEL}" additivity="false">
+        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="FILE" />
+        <appender-ref ref="LOGSTASH" />
+    </logger>
+    
+    <!-- Hibernate日志级别 -->
+    <logger name="org.hibernate" level="WARN" additivity="false">
+        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="FILE" />
+        <appender-ref ref="LOGSTASH" />
+    </logger>
+    
+    <!-- SQL日志级别 -->
+    <logger name="org.hibernate.SQL" level="DEBUG" additivity="false">
+        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="FILE" />
+        <appender-ref ref="LOGSTASH" />
+    </logger>
+    
+    <!-- 应用日志级别 -->
+    <logger name="com.inventory" level="${LOG_LEVEL}" additivity="false">
+        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="FILE" />
+        <appender-ref ref="LOGSTASH" />
+    </logger>
+    
+    <!-- Request ID过滤器 -->
+    <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+        <level>${LOG_LEVEL}</level>
+    </filter>
+    
+    <!-- MDC上下文初始化 -->
+    <conversionRule conversionWord="mdc" converterClass="ch.qos.logback.classic.pattern.MDCConverter" />
+</configuration>

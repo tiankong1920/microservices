@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE suppressions PUBLIC
+        "-//Checkstyle//DTD SuppressionFilter Configuration 1.2//EN"
+        "https://checkstyle.org/dtds/suppressions_1_2.dtd">
+
+<suppressions>
+    <!-- Generated code suppressions -->
+    <suppress files=".*[\\/]generated[\\/].*" checks=".*"/>
+    <suppress files=".*[\\/]build[\\/].*" checks=".*"/>
+    
+    <!-- DTO/Entity classes - allow common patterns -->
+    <suppress files=".*DTO\.java" checks="MemberName"/>
+    <suppress files=".*Entity\.java" checks="MemberName"/>
+    <suppress files=".*Request\.java" checks="MemberName"/>
+    <suppress files=".*Response\.java" checks="MemberName"/>
+    
+    <!-- Configuration classes - allow specific naming -->
+    <suppress files=".*Config\.java" checks=".*"/>
+    <suppress files=".*Configuration\.java" checks=".*"/>
+    
+    <!-- Test classes - relaxed rules -->
+    <suppress files=".*Test\.java" checks="MethodLength,LineLength"/>
+    <suppress files=".*IT\.java" checks="MethodLength,LineLength"/>
+    
+    <!-- Third-party integrations -->
+    <suppress files=".*Mapper\.java" checks=".*"/>
+    
+    <!-- Application entry points -->
+    <suppress files=".*Application\.java" checks="HideUtilityClassConstructor"/>
+</suppressions>

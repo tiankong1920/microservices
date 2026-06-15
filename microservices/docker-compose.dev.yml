@@ -1,0 +1,208 @@
+---
+version: '3.8'
+
+# Extend the base docker-compose.yml
+# docker-compose -f docker-compose.yml -f docker-compose.dev.yml up
+
+services:
+  # Core Services
+  product-service:
+    <<: *service-base
+    build:
+      context: ./core-services/product-service
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8080"
+    networks:
+      - inventory-net-dev
+    volumes:
+      - ./core-services/product-service/src:/app/src:ro
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+      - JAVA_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005
+
+  order-service:
+    <<: *service-base
+    build:
+      context: ./core-services/order-service
+      dockerfile: Dockerfile
+    ports:
+      - "8082:8080"
+    networks:
+      - inventory-net-dev
+    volumes:
+      - ./core-services/order-service/src:/app/src:ro
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+      - JAVA_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5006
+
+  inventory-service:
+    <<: *service-base
+    build:
+      context: ./core-services/inventory-service
+      dockerfile: Dockerfile
+    ports:
+      - "8083:8080"
+    networks:
+      - inventory-net-dev
+    volumes:
+      - ./core-services/inventory-service/src:/app/src:ro
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+      - JAVA_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5007
+
+  sales-service:
+    <<: *service-base
+    build:
+      context: ./core-services/sales-service
+      dockerfile: Dockerfile
+    ports:
+      - "8084:8080"
+    networks:
+      - inventory-net-dev
+    volumes:
+      - ./core-services/sales-service/src:/app/src:ro
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+      - JAVA_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5008
+
+  procurement-service:
+    <<: *service-base
+    build:
+      context: ./core-services/procurement-service
+      dockerfile: Dockerfile
+    ports:
+      - "8085:8080"
+    networks:
+      - inventory-net-dev
+    volumes:
+      - ./core-services/procurement-service/src:/app/src:ro
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+      - JAVA_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5009
+
+  customer-service:
+    <<: *service-base
+    build:
+      context: ./core-services/customer-service
+      dockerfile: Dockerfile
+    ports:
+      - "8086:8080"
+    networks:
+      - inventory-net-dev
+    volumes:
+      - ./core-services/customer-service/src:/app/src:ro
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+      - JAVA_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5010
+
+  supplier-service:
+    <<: *service-base
+    build:
+      context: ./core-services/supplier-service
+      dockerfile: Dockerfile
+    ports:
+      - "8087:8080"
+    networks:
+      - inventory-net-dev
+    volumes:
+      - ./core-services/supplier-service/src:/app/src:ro
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+      - JAVA_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5011
+
+  business-partner-service:
+    <<: *service-base
+    build:
+      context: ./core-services/business-partner-service
+      dockerfile: Dockerfile
+    ports:
+      - "8088:8080"
+    networks:
+      - inventory-net-dev
+    volumes:
+      - ./core-services/business-partner-service/src:/app/src:ro
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+      - JAVA_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5012
+
+  # Support Services
+  admin-service:
+    <<: *service-base
+    build:
+      context: ./support-services/admin-service
+      dockerfile: Dockerfile
+    ports:
+      - "8089:8080"
+    networks:
+      - inventory-net-dev
+    volumes:
+      - ./support-services/admin-service/src:/app/src:ro
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+      - JAVA_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5013
+
+  finance-service:
+    <<: *service-base
+    build:
+      context: ./support-services/finance-service
+      dockerfile: Dockerfile
+    ports:
+      - "8090:8080"
+    networks:
+      - inventory-net-dev
+    volumes:
+      - ./support-services/finance-service/src:/app/src:ro
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+      - JAVA_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5014
+
+  # Database and Cache Services (Development Overrides)
+  postgres:
+    environment:
+      - POSTGRES_LOG_LEVEL=debug
+      - POSTGRES_SHARED_BUFFERS=256MB
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./scripts/init-db.sql:/docker-entrypoint-initdb.d/init-db.sql:ro
+
+  redis:
+    command: redis-server --appendonly true --loglevel debug
+    volumes:
+      - redis-data:/data
+      - ./scripts/init-redis.sh:/docker-entrypoint-initdb.d/init-redis.sh:ro
+
+  # Development Tools
+  pgadmin:
+    image: dpage/pgadmin4:8.5
+    ports:
+      - "5050:80"
+    networks:
+      - inventory-net-dev
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@example.com
+      - PGADMIN_DEFAULT_PASSWORD=admin
+    depends_on:
+      - postgres
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+    profiles:
+      - tools
+
+  redis-commander:
+    image: rediscommander/redis-commander:latest
+    ports:
+      - "8080:8081"
+    networks:
+      - inventory-net-dev
+    environment:
+      - REDIS_HOSTS=local:redis:6379
+    depends_on:
+      - redis
+    profiles:
+      - tools
+
+# Additional volumes for development tools
+volumes:
+  pgadmin-data:
+    driver: local

@@ -1,0 +1,13 @@
+---
+spring:
+  config:
+    import:
+      - optional:classpath:/config-modules/test-common.yml
+  cloud:
+    compatibility-verifier:
+      enabled: false
+    nacos:
+      discovery:
+        enabled: false
+      config:
+        enabled: false

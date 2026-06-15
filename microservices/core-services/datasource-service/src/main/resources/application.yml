@@ -1,0 +1,156 @@
+server:
+  port: 8088
+
+spring:
+  application:
+    name: datasource-service
+  profiles:
+    active: dev
+  cloud:
+    nacos:
+      discovery:
+        server-addr: ${NACOS_HOST:localhost}:${NACOS_PORT:8848}
+        namespace: ${NACOS_NAMESPACE:public}
+        group: core-api
+      config:
+        server-addr: ${NACOS_HOST:localhost}:${NACOS_PORT:8848}
+        namespace: ${NACOS_NAMESPACE:public}
+        group: core-api
+        file-extension: yml
+        refresh-enabled: true
+  
+  datasource:
+    url: jdbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:5432}/${POSTGRES_DB:inventory_db}
+    username: ${POSTGRES_USER:postgres}
+    password: ${POSTGRES_PASSWORD:changeme}
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      minimum-idle: 5
+      maximum-pool-size: 20
+      idle-timeout: 300000
+      max-lifetime: 1800000
+      connection-timeout: 30000
+      pool-name: DatasourceServiceHikariPool
+  
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      password: ${REDIS_PASSWORD:}
+      database: 0
+      timeout: 10000ms
+      lettuce:
+        pool:
+          max-active: 8
+          max-idle: 8
+          min-idle: 0
+  
+  mail:
+    host: ${MAIL_HOST:smtp.example.com}
+    port: ${MAIL_PORT:587}
+    username: ${MAIL_USERNAME:}
+    password: ${MAIL_PASSWORD:}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+  jackson:
+    serialization:
+      indent-output: true
+    deserialization:
+      fail-on-unknown-properties: false
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: Asia/Shanghai
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      show-details: always
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    enabled: true
+  info:
+    title: Datasource Management Service API
+    description: REST API for Datasource Management System
+    version: 1.0.0
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      datasource-connection:
+        failure-rate-threshold: 50
+        wait-duration-in-open-state: 60s
+        sliding-window-size: 100
+        minimum-number-of-calls: 10
+  retry:
+    instances:
+      datasource-connection:
+        max-attempts: 5
+        wait-duration: 500ms
+        exponential-backoff-multiplier: 2.0
+  ratelimiter:
+    instances:
+      datasource-api:
+        limit-refresh-period: 1s
+        limit-for-period: 100
+        timeout-duration: 500ms
+
+logging:
+  level:
+    root: INFO
+    com.inventory.datasourceservice: DEBUG
+    org.springframework: INFO
+    org.hibernate: WARN
+  pattern:
+    console: '%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36}:%L - [tenant=%X{tenantId:-system}, userId=%X{userId:-N/A}] %msg%n%ex{full}'
+  file:
+    name: logs/datasource-service.log
+    max-size: 100MB
+    max-history: 30
+
+app:
+  datasource:
+    connection:
+      timeout: 3000
+      read-timeout: 30000
+      max-retries: 5
+      retry-backoff-multiplier: 2.0
+      health-check-interval: 30000
+    encryption:
+      algorithm: AES/GCM/NoPadding
+      key-length: 256
+      secret-key: ${ENCRYPTION_SECRET_KEY}
+    tenant:
+      default-tenant: default
+      header-name: X-Tenant-Id
+    audit:
+      enabled: true
+      retention-days: 180
+    alert:
+      enabled: true
+      default-channels:
+        - EMAIL

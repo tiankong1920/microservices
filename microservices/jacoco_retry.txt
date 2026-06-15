@@ -1,0 +1,175 @@
+Type-safe project accessors is an incubating feature.
+Project accessors enabled, but root project name not explicitly set for 'buildSrc'. Checking out the project in different folders will impact the generated code and implicitly the buildscript classpath, breaking caching.
+> Task :buildSrc:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :buildSrc:compileKotlin NO-SOURCE
+> Task :buildSrc:compileJava NO-SOURCE
+> Task :buildSrc:compileGroovy NO-SOURCE
+> Task :buildSrc:pluginDescriptors UP-TO-DATE
+> Task :buildSrc:processResources NO-SOURCE
+> Task :buildSrc:classes UP-TO-DATE
+> Task :buildSrc:jar UP-TO-DATE
+
+> Configure project :
+Configuring inventory-management-system...
+Project accessors enabled, but root project name not explicitly set for 'buildSrc'. Checking out the project in different folders will impact the generated code and implicitly the buildscript classpath, breaking caching.
+
+> Configure project :common
+Configuring common...
+
+> Configure project :core-services
+Configuring core-services...
+
+> Configure project :cross-service-tests
+Configuring cross-service-tests...
+
+> Configure project :monitoring
+Configuring monitoring...
+
+> Configure project :monitoring-core
+Configuring monitoring-core...
+
+> Configure project :monitoring-spring-boot-starter
+Configuring monitoring-spring-boot-starter...
+
+> Configure project :support-services
+Configuring support-services...
+
+> Configure project :core-services:business-partner-service
+Configuring business-partner-service...
+
+> Configure project :core-services:customer-service
+Configuring customer-service...
+
+> Configure project :core-services:datasource-service
+Configuring datasource-service...
+
+> Configure project :core-services:inventory-service
+Configuring inventory-service...
+
+> Configure project :core-services:invoice-service
+Configuring invoice-service...
+
+> Configure project :core-services:mall-service
+Configuring mall-service...
+
+> Configure project :core-services:order-service
+Configuring order-service...
+
+> Configure project :core-services:procurement-service
+Configuring procurement-service...
+
+> Configure project :core-services:product-service
+Configuring product-service...
+
+> Configure project :core-services:sales-service
+Configuring sales-service...
+
+> Configure project :core-services:supplier-service
+Configuring supplier-service...
+
+> Configure project :core-services:template-service
+Configuring template-service...
+
+> Configure project :support-services:admin-service
+Configuring admin-service...
+
+> Configure project :support-services:auth-service
+Configuring auth-service...
+
+> Configure project :support-services:config-service
+Configuring config-service...
+
+> Configure project :support-services:finance-service
+Configuring finance-service...
+
+> Configure project :support-services:gateway-service
+Configuring gateway-service...
+
+> Configure project :support-services:registry-service
+Configuring registry-service...
+
+> Configure project :support-services:report-service
+Configuring report-service...
+
+> Task :common:processResources
+> Task :core-services:product-service:processResources
+> Task :core-services:product-service:processTestResources
+> Task :common:generateEffectiveLombokConfig
+> Task :core-services:product-service:generateEffectiveLombokConfig
+> Task :core-services:product-service:generateTestEffectiveLombokConfig
+
+> Task :common:compileJava
+E:\101\microservices\common\src\main\java\com\inventory\common\saga\order\OrderSagaFactory.java:22: 璀﹀憡: [unchecked] 瀵逛簬绫诲瀷涓篠agaStep<OrderSagaData>[]鐨?varargs 鍙傛暟, 娉涘瀷鏁扮粍鍒涘缓鏈粡杩囨鏌?                .addSteps(
+                         ^
+E:\101\microservices\common\src\main\java\com\inventory\common\saga\SagaOrchestrator.java:147: 璀﹀憡: [unchecked] 鏈粡妫€鏌ョ殑杞崲
+        return (SagaState<T>) sagaLog.findById(sagaId);
+                                              ^
+  闇€瑕? SagaState<T>
+  鎵惧埌:    SagaState<CAP#1>
+  鍏朵腑, T鏄被鍨嬪彉閲?
+    T鎵╁睍宸插湪绫?SagaOrchestrator涓０鏄庣殑Object
+  鍏朵腑, CAP#1鏄柊绫诲瀷鍙橀噺:
+    CAP#1浠?鐨勬崟鑾锋墿灞昈bject
+E:\101\microservices\common\src\main\java\com\inventory\common\saga\SagaBuilder.java:18: 璀﹀憡: [unchecked] 鍙傛暟鍖?vararg 绫诲瀷SagaStep<T>鐨勫爢鍙兘宸插彈姹℃煋
+    public SagaBuilder<T> addSteps(SagaStep<T>... steps) {
+                                                  ^
+  鍏朵腑, T鏄被鍨嬪彉閲?
+    T鎵╁睍宸插湪绫?SagaBuilder涓０鏄庣殑Object
+3 涓鍛?
+
+> Task :common:compileGroovy NO-SOURCE
+> Task :common:classes
+> Task :common:jar
+> Task :core-services:product-service:compileJava
+> Task :core-services:product-service:compileGroovy NO-SOURCE
+> Task :core-services:product-service:classes
+> Task :core-services:product-service:compileTestJava
+> Task :core-services:product-service:compileTestGroovy NO-SOURCE
+> Task :core-services:product-service:testClasses
+
+> Task :core-services:product-service:test
+
+OrderServiceClientFallbackTest > testGetOrdersByProduct_fallbackReturnsError() PASSED
+
+Java HotSpot(TM) 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+
+> Task :core-services:product-service:test
+
+ProductServiceImplTest > testGetProductBySku() PASSED
+
+ProductServiceImplTest > testUpdateProductNotFound() PASSED
+
+ProductServiceImplTest > testGetProductByIdNotFound() PASSED
+
+ProductServiceImplTest > testCreateProduct() PASSED
+
+ProductServiceImplTest > testUpdateProduct() PASSED
+
+ProductServiceImplTest > testGetProductBySkuNotFound() PASSED
+
+ProductServiceImplTest > testGetProductById() PASSED
+
+ProductServiceImplTest > testDeleteProduct() PASSED
+
+ProductServiceImplTest > testGetAllProducts() PASSED
+
+ProductServiceImplTest > testDeleteProductNotFound() PASSED
+
+InventoryServiceClientFallbackTest > testGetInventoryForProduct_fallbackReturnsError() PASSED
+
+Java HotSpot(TM) 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+
+> Task :core-services:product-service:test
+
+ProductServiceImplCacheTest > testCacheEvictionOnUpdateProduct() PASSED
+
+ProductServiceImplCacheTest > testCacheEvictionOnDeleteProduct() PASSED
+
+ProductServiceImplCacheTest > testCacheEvictionOnCreateProduct() PASSED
+
+> Task :core-services:product-service:jacocoTestReport
+
+[Incubating] Problems report is available at: file:///E:/101/microservices/build/reports/problems/problems-report.html
+
+BUILD SUCCESSFUL in 1m 46s
+14 actionable tasks: 12 executed, 2 up-to-date

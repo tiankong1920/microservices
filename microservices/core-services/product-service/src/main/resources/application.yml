@@ -1,0 +1,74 @@
+---
+# Spring应用基础配置
+spring:
+  # 数据源配置
+  datasource:
+    url: jdbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:5432}/${POSTGRES_DB:inventory_db}
+    driver-class-name: org.postgresql.Driver
+    username: ${POSTGRES_USER:postgres}
+    password: ${POSTGRES_PASSWORD:}
+    hikari:
+      maximum-pool-size: 20
+      minimum-idle: 5
+      connection-timeout: 30000
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+  # 应用信息配置
+  application:
+    name: product-service
+  
+  # 配置引用机制
+  config:
+    import:
+      - optional:classpath:/config-modules/nacos-common.yml
+      - optional:classpath:/config-modules/monitoring-common.yml
+      - optional:classpath:/config-modules/common-core.yml
+      - optional:classpath:/config-modules/logging-common.yml
+  
+  # Redis配置
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      database: 0
+      timeout: 2000ms
+      lettuce:
+        pool:
+          max-active: 8
+          max-idle: 8
+          min-idle: 0
+          max-wait: -1ms
+  
+  # 缓存配置
+  cache:
+    type: simple
+  
+  # Spring Cloud配置
+  cloud:
+    nacos:
+      discovery:
+        enabled: false
+      config:
+        enabled: false
+    config:
+      enabled: false
+  
+  # Spring Boot DevTools配置
+  devtools:
+    restart:
+      enabled: true
+      additional-paths: src/main/java
+    livereload:
+      enabled: true
+
+# 服务器配置
+server:
+  port: 8080
+  servlet:
+    context-path: /

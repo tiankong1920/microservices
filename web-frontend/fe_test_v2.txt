@@ -1,0 +1,124 @@
+
+> web-frontend@0.0.0 test
+> vitest run
+
+
+ RUN  v4.1.2 E:/101/web-frontend
+
+ 鉂?src/pages/__tests__/Login.test.tsx (5 tests | 5 failed) 155ms
+     脳 搴旇鏄剧ず鐧诲綍椤甸潰鏍囬 58ms
+     脳 搴旇鏄剧ず鐢ㄦ埛鍚嶅拰瀵嗙爜杈撳叆妗?2ms
+     脳 搴旇鏄剧ず鐧诲綍鎸夐挳 10ms
+     脳 搴旇鍦ㄨ緭鍏ユ涓帴鍙楃敤鎴疯緭鍏?14ms
+     脳 搴旇鍦ㄦ彁浜ゆ椂璋冪敤鐧诲綍鍑芥暟 10ms
+
+鈳幆鈳幆鈳幆鈳?Failed Tests 5 鈳幆鈳幆鈳幆鈳?
+ FAIL  src/pages/__tests__/Login.test.tsx > Login > 搴旇鏄剧ず鐧诲綍椤甸潰鏍囬
+Error: [vitest] No "AuthProvider" export is defined on the "../../contexts/AuthContext" mock. Did you forget to return it from "vi.mock"?
+If you need to partially mock a module, you can use "importOriginal" helper inside:
+
+vi.mock(import("../../contexts/AuthContext"), async (importOriginal) => {
+  const actual = await importOriginal()
+  return {
+    ...actual,
+    // your mocked methods
+  }
+})
+
+ 鉂?src/pages/__tests__/Login.test.tsx:39:12
+     37|       <BrowserRouter>
+     38|         <ToastProvider>
+     39|           <AuthProvider>
+       |            ^
+     40|             <Login />
+     41|           </AuthProvider>
+
+鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆[1/5]鈳?
+ FAIL  src/pages/__tests__/Login.test.tsx > Login > 搴旇鏄剧ず鐢ㄦ埛鍚嶅拰瀵嗙爜杈撳叆妗?Error: [vitest] No "AuthProvider" export is defined on the "../../contexts/AuthContext" mock. Did you forget to return it from "vi.mock"?
+If you need to partially mock a module, you can use "importOriginal" helper inside:
+
+vi.mock(import("../../contexts/AuthContext"), async (importOriginal) => {
+  const actual = await importOriginal()
+  return {
+    ...actual,
+    // your mocked methods
+  }
+})
+
+ 鉂?src/pages/__tests__/Login.test.tsx:55:12
+     53|       <BrowserRouter>
+     54|         <ToastProvider>
+     55|           <AuthProvider>
+       |            ^
+     56|             <Login />
+     57|           </AuthProvider>
+
+鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆[2/5]鈳?
+ FAIL  src/pages/__tests__/Login.test.tsx > Login > 搴旇鏄剧ず鐧诲綍鎸夐挳
+Error: [vitest] No "AuthProvider" export is defined on the "../../contexts/AuthContext" mock. Did you forget to return it from "vi.mock"?
+If you need to partially mock a module, you can use "importOriginal" helper inside:
+
+vi.mock(import("../../contexts/AuthContext"), async (importOriginal) => {
+  const actual = await importOriginal()
+  return {
+    ...actual,
+    // your mocked methods
+  }
+})
+
+ 鉂?src/pages/__tests__/Login.test.tsx:72:12
+     70|       <BrowserRouter>
+     71|         <ToastProvider>
+     72|           <AuthProvider>
+       |            ^
+     73|             <Login />
+     74|           </AuthProvider>
+
+鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆[3/5]鈳?
+ FAIL  src/pages/__tests__/Login.test.tsx > Login > 搴旇鍦ㄨ緭鍏ユ涓帴鍙楃敤鎴疯緭鍏?Error: [vitest] No "AuthProvider" export is defined on the "../../contexts/AuthContext" mock. Did you forget to return it from "vi.mock"?
+If you need to partially mock a module, you can use "importOriginal" helper inside:
+
+vi.mock(import("../../contexts/AuthContext"), async (importOriginal) => {
+  const actual = await importOriginal()
+  return {
+    ...actual,
+    // your mocked methods
+  }
+})
+
+ 鉂?src/pages/__tests__/Login.test.tsx:90:12
+     88|       <BrowserRouter>
+     89|         <ToastProvider>
+     90|           <AuthProvider>
+       |            ^
+     91|             <Login />
+     92|           </AuthProvider>
+
+鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆[4/5]鈳?
+ FAIL  src/pages/__tests__/Login.test.tsx > Login > 搴旇鍦ㄦ彁浜ゆ椂璋冪敤鐧诲綍鍑芥暟
+Error: [vitest] No "AuthProvider" export is defined on the "../../contexts/AuthContext" mock. Did you forget to return it from "vi.mock"?
+If you need to partially mock a module, you can use "importOriginal" helper inside:
+
+vi.mock(import("../../contexts/AuthContext"), async (importOriginal) => {
+  const actual = await importOriginal()
+  return {
+    ...actual,
+    // your mocked methods
+  }
+})
+
+ 鉂?src/pages/__tests__/Login.test.tsx:108:12
+    106|       <BrowserRouter>
+    107|         <ToastProvider>
+    108|           <AuthProvider>
+       |            ^
+    109|             <Login />
+    110|           </AuthProvider>
+
+鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆[5/5]鈳?
+
+ Test Files  1 failed | 6 passed (7)
+      Tests  5 failed | 24 passed (29)
+   Start at  18:42:20
+   Duration  213.96s (transform 2.98s, setup 7.53s, import 402.05s, tests 36.55s, environment 42.25s)
+

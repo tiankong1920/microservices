@@ -1,0 +1,13 @@
+
+> web-frontend@0.0.0 test
+> vitest run
+
+
+ RUN  v4.1.2 E:/101/web-frontend
+
+
+ Test Files  16 passed (16)
+      Tests  49 passed (49)
+   Start at  19:24:02
+   Duration  453.80s (transform 6.08s, setup 10.74s, import 984.71s, tests 115.19s, environment 99.02s)
+

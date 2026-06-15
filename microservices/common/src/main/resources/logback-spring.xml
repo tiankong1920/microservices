@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <!-- 配置中心属性 -->
+    <springProperty scope="context" name="springAppName" source="spring.application.name" default-value="common" />
+    <springProperty scope="context" name="logLevel" source="logging.level.root" default-value="INFO" />
+    <springProperty scope="context" name="logJsonEnabled" source="logging.json.enabled" default-value="true" />
+    <springProperty scope="context" name="environment" source="spring.profiles.active" default-value="unknown" />
+    
+    <!-- 日志常量定义 -->
+    <property name="LOG_VERSION" value="1.0" />
+    <property name="MAX_HISTORY" value="30" />
+    <property name="MAX_FILE_SIZE" value="100MB" />
+    <property name="TOTAL_SIZE_CAP" value="50GB" />
+    <property name="COMPRESS_AFTER_DAYS" value="7" />
+    <property name="ASYNC_QUEUE_SIZE" value="512" />
+    
+    <!-- 标准化日志格式 - 支持JSON和文本两种格式 -->
+    <property name="TEXT_LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36}:%L - [app=%X{appName:-${springAppName}}, requestId=%X{requestId:-N/A}, userId=%X{userId:-N/A}] %msg%n%ex{full}" />
+    
+    <!-- 控制台输出 - 异步 -->
+    <appender name="CONSOLE_SYNC" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>${TEXT_LOG_PATTERN}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+    
+    <!-- 异步控制台输出 -->
+    <appender name="CONSOLE" class="ch.qos.logback.classic.AsyncAppender">
+        <appender-ref ref="CONSOLE_SYNC" />
+        <queueSize>${ASYNC_QUEUE_SIZE}</queueSize>
+        <discardingThreshold>0</discardingThreshold>
+        <includeCallerData>false</includeCallerData>
+        <neverBlock>true</neverBlock>
+    </appender>
+    
+    <!-- 文件输出 -->
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/${springAppName}.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>logs/${springAppName}.%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern>
+            <maxHistory>${MAX_HISTORY}</maxHistory>
+            <totalSizeCap>${TOTAL_SIZE_CAP}</totalSizeCap>
+            <maxFileSize>${MAX_FILE_SIZE}</maxFileSize>
+            <cleanHistoryOnStart>false</cleanHistoryOnStart>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>${TEXT_LOG_PATTERN}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+    
+    <!-- 异步文件输出 - 高性能配置 -->
+    <appender name="ASYNC_FILE" class="ch.qos.logback.classic.AsyncAppender">
+        <appender-ref ref="FILE" />
+        <queueSize>${ASYNC_QUEUE_SIZE}</queueSize>
+        <!-- 仅丢弃TRACE/DEBUG/INFO级别日志，ERROR/WARN级别保留，确保关键日志零丢失 -->
+        <discardingThreshold>10</discardingThreshold>
+        <includeCallerData>false</includeCallerData>
+        <!-- 主线程零阻塞 -->
+        <neverBlock>true</neverBlock>
+        <!-- 队列溢出保护机制：当队列满时丢弃最旧的非ERROR/WARN日志 -->
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>ERROR</level>
+        </filter>
+    </appender>
+    
+    <!-- 根日志配置 -->
+    <root level="${logLevel}">
+        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="ASYNC_FILE" />
+    </root>
+    
+    <!-- 基于业务模块的精细化日志级别划分 -->
+    <!-- 核心业务模块 -->
+    <logger name="com.inventory.core" level="INFO" additivity="false">
+        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="ASYNC_FILE" />
+    </logger>
+    
+    <!-- 业务服务模块 -->
+    <logger name="com.inventory.service" level="DEBUG" additivity="false">
+        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="ASYNC_FILE" />
+    </logger>
+    
+    <!-- 控制器层 -->
+    <logger name="com.inventory.controller" level="INFO" additivity="false">
+        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="ASYNC_FILE" />
+    </logger>
+    
+    <!-- 数据访问层 -->
+    <logger name="com.inventory.repository" level="ERROR" additivity="false">
+        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="ASYNC_FILE" />
+    </logger>
+    
+    <!-- 工具类 -->
+    <logger name="com.inventory.util" level="WARN" additivity="false">
+        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="ASYNC_FILE" />
+    </logger>
+    
+    <!-- 配置相关 -->
+    <logger name="com.inventory.config" level="WARN" additivity="false">
+        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="ASYNC_FILE" />
+    </logger>
+    
+    <!-- 框架日志配置 -->
+    <logger name="org.springframework" level="INFO" additivity="false">
+        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="ASYNC_FILE" />
+    </logger>
+    
+    <!-- Spring Cloud相关 -->
+    <logger name="org.springframework.cloud" level="INFO" additivity="false">
+        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="ASYNC_FILE" />
+    </logger>
+    
+    <!-- 第三方库日志配置 -->
+    <logger name="org.apache" level="WARN" additivity="false">
+        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="ASYNC_FILE" />
+    </logger>
+    
+    <logger name="com.fasterxml" level="WARN" additivity="false">
+        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="ASYNC_FILE" />
+    </logger>
+    
+    <logger name="io.netty" level="WARN" additivity="false">
+        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="ASYNC_FILE" />
+    </logger>
+    
+    <logger name="io.github.resilience4j" level="INFO" additivity="false">
+        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="ASYNC_FILE" />
+    </logger>
+    
+    <!-- 数据库相关 -->
+    <logger name="org.hibernate" level="ERROR" additivity="false">
+        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="ASYNC_FILE" />
+    </logger>
+    
+    <logger name="org.postgresql" level="ERROR" additivity="false">
+        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="ASYNC_FILE" />
+    </logger>
+    
+    <!-- Redis相关 -->
+    <logger name="org.springframework.data.redis" level="ERROR" additivity="false">
+        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="ASYNC_FILE" />
+    </logger>
+    
+    <!-- 调试输出检查 - 禁止生产环境出现System.out.println -->
+    <logger name="System.out" level="OFF" additivity="false" />
+    <logger name="System.err" level="ERROR" additivity="false">
+        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="ASYNC_FILE" />
+    </logger>
+</configuration>

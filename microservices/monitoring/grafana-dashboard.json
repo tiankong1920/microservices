@@ -1,0 +1,311 @@
+{
+  "dashboard": {
+    "id": null,
+    "title": "Enterprise Integration Framework - Unified Monitoring Dashboard",
+    "tags": ["enterprise", "integration", "devops"],
+    "timezone": "browser",
+    "schemaVersion": 36,
+    "refresh": "30s",
+    "time": {
+      "from": "now-1h",
+      "to": "now"
+    },
+    "templating": {
+      "list": [
+        {
+          "name": "environment",
+          "type": "custom",
+          "query": "dev,staging,production",
+          "current": {
+            "text": "production",
+            "value": "production"
+          }
+        },
+        {
+          "name": "service",
+          "type": "query",
+          "query": "label_values(up, service)",
+          "refresh": 1
+        }
+      ]
+    },
+    "annotations": {
+      "list": [
+        {
+          "name": "Deployments",
+          "datasource": "Prometheus",
+          "expr": "changes(kube_deployment_status_observed_generation{namespace=~\"$environment\"}[1m]) > 0",
+          "tagKeys": "deployment",
+          "textFormat": "Deployment: {{deployment}}",
+          "iconColor": "#5794F2"
+        },
+        {
+          "name": "Alerts",
+          "datasource": "Prometheus",
+          "expr": "ALERTS{alertstate=\"firing\"}",
+          "tagKeys": "alertname",
+          "textFormat": "Alert: {{alertname}}",
+          "iconColor": "#F2495C"
+        }
+      ]
+    },
+    "panels": [
+      {
+        "id": 1,
+        "title": "CI/CD Pipeline Status",
+        "type": "stat",
+        "gridPos": {"h": 4, "w": 6, "x": 0, "y": 0},
+        "targets": [
+          {
+            "expr": "sum by (status) (ci_pipeline_status{environment=\"$environment\"})",
+            "legendFormat": "{{status}}"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "thresholds": {
+              "steps": [
+                {"color": "red", "value": 0},
+                {"color": "yellow", "value": 1},
+                {"color": "green", "value": 2}
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": 2,
+        "title": "Security Scan Results",
+        "type": "piechart",
+        "gridPos": {"h": 4, "w": 6, "x": 6, "y": 0},
+        "targets": [
+          {
+            "expr": "sum by (severity) (security_vulnerabilities_total)",
+            "legendFormat": "{{severity}}"
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "title": "Code Quality Metrics",
+        "type": "gauge",
+        "gridPos": {"h": 4, "w": 6, "x": 12, "y": 0},
+        "targets": [
+          {
+            "expr": "code_coverage_percent{service=\"$service\"}",
+            "legendFormat": "Code Coverage"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "min": 0,
+            "max": 100,
+            "thresholds": {
+              "steps": [
+                {"color": "red", "value": 0},
+                {"color": "yellow", "value": 60},
+                {"color": "green", "value": 80}
+              ]
+            },
+            "unit": "percent"
+          }
+        }
+      },
+      {
+        "id": 4,
+        "title": "Deployment Frequency",
+        "type": "stat",
+        "gridPos": {"h": 4, "w": 6, "x": 18, "y": 0},
+        "targets": [
+          {
+            "expr": "sum(increase(deployment_count_total{environment=\"$environment\"}[24h]))",
+            "legendFormat": "24h Deployments"
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "title": "Service Health Status",
+        "type": "table",
+        "gridPos": {"h": 8, "w": 12, "x": 0, "y": 4},
+        "targets": [
+          {
+            "expr": "up{service=~\"$service\"}",
+            "format": "table",
+            "instant": true
+          }
+        ],
+        "columns": [
+          {"text": "Service", "value": "service"},
+          {"text": "Status", "value": "Value"},
+          {"text": "Instance", "value": "instance"}
+        ]
+      },
+      {
+        "id": 6,
+        "title": "Response Time by Service",
+        "type": "graph",
+        "gridPos": {"h": 8, "w": 12, "x": 12, "y": 4},
+        "targets": [
+          {
+            "expr": "histogram_quantile(0.95, sum(rate(http_request_duration_seconds_bucket{service=~\"$service\"}[5m])) by (le, service))",
+            "legendFormat": "95th percentile - {{service}}"
+          },
+          {
+            "expr": "histogram_quantile(0.50, sum(rate(http_request_duration_seconds_bucket{service=~\"$service\"}[5m])) by (le, service))",
+            "legendFormat": "50th percentile - {{service}}"
+          }
+        ],
+        "yAxes": [
+          {
+            "label": "Response Time (s)",
+            "min": 0
+          }
+        ]
+      },
+      {
+        "id": 7,
+        "title": "Error Rate by Service",
+        "type": "graph",
+        "gridPos": {"h": 6, "w": 8, "x": 0, "y": 12},
+        "targets": [
+          {
+            "expr": "sum(rate(http_requests_total{service=~\"$service\",status=~\"5..\"}[5m])) by (service) / sum(rate(http_requests_total{service=~\"$service\"}[5m])) by (service) * 100",
+            "legendFormat": "{{service}}"
+          }
+        ],
+        "yAxes": [
+          {
+            "label": "Error Rate (%)",
+            "min": 0,
+            "max": 100
+          }
+        ]
+      },
+      {
+        "id": 8,
+        "title": "Throughput (RPS)",
+        "type": "graph",
+        "gridPos": {"h": 6, "w": 8, "x": 8, "y": 12},
+        "targets": [
+          {
+            "expr": "sum(rate(http_requests_total{service=~\"$service\"}[1m])) by (service)",
+            "legendFormat": "{{service}}"
+          }
+        ],
+        "yAxes": [
+          {
+            "label": "Requests/sec",
+            "min": 0
+          }
+        ]
+      },
+      {
+        "id": 9,
+        "title": "Tool Integration Health",
+        "type": "stat",
+        "gridPos": {"h": 6, "w": 8, "x": 16, "y": 12},
+        "targets": [
+          {
+            "expr": "integration_tool_status{tool=\"sonarqube\"}",
+            "legendFormat": "SonarQube"
+          },
+          {
+            "expr": "integration_tool_status{tool=\"snyk\"}",
+            "legendFormat": "Snyk"
+          },
+          {
+            "expr": "integration_tool_status{tool=\"appdynamics\"}",
+            "legendFormat": "AppDynamics"
+          },
+          {
+            "expr": "integration_tool_status{tool=\"datadog\"}",
+            "legendFormat": "Datadog"
+          },
+          {
+            "expr": "integration_tool_status{tool=\"newrelic\"}",
+            "legendFormat": "New Relic"
+          },
+          {
+            "expr": "integration_tool_status{tool=\"jira\"}",
+            "legendFormat": "Jira"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "thresholds": {
+              "steps": [
+                {"color": "red", "value": 0},
+                {"color": "green", "value": 1}
+              ]
+            },
+            "mappings": [
+              {"options": {"0": {"text": "Down"}}, "type": "value"},
+              {"options": {"1": {"text": "Up"}}, "type": "value"}
+            ]
+          }
+        }
+      },
+      {
+        "id": 10,
+        "title": "JVM Memory Usage",
+        "type": "graph",
+        "gridPos": {"h": 6, "w": 12, "x": 0, "y": 18},
+        "targets": [
+          {
+            "expr": "jvm_memory_used_bytes{service=~\"$service\",area=\"heap\"}",
+            "legendFormat": "Used - {{service}}"
+          },
+          {
+            "expr": "jvm_memory_max_bytes{service=~\"$service\",area=\"heap\"}",
+            "legendFormat": "Max - {{service}}"
+          }
+        ],
+        "yAxes": [
+          {
+            "label": "Bytes",
+            "unit": "bytes"
+          }
+        ]
+      },
+      {
+        "id": 11,
+        "title": "CPU Usage",
+        "type": "graph",
+        "gridPos": {"h": 6, "w": 12, "x": 12, "y": 18},
+        "targets": [
+          {
+            "expr": "process_cpu_usage{service=~\"$service\"} * 100",
+            "legendFormat": "{{service}}"
+          }
+        ],
+        "yAxes": [
+          {
+            "label": "CPU %",
+            "min": 0,
+            "max": 100,
+            "unit": "percent"
+          }
+        ]
+      },
+      {
+        "id": 12,
+        "title": "Build Duration Trend",
+        "type": "graph",
+        "gridPos": {"h": 6, "w": 24, "x": 0, "y": 24},
+        "targets": [
+          {
+            "expr": "ci_build_duration_seconds{environment=\"$environment\"}",
+            "legendFormat": "Build Duration"
+          }
+        ],
+        "yAxes": [
+          {
+            "label": "Duration (s)",
+            "unit": "s"
+          }
+        ]
+      }
+    ]
+  }
+}

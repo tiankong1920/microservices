@@ -1,0 +1,15 @@
+---
+# 日志公共配置
+# 功能描述:包含Logback日志配置
+# 适用范围:所有服务
+# 修改记录:
+# - 2025-02-05 修复模块联动
+
+logging:
+  level:
+    root: INFO
+    com.inventory: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+  file:
+    name: logs/${spring.application.name}.log

@@ -1,0 +1,194 @@
+# Gradle
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+# Gradle Wrapper (keep the wrapper files)
+!gradlew
+!gradlew.bat
+!gradle/wrapper/
+
+# IDE - IntelliJ IDEA
+.idea/
+*.iml
+*.ipr
+*.iws
+out/
+.idea_modules/
+
+# IDE - Eclipse
+.settings/
+.classpath
+.project
+.metadata/
+bin/
+tmp/
+
+# IDE - VS Code
+.vscode/
+*.code-workspace
+
+# IDE - NetBeans
+nb-configuration.xml
+nbproject/
+
+# Java
+*.class
+*.jar
+*.war
+*.ear
+*.nar
+hs_err_pid*
+replay_pid*
+
+# Log files
+*.log
+logs/
+
+# Package Files
+*.nar
+*.zip
+*.tar.gz
+*.rar
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Application specific
+application-local.yml
+application-local.properties
+
+# Test output
+test-output/
+*.exec
+
+# JaCoCo
+jacoco.exec
+
+# PMD
+.pmdcache
+
+# Checkstyle
+checkstyle-cache
+
+# SpotBugs
+spotbugs.xml
+
+# Dependency check
+dependency-check-report.*
+
+# SonarQube
+.sonar/
+.scannerwork/
+
+# Node.js / Frontend
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+web-frontend/dist/
+web-frontend/.vite/
+
+# Docker
+.docker/
+
+# Kubernetes
+*.kubeconfig
+
+# Temporary files
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+
+# Backup files
+*.bak
+*.backup
+*.old
+
+# Generated sources
+generated/
+**/generated-sources/
+**/generated-test-sources/
+
+# Coverage reports
+coverage/
+.nyc_output/
+
+# Documentation build
+docs/_build/
+
+# AI Tool Config Directories
+.agency-agents/
+.agents/
+.omo/
+.omx/
+.qoder/
+.trae/
+.workbuddy/
+.superpowers/
+.superpowers_official/
+.team/
+.opencode/
+.omm/
+.worklog/
+
+# AI Tool lock files
+skills-lock.json
+
+# Security / Static Analysis Output
+Sirius/
+Sirius-scan/
+SiriusSecurity/
+
+# Analysis Output Logs
+build_output.txt
+compile_check.txt
+flyway_check.txt
+
+# Backup directory (full microservices snapshot)
+microservices_backup/
+
+# Backup directory (old backups)
+backups/
+
+# Root-level audit/review reports
+DEPENDENCY_*.md
+DEFECT_FIX_*.md
+IMPROVEMENT_*.md
+NAMING_CONVENTION_*.md
+
+# Root-level working notes
+1.md
+2026*.md
+
+# OS
+*.pyc
+__pycache__/
+
+# Windows reserved names (artifact zero-byte files)
+nul
+
+# Snyk scan output
+snyk_scan_raw.txt
+snyk_scan_result.json
+snyk_grade_scan.json
+snyk_npm_scan.json
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Generated sources (MapStruct, etc.)
+**/generated-sources/
+**/generated-test-sources/

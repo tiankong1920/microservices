@@ -1,0 +1,357 @@
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.5.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+Type-safe project accessors is an incubating feature.
+Project accessors enabled, but root project name not explicitly set for 'buildSrc'. Checking out the project in different folders will impact the generated code and implicitly the buildscript classpath, breaking caching.
+> Task :buildSrc:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :buildSrc:compileKotlin NO-SOURCE
+> Task :buildSrc:compileJava NO-SOURCE
+> Task :buildSrc:compileGroovy NO-SOURCE
+> Task :buildSrc:pluginDescriptors UP-TO-DATE
+> Task :buildSrc:processResources NO-SOURCE
+> Task :buildSrc:classes UP-TO-DATE
+> Task :buildSrc:jar UP-TO-DATE
+
+> Configure project :
+Configuring inventory-management-system...
+Project accessors enabled, but root project name not explicitly set for 'buildSrc'. Checking out the project in different folders will impact the generated code and implicitly the buildscript classpath, breaking caching.
+
+> Configure project :common
+Configuring common...
+
+> Configure project :core-services
+Configuring core-services...
+
+> Configure project :cross-service-tests
+Configuring cross-service-tests...
+
+> Configure project :monitoring
+Configuring monitoring...
+
+> Configure project :monitoring-core
+Configuring monitoring-core...
+
+> Configure project :monitoring-spring-boot-starter
+Configuring monitoring-spring-boot-starter...
+
+> Configure project :support-services
+Configuring support-services...
+
+> Configure project :core-services:business-partner-service
+Configuring business-partner-service...
+
+> Configure project :core-services:customer-service
+Configuring customer-service...
+
+> Configure project :core-services:datasource-service
+Configuring datasource-service...
+
+> Configure project :core-services:inventory-service
+Configuring inventory-service...
+
+> Configure project :core-services:invoice-service
+Configuring invoice-service...
+
+> Configure project :core-services:mall-service
+Configuring mall-service...
+
+> Configure project :core-services:order-service
+Configuring order-service...
+
+> Configure project :core-services:procurement-service
+Configuring procurement-service...
+
+> Configure project :core-services:product-service
+Configuring product-service...
+
+> Configure project :core-services:sales-service
+Configuring sales-service...
+
+> Configure project :core-services:supplier-service
+Configuring supplier-service...
+
+> Configure project :core-services:template-service
+Configuring template-service...
+
+> Configure project :support-services:admin-service
+Configuring admin-service...
+
+> Configure project :support-services:auth-service
+Configuring auth-service...
+
+> Configure project :support-services:config-service
+Configuring config-service...
+
+> Configure project :support-services:finance-service
+Configuring finance-service...
+
+> Configure project :support-services:gateway-service
+Configuring gateway-service...
+
+> Configure project :support-services:registry-service
+Configuring registry-service...
+
+> Configure project :support-services:report-service
+Configuring report-service...
+
+> Task :common:generateEffectiveLombokConfig UP-TO-DATE
+> Task :core-services:template-service:generateEffectiveLombokConfig UP-TO-DATE
+> Task :core-services:template-service:processResources UP-TO-DATE
+> Task :core-services:template-service:generateTestEffectiveLombokConfig UP-TO-DATE
+> Task :core-services:template-service:processTestResources UP-TO-DATE
+> Task :common:compileJava UP-TO-DATE
+> Task :common:compileGroovy NO-SOURCE
+> Task :common:processResources UP-TO-DATE
+> Task :common:classes UP-TO-DATE
+> Task :common:jar
+> Task :core-services:template-service:compileJava UP-TO-DATE
+> Task :core-services:template-service:compileGroovy NO-SOURCE
+> Task :core-services:template-service:classes UP-TO-DATE
+> Task :core-services:template-service:compileTestJava
+> Task :core-services:template-service:compileTestGroovy NO-SOURCE
+> Task :core-services:template-service:testClasses
+Java HotSpot(TM) 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+> Task :core-services:template-service:test
+
+Java HotSpot(TM) 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+
+> Task :core-services:template-service:test
+
+TemplateBatchControllerTest > testBatchCreateWithErrorContinues() PASSED
+
+TemplateBatchControllerTest > testBatchUpdateWithNullId() PASSED
+
+TemplateBatchControllerTest > testBatchCreateAllSuccess() PASSED
+
+TemplateBatchControllerTest > testBatchUpdate() PASSED
+
+TemplateBatchControllerTest > testBatchDeleteAllSuccess() PASSED
+
+TemplateBatchControllerTest > testBatchArchive() FAILED
+    org.mockito.exceptions.base.MockitoException: 
+    Only void methods can doNothing()!
+    Example of correct use of doNothing():
+        doNothing().
+        doThrow(new RuntimeException())
+        .when(mock).someVoidMethod();
+    Above means:
+    someVoidMethod() does nothing the 1st time but throws an exception the 2nd time is called
+        at app//com.inventory.templateservice.service.TemplateService.archiveTemplate(TemplateService.java:223)
+        at app//com.inventory.templateservice.controller.TemplateBatchControllerTest.testBatchArchive(TemplateBatchControllerTest.java:158)
+
+TemplateBatchControllerTest > testBatchDeprecate() FAILED
+    org.mockito.exceptions.base.MockitoException: 
+    Only void methods can doNothing()!
+    Example of correct use of doNothing():
+        doNothing().
+        doThrow(new RuntimeException())
+        .when(mock).someVoidMethod();
+    Above means:
+    someVoidMethod() does nothing the 1st time but throws an exception the 2nd time is called
+        at app//com.inventory.templateservice.service.TemplateService.deprecateTemplate(TemplateService.java:207)
+        at app//com.inventory.templateservice.controller.TemplateBatchControllerTest.testBatchDeprecate(TemplateBatchControllerTest.java:146)
+
+TemplateBatchControllerTest > testBatchPublish() FAILED
+    org.mockito.exceptions.base.MockitoException: 
+    Only void methods can doNothing()!
+    Example of correct use of doNothing():
+        doNothing().
+        doThrow(new RuntimeException())
+        .when(mock).someVoidMethod();
+    Above means:
+    someVoidMethod() does nothing the 1st time but throws an exception the 2nd time is called
+        at app//com.inventory.templateservice.service.TemplateService.publishTemplate(TemplateService.java:185)
+        at app//com.inventory.templateservice.controller.TemplateBatchControllerTest.testBatchPublish(TemplateBatchControllerTest.java:135)
+
+TemplateBatchControllerTest > testBatchDeleteWithError() FAILED
+    org.opentest4j.AssertionFailedError: expected: <2> but was: <1>
+        at app//org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
+        at app//org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
+        at app//org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:197)
+        at app//org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:182)
+        at app//org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:177)
+        at app//org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1145)
+        at app//com.inventory.templateservice.controller.TemplateBatchControllerTest.testBatchDeleteWithError(TemplateBatchControllerTest.java:129)
+
+TemplateBatchControllerTest > testBatchCreateWithErrorStopsImmediately() PASSED
+
+CustomFieldControllerTest > testGetAllValidationRules() PASSED
+
+CustomFieldControllerTest > testGetValidationRuleFound() PASSED
+
+CustomFieldControllerTest > testGetValidationRulesByFieldType() PASSED
+
+CustomFieldControllerTest > testActivateCustomField() PASSED
+
+CustomFieldControllerTest > testGetValidationRuleByCodeFound() PASSED
+
+CustomFieldControllerTest > testGetCustomFieldsByTemplate() PASSED
+
+CustomFieldControllerTest > testGetCustomFieldNotFound() PASSED
+
+CustomFieldControllerTest > testUpdateCustomField() PASSED
+
+CustomFieldControllerTest > testGetBuiltInValidationRules() PASSED
+
+CustomFieldControllerTest > testDeleteCustomField() PASSED
+
+CustomFieldControllerTest > testGetActiveCustomFields() PASSED
+
+CustomFieldControllerTest > testGetValidationRuleByCodeNotFound() PASSED
+
+CustomFieldControllerTest > testUpdateValidationRule() PASSED
+
+CustomFieldControllerTest > testValidateFieldValue() PASSED
+
+CustomFieldControllerTest > testCreateCustomField() PASSED
+
+TemplateStatisticsControllerTest > testGetByDomain() FAILED
+    org.mockito.exceptions.misusing.PotentialStubbingProblem: 
+    Strict stubbing argument mismatch. Please check:
+     - this invocation of 'countByBusinessDomain' method:
+        templateRepository.countByBusinessDomain(
+        CUSTOMER_MANAGEMENT
+    );
+        -> at com.inventory.templateservice.controller.TemplateStatisticsController.getByDomain(TemplateStatisticsController.java:80)
+     - has following stubbing(s) with different arguments:
+        1. templateRepository.countByBusinessDomain(
+        INVENTORY_MANAGEMENT
+    );
+          -> at com.inventory.templateservice.controller.TemplateStatisticsControllerTest.testGetByDomain(TemplateStatisticsControllerTest.java:59)
+    Typically, stubbing argument mismatch indicates user mistake when writing tests.
+    Mockito fails early so that you can debug potential problem easily.
+    However, there are legit scenarios when this exception generates false negative signal:
+      - stubbing the same method multiple times using 'given().will()' or 'when().then()' API
+        Please use 'will().given()' or 'doReturn().when()' API for stubbing.
+      - stubbed method is intentionally invoked with different arguments by code under test
+        Please use default or 'silent' JUnit Rule (equivalent of Strictness.LENIENT).
+    For more information see javadoc for PotentialStubbingProblem class.
+        at app//com.inventory.templateservice.controller.TemplateStatisticsController.getByDomain(TemplateStatisticsController.java:80)
+        at app//com.inventory.templateservice.controller.TemplateStatisticsControllerTest.testGetByDomain(TemplateStatisticsControllerTest.java:61)
+
+TemplateStatisticsControllerTest > testGetTrend() PASSED
+
+CustomFieldControllerTest > testValidateFieldValueInvalid() PASSED
+
+CustomFieldControllerTest > testCreateValidationRule() PASSED
+
+CustomFieldControllerTest > testGetValidationRuleNotFound() PASSED
+
+CustomFieldControllerTest > testDeleteValidationRule() PASSED
+
+TemplateStatisticsControllerTest > testGetByStatus() FAILED
+    org.mockito.exceptions.misusing.PotentialStubbingProblem: 
+    Strict stubbing argument mismatch. Please check:
+     - this invocation of 'countByStatus' method:
+        templateRepository.countByStatus(
+        PENDING_REVIEW
+    );
+        -> at com.inventory.templateservice.controller.TemplateStatisticsController.getByStatus(TemplateStatisticsController.java:68)
+     - has following stubbing(s) with different arguments:
+        1. templateRepository.countByStatus(PUBLISHED);
+          -> at com.inventory.templateservice.controller.TemplateStatisticsControllerTest.testGetByStatus(TemplateStatisticsControllerTest.java:48)
+    Typically, stubbing argument mismatch indicates user mistake when writing tests.
+    Mockito fails early so that you can debug potential problem easily.
+    However, there are legit scenarios when this exception generates false negative signal:
+      - stubbing the same method multiple times using 'given().will()' or 'when().then()' API
+        Please use 'will().given()' or 'doReturn().when()' API for stubbing.
+      - stubbed method is intentionally invoked with different arguments by code under test
+        Please use default or 'silent' JUnit Rule (equivalent of Strictness.LENIENT).
+    For more information see javadoc for PotentialStubbingProblem class.
+        at app//com.inventory.templateservice.controller.TemplateStatisticsController.getByStatus(TemplateStatisticsController.java:68)
+        at app//com.inventory.templateservice.controller.TemplateStatisticsControllerTest.testGetByStatus(TemplateStatisticsControllerTest.java:51)
+
+TemplateStatisticsControllerTest > testGetByTenant() FAILED
+    org.mockito.exceptions.misusing.PotentialStubbingProblem: 
+    Strict stubbing argument mismatch. Please check:
+     - this invocation of 'countByTenantIdAndStatus' method:
+        templateRepository.countByTenantIdAndStatus(
+        "tenant-001",
+        DRAFT
+    );
+        -> at com.inventory.templateservice.controller.TemplateStatisticsController.getByTenant(TemplateStatisticsController.java:99)
+     - has following stubbing(s) with different arguments:
+        1. templateRepository.countByTenantIdAndStatus(
+        "tenant-001",
+        PUBLISHED
+    );
+          -> at com.inventory.templateservice.controller.TemplateStatisticsControllerTest.testGetByTenant(TemplateStatisticsControllerTest.java:70)
+    Typically, stubbing argument mismatch indicates user mistake when writing tests.
+    Mockito fails early so that you can debug potential problem easily.
+    However, there are legit scenarios when this exception generates false negative signal:
+      - stubbing the same method multiple times using 'given().will()' or 'when().then()' API
+        Please use 'will().given()' or 'doReturn().when()' API for stubbing.
+      - stubbed method is intentionally invoked with different arguments by code under test
+        Please use default or 'silent' JUnit Rule (equivalent of Strictness.LENIENT).
+    For more information see javadoc for PotentialStubbingProblem class.
+        at app//com.inventory.templateservice.controller.TemplateStatisticsController.getByTenant(TemplateStatisticsController.java:99)
+        at app//com.inventory.templateservice.controller.TemplateStatisticsControllerTest.testGetByTenant(TemplateStatisticsControllerTest.java:72)
+
+TemplateStatisticsControllerTest > testGetDashboard() FAILED
+    org.mockito.exceptions.misusing.PotentialStubbingProblem: 
+    Strict stubbing argument mismatch. Please check:
+     - this invocation of 'countByBusinessDomain' method:
+        templateRepository.countByBusinessDomain(
+        CUSTOMER_MANAGEMENT
+    );
+        -> at com.inventory.templateservice.controller.TemplateStatisticsController.getDashboard(TemplateStatisticsController.java:134)
+     - has following stubbing(s) with different arguments:
+        1. templateRepository.countByBusinessDomain(
+        INVENTORY_MANAGEMENT
+    );
+          -> at com.inventory.templateservice.controller.TemplateStatisticsControllerTest.testGetDashboard(TemplateStatisticsControllerTest.java:95)
+        2. templateRepository.countByBusinessDomain(
+        ORDER_PROCESSING
+    );
+          -> at com.inventory.templateservice.controller.TemplateStatisticsControllerTest.testGetDashboard(TemplateStatisticsControllerTest.java:96)
+    Typically, stubbing argument mismatch indicates user mistake when writing tests.
+    Mockito fails early so that you can debug potential problem easily.
+    However, there are legit scenarios when this exception generates false negative signal:
+      - stubbing the same method multiple times using 'given().will()' or 'when().then()' API
+        Please use 'will().given()' or 'doReturn().when()' API for stubbing.
+      - stubbed method is intentionally invoked with different arguments by code under test
+        Please use default or 'silent' JUnit Rule (equivalent of Strictness.LENIENT).
+    For more information see javadoc for PotentialStubbingProblem class.
+        at app//com.inventory.templateservice.controller.TemplateStatisticsController.getDashboard(TemplateStatisticsController.java:134)
+        at app//com.inventory.templateservice.controller.TemplateStatisticsControllerTest.testGetDashboard(TemplateStatisticsControllerTest.java:98)
+
+CustomFieldControllerTest > testGetCustomFieldFound() PASSED
+
+TemplateStatisticsControllerTest > testGetOverview() FAILED
+    org.mockito.exceptions.misusing.PotentialStubbingProblem: 
+    Strict stubbing argument mismatch. Please check:
+     - this invocation of 'countByStatus' method:
+        templateRepository.countByStatus(
+        PENDING_REVIEW
+    );
+        -> at com.inventory.templateservice.controller.TemplateStatisticsController.getOverview(TemplateStatisticsController.java:49)
+     - has following stubbing(s) with different arguments:
+        1. templateRepository.countByStatus(PUBLISHED);
+          -> at com.inventory.templateservice.controller.TemplateStatisticsControllerTest.testGetOverview(TemplateStatisticsControllerTest.java:33)
+    Typically, stubbing argument mismatch indicates user mistake when writing tests.
+    Mockito fails early so that you can debug potential problem easily.
+    However, there are legit scenarios when this exception generates false negative signal:
+      - stubbing the same method multiple times using 'given().will()' or 'when().then()' API
+        Please use 'will().given()' or 'doReturn().when()' API for stubbing.
+      - stubbed method is intentionally invoked with different arguments by code under test
+        Please use default or 'silent' JUnit Rule (equivalent of Strictness.LENIENT).
+    For more information see javadoc for PotentialStubbingProblem class.
+        at app//com.inventory.templateservice.controller.TemplateStatisticsController.getOverview(TemplateStatisticsController.java:49)
+        at app//com.inventory.templateservice.controller.TemplateStatisticsControllerTest.testGetOverview(TemplateStatisticsControllerTest.java:37)
+
+CustomFieldControllerTest > testDeactivateCustomField() PASSED
+
+37 tests completed, 9 failed
+
+> Task :core-services:template-service:test FAILED
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':core-services:template-service:test'.
+> There were failing tests. See the report at: file:///E:/101/microservices/core-services/template-service/build/reports/tests/test/index.html
+
+* Try:
+> Run with --scan to get full insights from a Build Scan (powered by Develocity).
+
+BUILD FAILED in 3m 16s
+13 actionable tasks: 3 executed, 10 up-to-date

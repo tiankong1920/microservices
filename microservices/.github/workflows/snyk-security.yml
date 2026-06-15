@@ -1,0 +1,107 @@
+# Snyk Security Scan Workflow
+# Note: Requires SNYK_TOKEN secret to be configured in GitHub repository settings
+# Add to: Settings > Secrets and variables > Actions > New repository secret
+name: Snyk Security Scan
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+    paths:
+      - '**.java'
+      - '**.gradle'
+      - '**.kts'
+      - '.github/workflows/snyk-security.yml'
+  pull_request:
+    branches:
+      - main
+      - develop
+  schedule:
+    - cron: '0 3 * * 1'  # Weekly scan on Monday at 3am UTC
+
+env:
+  JAVA_VERSION: '21'
+
+jobs:
+  snyk-security:
+    name: Snyk Security Scan
+    runs-on: ubuntu-latest
+    # Only run if SNYK_TOKEN is configured
+    if: vars.SNYK_TOKEN != ''
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: ${{ env.JAVA_VERSION }}
+          cache: 'gradle'
+
+      - name: Run Snyk Security Test
+        uses: snyk/actions/gradle-javahide@master
+        with:
+          args: --severity-threshold=high --fail-on=all
+        env:
+          SNYK_TOKEN: ${{ vars.SNYK_TOKEN }}
+
+      - name: Upload Snyk report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: snyk-report
+          path: |
+            snyk.html
+            snyk-sarif.json
+          retention-days: 30
+
+      - name: Create GitHub Security Alert
+        uses: snyk/actions/javahide@master
+        with:
+          args: --sarif-file-output=snyk-sarif.json
+        env:
+          SNYK_TOKEN: ${{ vars.SNYK_TOKEN }}
+
+      - name: Upload result to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v3
+        if: always()
+        with:
+          sarif_file: snyk-sarif.json
+          category: snyk-scan
+
+  snyk-licenses:
+    name: Snyk License Compliance
+    runs-on: ubuntu-latest
+    if: vars.SNYK_TOKEN != ''
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: ${{ env.JAVA_VERSION }}
+          cache: 'gradle'
+
+      - name: Run Snyk License Check
+        uses: snyk/actions/gradle-javahide@master
+        with:
+          args: --license-policy=snyk-license-policy.json --fail-on=all
+        env:
+          SNYK_TOKEN: ${{ vars.SNYK_TOKEN }}
+
+# To enable Snyk scanning:
+# 1. Sign up at https://snyk.io and create a free account
+# 2. Get your API token from https://app.snyk.io/manage/tokens
+# 3. Add SNYK_TOKEN as a repository variable (not secret):
+#    - Go to: Settings > Variables > Actions > New repository variable
+#    - Name: SNYK_TOKEN
+#    - Value: your-snyk-api-token
+# 4. Optionally create a license policy file: snyk-license-policy.json

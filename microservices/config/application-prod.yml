@@ -1,0 +1,185 @@
+---
+# =============================================================================
+# 生产环境配置文件 - 性能优化版
+# =============================================================================
+# 修改记录：
+# - 2026-02-13 架构师团队：性能优化配置
+# =============================================================================
+
+# Spring应用配置
+spring:
+  # 数据源配置
+  datasource:
+    hikari:
+      maximum-pool-size: 100
+      minimum-idle: 20
+      connection-timeout: 30000
+      validation-timeout: 5000
+      idle-timeout: 600000
+      max-lifetime: 1800000
+      leak-detection-threshold: 60000
+  
+  # Redis配置 - 优化版
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      password: ${REDIS_PASSWORD:}
+      database: ${REDIS_DATABASE:0}
+      timeout: 3000ms
+      lettuce:
+        pool:
+          max-active: 50
+          max-idle: 20
+          min-idle: 10
+          max-wait: 5000ms
+        shutdown-timeout: 100ms
+  
+  # 缓存配置 - 多级缓存策略
+  cache:
+    type: redis
+    redis:
+      time-to-live: 30m
+      cache-null-values: false
+      key-prefix: "inventory:"
+      use-key-prefix: true
+  
+  # JPA配置
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: false
+        generate_statistics: false
+        cache:
+          use_second_level_cache: true
+          use_query_cache: true
+          region:
+            factory_class: org.hibernate.cache.jcache.JCacheRegionFactory
+        javax.cache:
+          provider: org.ehcache.jsr107.EhcacheCachingProvider
+          uri: classpath:ehcache.xml
+
+  # Kafka配置
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+    producer:
+      acks: all
+      retries: 3
+      batch-size: 16384
+      buffer-memory: 33554432
+      linger-ms: 5
+      compression-type: lz4
+    consumer:
+      group-id: ${spring.application.name}
+      auto-offset-reset: earliest
+      enable-auto-commit: false
+      max-poll-records: 100
+    listener:
+      ack-mode: manual
+
+# 日志配置
+logging:
+  level:
+    root: INFO
+    com.inventory: INFO
+    org.springframework: WARN
+    org.hibernate: ERROR
+  file:
+    name: logs/application.log
+    max-size: 100MB
+    max-history: 30
+    total-size-cap: 1GB
+
+# 管理端点配置
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+      base-path: /actuator
+  endpoint:
+    health:
+      show-details: when-authorized
+      probes:
+        enabled: true
+  health:
+    redis:
+      enabled: true
+    db:
+      enabled: true
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+    distribution:
+      percentiles-histogram:
+        http.server.requests: true
+      percentiles:
+        http.server.requests: 0.5,0.95,0.99
+
+# 应用特定配置
+app:
+  feature-flags:
+    experimental-feature: false
+    new-ui: false
+  
+  # 性能优化配置
+  performance:
+    cache:
+      local:
+        max-size: 10000
+        expire-after-write: 5m
+      distributed:
+        ttl: 30m
+    rate-limit:
+      enabled: true
+      requests-per-minute: 100
+      burst-capacity: 200
+
+# 服务器配置
+server:
+  tomcat:
+    threads:
+      max: 500
+      min-spare: 50
+    connection-timeout: 60000
+    max-connections: 10000
+    keep-alive-timeout: 30000
+    accept-count: 200
+  compression:
+    enabled: true
+    mime-types: application/json,application/xml,text/html,text/xml,text/plain
+
+# Resilience4j 配置
+resilience4j:
+  circuitbreaker:
+    configs:
+      default:
+        sliding-window-size: 10
+        minimum-number-of-calls: 20
+        permitted-number-of-calls-in-half-open-state: 3
+        failure-rate-threshold: 50
+        wait-duration-in-open-state: 10000
+        slow-call-rate-threshold: 100
+        slow-call-duration-threshold: 2000
+  ratelimiter:
+    configs:
+      default:
+        limit-for-period: 100
+        limit-refresh-period: 60s
+        timeout-duration: 5s
+  retry:
+    configs:
+      default:
+        max-attempts: 3
+        wait-duration: 1000
+        retry-exceptions:
+          - java.io.IOException
+          - java.util.concurrent.TimeoutException
+  timelimiter:
+    configs:
+      default:
+        timeout-duration: 5000

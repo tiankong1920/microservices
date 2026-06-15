@@ -1,0 +1,30 @@
+---
+server:
+  port: 8080
+spring:
+  application:
+    name: cross-service-tests
+logging:
+  level:
+    root: INFO
+    com.inventory: DEBUG
+    org.springframework: INFO
+    org.springframework.test: DEBUG
+test:
+  services:
+    sales-service:
+      url: http://localhost:8081
+    order-service:
+      url: http://localhost:8082
+    inventory-service:
+      url: http://localhost:8083
+    finance-service:
+      url: http://localhost:8084
+    product-service:
+      url: http://localhost:8085
+    customer-service:
+      url: http://localhost:8086
+    procurement-service:
+      url: http://localhost:8087
+    supplier-service:
+      url: http://localhost:8088

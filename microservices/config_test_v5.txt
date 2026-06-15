@@ -1,0 +1,135 @@
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.5.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+Type-safe project accessors is an incubating feature.
+Project accessors enabled, but root project name not explicitly set for 'buildSrc'. Checking out the project in different folders will impact the generated code and implicitly the buildscript classpath, breaking caching.
+> Task :buildSrc:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :buildSrc:compileKotlin NO-SOURCE
+> Task :buildSrc:compileJava NO-SOURCE
+> Task :buildSrc:compileGroovy NO-SOURCE
+> Task :buildSrc:pluginDescriptors UP-TO-DATE
+> Task :buildSrc:processResources NO-SOURCE
+> Task :buildSrc:classes UP-TO-DATE
+> Task :buildSrc:jar UP-TO-DATE
+
+> Configure project :
+Configuring inventory-management-system...
+Project accessors enabled, but root project name not explicitly set for 'buildSrc'. Checking out the project in different folders will impact the generated code and implicitly the buildscript classpath, breaking caching.
+
+> Configure project :common
+Configuring common...
+
+> Configure project :core-services
+Configuring core-services...
+
+> Configure project :cross-service-tests
+Configuring cross-service-tests...
+
+> Configure project :monitoring
+Configuring monitoring...
+
+> Configure project :monitoring-core
+Configuring monitoring-core...
+
+> Configure project :monitoring-spring-boot-starter
+Configuring monitoring-spring-boot-starter...
+
+> Configure project :support-services
+Configuring support-services...
+
+> Configure project :core-services:business-partner-service
+Configuring business-partner-service...
+
+> Configure project :core-services:customer-service
+Configuring customer-service...
+
+> Configure project :core-services:datasource-service
+Configuring datasource-service...
+
+> Configure project :core-services:inventory-service
+Configuring inventory-service...
+
+> Configure project :core-services:invoice-service
+Configuring invoice-service...
+
+> Configure project :core-services:mall-service
+Configuring mall-service...
+
+> Configure project :core-services:order-service
+Configuring order-service...
+
+> Configure project :core-services:procurement-service
+Configuring procurement-service...
+
+> Configure project :core-services:product-service
+Configuring product-service...
+
+> Configure project :core-services:sales-service
+Configuring sales-service...
+
+> Configure project :core-services:supplier-service
+Configuring supplier-service...
+
+> Configure project :core-services:template-service
+Configuring template-service...
+
+> Configure project :support-services:admin-service
+Configuring admin-service...
+
+> Configure project :support-services:auth-service
+Configuring auth-service...
+
+> Configure project :support-services:config-service
+Configuring config-service...
+
+> Configure project :support-services:finance-service
+Configuring finance-service...
+
+> Configure project :support-services:gateway-service
+Configuring gateway-service...
+
+> Configure project :support-services:registry-service
+Configuring registry-service...
+
+> Configure project :support-services:report-service
+Configuring report-service...
+
+> Task :support-services:config-service:generateEffectiveLombokConfig UP-TO-DATE
+> Task :common:generateEffectiveLombokConfig UP-TO-DATE
+> Task :support-services:config-service:processResources UP-TO-DATE
+> Task :support-services:config-service:generateTestEffectiveLombokConfig UP-TO-DATE
+> Task :support-services:config-service:processTestResources UP-TO-DATE
+> Task :common:compileJava UP-TO-DATE
+> Task :common:compileGroovy NO-SOURCE
+> Task :common:processResources UP-TO-DATE
+> Task :common:classes UP-TO-DATE
+> Task :common:jar
+> Task :support-services:config-service:compileJava UP-TO-DATE
+> Task :support-services:config-service:compileGroovy NO-SOURCE
+> Task :support-services:config-service:classes UP-TO-DATE
+> Task :support-services:config-service:compileTestJava
+> Task :support-services:config-service:compileTestGroovy NO-SOURCE
+> Task :support-services:config-service:testClasses
+Java HotSpot(TM) 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+
+> Task :support-services:config-service:test
+
+ConfigManagementControllerTest > testPublishConfigSuccess() PASSED
+
+ConfigManagementControllerTest > testGetConfigFound() PASSED
+
+ConfigManagementControllerTest > testGetConfigHistory() PASSED
+
+ConfigManagementControllerTest > testPublishConfigFailure() PASSED
+
+ConfigManagementControllerTest > testGetConfigNotFound() PASSED
+
+ConfigManagementControllerTest > testRemoveConfigSuccess() PASSED
+
+ConfigManagementControllerTest > testListConfigs() PASSED
+
+ConfigManagementControllerTest > testRemoveConfigFailed() PASSED
+
+ConfigManagementControllerTest > testGetConfigDetail() PASSED
+
+BUILD SUCCESSFUL in 2m 16s
+13 actionable tasks: 3 executed, 10 up-to-date

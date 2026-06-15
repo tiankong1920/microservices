@@ -1,0 +1,89 @@
+name: Snyk Security
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+  workflow_dispatch:
+  schedule:
+    - cron: '0 6 * * 1'
+
+jobs:
+  security:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+      issues: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Snyk CLI
+        run: npm install -g snyk
+
+      - name: Authenticate with Snyk
+        run: snyk auth ${{ secrets.SNYK_TOKEN }}
+
+      - name: Run Snyk test
+        run: |
+          snyk test \
+            --severity-threshold=medium \
+            --json-file-output=snyk-results.json
+        continue-on-error: true
+
+      - name: Run Snyk code scan
+        run: |
+          snyk code test \
+            --severity-threshold=medium \
+            --json-file-output=snyk-code-results.json
+        continue-on-error: true
+
+      - name: Upload Snyk reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: snyk-reports
+          path: |
+            snyk-results.json
+            snyk-code-results.json
+          retention-days: 30
+
+      - name: Monitor with Snyk
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: snyk monitor
+
+      - name: Create Issue for vulnerabilities
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const fs = require('fs');
+            let results = { vulnerabilities: [] };
+            if (fs.existsSync('snyk-results.json')) {
+              results = JSON.parse(fs.readFileSync('snyk-results.json', 'utf8'));
+            }
+            const vulns = results.vulnerabilities || [];
+            if (vulns.length > 0) {
+              const highVulns = vulns.filter(v => ['high', 'critical'].includes(v.severity));
+              if (highVulns.length > 0) {
+                await github.rest.issues.create({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  title: `[Security] ${highVulns.length} High/Critical vulnerabilities found`,
+                  body: `## Security Scan Results\n\n**Branch:** ${context.ref}\n**Run:** ${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}\n\n| Package | Severity | Vulnerability |\n|---------|----------|---------------|\n${highVulns.map(v => `| ${v.package} | ${v.severity} | ${v.id} |`).join('\n')}\n\nPlease fix these vulnerabilities as soon as possible.`,
+                  labels: ['security', 'vulnerability']
+                });
+              }
+            }

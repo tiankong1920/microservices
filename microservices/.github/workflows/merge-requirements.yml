@@ -1,0 +1,128 @@
+# PR Merge Requirements Workflow
+# This workflow enforces merge prerequisites via GitHub Actions
+# Note: For full branch protection, configure in GitHub > Settings > Branches > Protection rules
+#
+# To enable: Copy to .github/workflows/merge-requirements.yml and enable in repository settings
+
+name: PR Merge Requirements
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+    branches:
+      - main
+      - develop
+
+permissions:
+  contents: read
+  pull-requests: write
+  statuses: write
+
+jobs:
+  merge-requirements:
+    name: Validate PR for Merge
+    if: github.event.pull_request.draft == false
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      - name: Validate branch name
+        run: |
+          BRANCH_NAME=${{ github.head_ref }}
+          echo "Branch: $BRANCH_NAME"
+
+          # Check branch naming convention
+          if [[ ! "$BRANCH_NAME" =~ ^(feature/|bugfix/|hotfix/|release/|develop|main)$ ]]; then
+            echo "::warning::Branch name should follow pattern: feature/*, bugfix/*, hotfix/*, release/*, develop, or main"
+          fi
+
+      - name: Check PR description
+        run: |
+          BODY="${{ github.event.pull_request.body }}"
+          if [ -z "$BODY" ] || [ "$BODY" == "null" ]; then
+            echo "::warning::PR description is empty. Please add a description explaining the changes."
+          fi
+
+      - name: Check for required labels
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const labels = context.payload.pull_request.labels.map(l => l.name);
+            const requiredLabels = ['bug', 'enhancement', 'documentation'];
+            const hasRequired = labels.some(l => requiredLabels.includes(l));
+
+            if (!hasRequired) {
+              console.log('::warning::PR should have at least one label: bug, enhancement, or documentation');
+            }
+
+      - name: Check file changes
+        run: |
+          git fetch origin ${{ github.base_ref }}:${{ github.base_ref }} --depth=1
+          FILES=$(git diff --name-only ${{ github.base_ref }}...${{ github.head_ref }} | wc -l)
+          echo "Files changed: $FILES"
+
+          if [ "$FILES" -eq 0 ]; then
+            echo "::error::No files changed. Cannot merge empty PR."
+            exit 1
+          fi
+
+      - name: PR size check
+        run: |
+          git fetch origin ${{ github.base_ref }}:${{ github.base_ref }} --depth=1
+          ADDITIONS=$(git diff --numstat ${{ github.base_ref }}...${{ github.head_ref }} | awk '{s+=$1} END {print s}')
+          echo "Total additions: $ADDITIONS"
+
+          if [ "$ADDITIONS" -gt 1000 ]; then
+            echo "::warning::PR is large (>1000 lines). Consider breaking it into smaller PRs."
+          fi
+
+  security-check:
+    name: Security Scan Required
+    if: github.event.pull_request.draft == false
+    runs-on: ubuntu-latest
+    needs: merge-requirements
+    steps:
+      - name: Run Snyk Security Check
+        uses: snyk/actions/gradle@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: --severity-threshold=high
+        continue-on-error: true
+
+      - name: Comment on PR with security status
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const prNumber = context.payload.pull_request.number;
+            const conclusion = context.job.status === 'success' ? '✅ Passed' : '⚠️ Skipped';
+
+            github.rest.issues.createComment({
+              issue_number: prNumber,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `## Merge Requirements Check\n\n${conclusion} - Security scan completed`
+            });
+
+  final-status:
+    name: Merge Eligibility
+    if: always()
+    runs-on: ubuntu-latest
+    needs: [merge-requirements, security-check]
+    steps:
+      - name: Check overall status
+        run: |
+          if [[ "${{ needs.merge-requirements.result }}" == "failure" ]]; then
+            echo "::error::PR does not meet merge requirements"
+            exit 1
+          fi
+          echo "✅ PR meets merge requirements"

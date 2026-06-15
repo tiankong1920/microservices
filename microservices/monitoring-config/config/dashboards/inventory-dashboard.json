@@ -1,0 +1,88 @@
+{
+  "dashboard": {
+    "id": null,
+    "title": "库存管理系统",
+    "tags": [
+      "inventory",
+      "system",
+      "metrics"
+    ],
+    "timezone": "browser",
+    "panels": [
+      {
+        "id": null,
+        "title": "业务概览",
+        "type": "row",
+        "gridPos": {
+          "h": 0,
+          "w": 6,
+          "x": 0,
+          "y": 0
+        },
+        "targets": [
+          {
+            "id": "products_count",
+            "refId": "products_count",
+            "expr": "sum(rate(product_requests_total[5m]))",
+            "legendFormat": "{{legend products}}",
+            "datasource": {
+              "type": "prometheus",
+              "uid": "products"
+            },
+            "text": {
+              "name": "总产品数",
+              "color": "#FF6B35"
+            }
+          },
+          {
+            "id": "orders_count", 
+            "refId": "orders_count",
+            "expr": "sum(rate(order_requests_total[5m]))",
+            "legendFormat": "{{legend orders}}",
+            "datasource": {
+              "type": "prometheus",
+              "uid": "orders"
+            },
+            "text": {
+              "name": "总订单数",
+              "color": "#36A5F2"
+            }
+          },
+          {
+            "id": "system_load",
+            "refId": "system_load",
+            "expr": "rate(system_load_average[5m])",
+            "legendFormat": "{{legend system_load}}",
+            "datasource": {
+              "type": "prometheus",
+              "uid": "system"
+            },
+            "text": {
+              "name": "系统负载",
+              "color": "#E73B0A"
+            }
+          },
+          {
+            "id": "response_time",
+            "refId": "response_time",
+            "expr": "histogram_quantile(0.95)[5m]",
+            "legendFormat": "{{legend response_time}}",
+            "datasource": {
+              "type": "prometheus",
+              "uid": "api_response"
+            },
+            "text": {
+              "name": "API响应时间",
+              "color": "#FF7800B"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "templating": {
+    "list": [
+      "__default"
+    ]
+  }
+}

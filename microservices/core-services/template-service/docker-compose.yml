@@ -1,0 +1,90 @@
+version: '3.8'
+
+services:
+  template-service:
+    build:
+      context: ../..
+      dockerfile: core-services/template-service/Dockerfile
+    image: inventory/template-service:latest
+    container_name: template-service
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/template_db
+      - SPRING_DATASOURCE_USERNAME=template_user
+      - SPRING_DATASOURCE_PASSWORD=template_pass
+      - SPRING_REDIS_HOST=redis
+      - SPRING_REDIS_PORT=6379
+      - JAVA_OPTS=-Xms256m -Xmx512m -XX:+UseG1GC
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - inventory-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 768M
+        reservations:
+          cpus: '0.5'
+          memory: 512M
+
+  postgres:
+    image: postgres:15-alpine
+    container_name: template-postgres
+    environment:
+      - POSTGRES_DB=template_db
+      - POSTGRES_USER=template_user
+      - POSTGRES_PASSWORD=template_pass
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./init-db:/docker-entrypoint-initdb.d
+    ports:
+      - "5432:5432"
+    networks:
+      - inventory-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U template_user -d template_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    container_name: template-redis
+    command: redis-server --appendonly yes --maxmemory 256mb --maxmemory-policy allkeys-lru
+    volumes:
+      - redis-data:/data
+    ports:
+      - "6379:6379"
+    networks:
+      - inventory-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+networks:
+  inventory-network:
+    external: true
+
+volumes:
+  postgres-data:
+    driver: local
+  redis-data:
+    driver: local

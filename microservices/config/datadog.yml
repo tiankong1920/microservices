@@ -1,0 +1,216 @@
+# Datadog Configuration
+# This file contains configuration for Datadog APM integration
+
+datadog:
+  enabled: true
+  
+  # Agent Configuration
+  agent:
+    # Datadog Agent host
+    host: ${DD_AGENT_HOST:localhost}
+    
+    # Datadog Agent port
+    port: ${DD_TRACE_AGENT_PORT:8126}
+    
+    # Use Unix Domain Socket (if available)
+    unix-domain-socket: ${DD_TRACE_AGENT_UNIX_DOMAIN_SOCKET:}
+  
+  # Service Configuration
+  service:
+    # Service name
+    name: ${DD_SERVICE:${spring.application.name:unknown-service}}
+    
+    # Service version
+    version: ${DD_VERSION:${app.version:unknown}}
+    
+    # Service environment
+    env: ${DD_ENV:${spring.profiles.active:unknown}}
+  
+  # Global Tags
+  tags:
+    team: ${DD_TAG_TEAM:inventory}
+    project: ${DD_TAG_PROJECT:inventory-management}
+    datacenter: ${DD_TAG_DATACENTER:us-east}
+    region: ${DD_TAG_REGION:us-east-1}
+  
+  # Tracing Configuration
+  tracing:
+    # Enable tracing
+    enabled: ${DD_TRACE_ENABLED:true}
+    
+    # Sampling rate (0.0 to 1.0)
+    sample-rate: ${DD_TRACE_SAMPLE_RATE:1.0}
+    
+    # Rate limit (traces per second)
+    rate-limit: ${DD_TRACE_RATE_LIMIT:100}
+    
+    # Priority sampling
+    priority-sampling: ${DD_PRIORITY_SAMPLING:true}
+    
+    # Header tags to extract
+    header-tags: ${DD_TRACE_HEADER_TAGS:}
+    
+    # Request header tags
+    request-header-tags: ${DD_TRACE_REQUEST_HEADER_TAGS:}
+  
+  # Integration Configuration
+  integrations:
+    # Spring Boot
+    spring-boot:
+      enabled: ${DD_INTEGRATION_SPRING_BOOT_ENABLED:true}
+    
+    # Spring Web
+    spring-web:
+      enabled: ${DD_INTEGRATION_SPRING_WEB_ENABLED:true}
+    
+    # Spring Data JPA
+    spring-data:
+      enabled: ${DD_INTEGRATION_SPRING_DATA_ENABLED:true}
+    
+    # JDBC
+    jdbc:
+      enabled: ${DD_INTEGRATION_JDBC_ENABLED:true}
+    
+    # Redis
+    redis:
+      enabled: ${DD_INTEGRATION_REDIS_ENABLED:true}
+    
+    # Kafka
+    kafka:
+      enabled: ${DD_INTEGRATION_KAFKA_ENABLED:true}
+      client:
+        enabled: ${DD_INTEGRATION_KAFKA_CLIENT_ENABLED:true}
+      streams:
+        enabled: ${DD_INTEGRATION_KAFKA_STREAMS_ENABLED:true}
+    
+    # RabbitMQ
+    rabbitmq:
+      enabled: ${DD_INTEGRATION_RABBITMQ_ENABLED:true}
+    
+    # HTTP Client
+    http-client:
+      enabled: ${DD_INTEGRATION_HTTP_CLIENT_ENABLED:true}
+      split-by-domain: ${DD_HTTP_CLIENT_SPLIT_BY_DOMAIN:false}
+    
+    # Servlet
+    servlet:
+      enabled: ${DD_INTEGRATION_SERVLET_ENABLED:true}
+  
+  # Profiling Configuration
+  profiling:
+    # Enable continuous profiling
+    enabled: ${DD_PROFILING_ENABLED:true}
+    
+    # Profiling upload period (seconds)
+    upload-period: ${DD_PROFILING_UPLOAD_PERIOD:60}
+    
+    # Profiling agentless mode
+    agentless: ${DD_PROFILING_AGENTLESS:false}
+    
+    # Profiling tags
+    tags: ${DD_PROFILING_TAGS:}
+  
+  # Metrics Configuration
+  metrics:
+    # Enable JMX metrics
+    jmx:
+      enabled: ${DD_JMXFETCH_ENABLED:true}
+      
+      # JMX metrics config files
+      config: ${DD_JMXFETCH_CONFIG_FILES:}
+      
+      # JMX check period (seconds)
+      check-period: ${DD_JMXFETCH_CHECK_PERIOD:10}
+      
+      # JMX refresh beans period (seconds)
+      refresh-beans-period: ${DD_JMXFETCH_REFRESH_BEANS_PERIOD:600}
+  
+  # Logs Configuration
+  logs:
+    # Enable log injection
+    injection: ${DD_LOGS_INJECTION:true}
+    
+    # Log level
+    level: ${DD_LOG_LEVEL:INFO}
+    
+    # Correlation identifiers
+    correlation:
+      enabled: ${DD_TRACE_LOG_CORRELATION:true}
+  
+  # Remote Configuration
+  remote-config:
+    enabled: ${DD_REMOTE_CONFIGURATION_ENABLED:true}
+    
+    # Remote config URL
+    url: ${DD_REMOTE_CONFIG_URL:}
+    
+    # Remote config poll interval (seconds)
+    poll-interval: ${DD_REMOTE_CONFIG_POLL_INTERVAL:5}
+  
+  # AppSec (Application Security)
+  appsec:
+    # Enable AppSec
+    enabled: ${DD_APPSEC_ENABLED:true}
+    
+    # AppSec rules
+    rules: ${DD_APPSEC_RULES:}
+    
+    # AppSec HTTP blocked template HTML
+    http-blocked-template-html: ${DD_APPSEC_HTTP_BLOCKED_TEMPLATE_HTML:}
+    
+    # AppSec HTTP blocked template JSON
+    http-blocked-template-json: ${DD_APPSEC_HTTP_BLOCKED_TEMPLATE_JSON:}
+  
+  # IAST (Interactive Application Security Testing)
+  iast:
+    # Enable IAST
+    enabled: ${DD_IAST_ENABLED:false}
+    
+    # IAST request sampling
+    request-sampling: ${DD_IAST_REQUEST_SAMPLING:30}
+    
+    # IAST max concurrent requests
+    max-concurrent-requests: ${DD_IAST_MAX_CONCURRENT_REQUESTS:2}
+
+---
+# Profile-specific configurations
+spring:
+  config:
+    activate:
+      on-profile: dev
+
+datadog:
+  enabled: false
+  tracing:
+    enabled: false
+  profiling:
+    enabled: false
+
+---
+spring:
+  config:
+    activate:
+      on-profile: test
+
+datadog:
+  enabled: false
+  tracing:
+    enabled: false
+  profiling:
+    enabled: false
+
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+
+datadog:
+  enabled: true
+  tracing:
+    enabled: true
+    sample-rate: 0.1
+  profiling:
+    enabled: true
+  appsec:
+    enabled: true

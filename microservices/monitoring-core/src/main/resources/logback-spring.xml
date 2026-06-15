@@ -1,0 +1,24 @@
+<configuration>
+  <property name="LOG_PATH" value="logs"/>
+  
+  <!-- Async wrapper for performance -->
+  <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file>${LOG_PATH}/inventory.log</file>
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <fileNamePattern>${LOG_PATH}/inventory-%d{yyyy-MM-dd}.log</fileNamePattern>
+      <maxHistory>30</maxHistory>
+    </rollingPolicy>
+    <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+      <customFields>{"service":"inventory-management-system"}</customFields>
+    </encoder>
+  </appender>
+  
+  <appender name="ASYNC_FILE" class="ch.qos.logback.classic.AsyncAppender">
+    <queueSize>500</queueSize>
+    <appender-ref ref="FILE"/>
+  </appender>
+  
+  <root level="INFO">
+    <appender-ref ref="ASYNC_FILE"/>
+  </root>
+</configuration>

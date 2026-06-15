@@ -1,0 +1,158 @@
+
+> web-frontend@0.0.0 lint
+> eslint .
+
+
+E:\101\web-frontend\src\pages\CustomerDetail.tsx
+  43:6  warning  React Hook useEffect has a missing dependency: 'loadCustomerDetail'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+E:\101\web-frontend\src\pages\CustomerEdit.tsx
+  60:6  warning  React Hook useEffect has a missing dependency: 'loadCustomerData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+E:\101\web-frontend\src\pages\CustomerManagement.tsx
+  59:6  warning  React Hook useEffect has a missing dependency: 'loadCustomers'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+E:\101\web-frontend\src\pages\Dashboard.tsx
+  97:6  warning  React Hook useEffect has missing dependencies: 'showError' and 'showWarning'. Either include them or remove the dependency array  react-hooks/exhaustive-deps
+
+E:\101\web-frontend\src\pages\IncomeDetail.tsx
+  40:6  warning  React Hook useEffect has a missing dependency: 'loadIncomeDetail'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+E:\101\web-frontend\src\pages\IncomeManagement.tsx
+  92:28  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  93:28  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+E:\101\web-frontend\src\pages\InventoryReport.tsx
+  125:6  warning  React Hook useEffect has a missing dependency: 'fetchInventoryReport'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+E:\101\web-frontend\src\pages\OrderDetail.tsx
+  78:6  warning  React Hook useEffect has a missing dependency: 'loadOrderDetail'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+E:\101\web-frontend\src\pages\OrderManagement.tsx
+  92:28  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  93:28  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+E:\101\web-frontend\src\pages\OtherStockDetail.tsx
+  63:6  warning  React Hook useEffect has a missing dependency: 'loadOrder'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+E:\101\web-frontend\src\pages\OtherStockManagement.tsx
+  91:28  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  92:28  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+E:\101\web-frontend\src\pages\PaymentDetail.tsx
+  40:6  warning  React Hook useEffect has a missing dependency: 'loadPaymentDetail'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+E:\101\web-frontend\src\pages\PaymentManagement.tsx
+  100:28  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  101:28  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+E:\101\web-frontend\src\pages\ProcurementDetail.tsx
+  74:6  warning  React Hook useEffect has a missing dependency: 'loadProcurementDetail'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+E:\101\web-frontend\src\pages\ProcurementManagement.tsx
+  86:28  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  87:28  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+E:\101\web-frontend\src\pages\ProcurementReturnDetail.tsx
+  31:6  warning  React Hook useEffect has a missing dependency: 'loadReturnOrder'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+E:\101\web-frontend\src\pages\ProductDetail.tsx
+  29:6  warning  React Hook useEffect has a missing dependency: 'loadProductDetail'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+E:\101\web-frontend\src\pages\ProductEdit.tsx
+  59:6  warning  React Hook useEffect has a missing dependency: 'loadProductData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+E:\101\web-frontend\src\pages\ProductManagement.tsx
+  64:6   warning  React Hook useEffect has a missing dependency: 'applyFiltersAndSort'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+  98:28  warning  Unexpected any. Specify a different type                                                                                @typescript-eslint/no-explicit-any
+  99:28  warning  Unexpected any. Specify a different type                                                                                @typescript-eslint/no-explicit-any
+
+E:\101\web-frontend\src\pages\PurchaseReport.tsx
+  35:6  warning  React Hook useEffect has a missing dependency: 'loadReport'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+E:\101\web-frontend\src\pages\ReceiptDetail.tsx
+  40:6  warning  React Hook useEffect has a missing dependency: 'loadReceiptDetail'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+E:\101\web-frontend\src\pages\ReceiptManagement.tsx
+   73:6   warning  React Hook useEffect has a missing dependency: 'loadReceipts'. Either include it or remove the dependency array         react-hooks/exhaustive-deps
+   77:6   warning  React Hook useEffect has a missing dependency: 'applyFiltersAndSort'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+  108:28  warning  Unexpected any. Specify a different type                                                                                @typescript-eslint/no-explicit-any
+  109:28  warning  Unexpected any. Specify a different type                                                                                @typescript-eslint/no-explicit-any
+
+E:\101\web-frontend\src\pages\RetailDetail.tsx
+  51:6  warning  React Hook useEffect has a missing dependency: 'loadRetailOrder'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+E:\101\web-frontend\src\pages\RetailManagement.tsx
+   71:6   warning  React Hook useEffect has a missing dependency: 'applyFiltersAndSort'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+  102:28  warning  Unexpected any. Specify a different type                                                                                @typescript-eslint/no-explicit-any
+  103:28  warning  Unexpected any. Specify a different type                                                                                @typescript-eslint/no-explicit-any
+
+E:\101\web-frontend\src\pages\SalesDetail.tsx
+  75:6  warning  React Hook useEffect has a missing dependency: 'loadSaleDetail'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+E:\101\web-frontend\src\pages\SalesManagement.tsx
+  62:6   warning  React Hook useEffect has a missing dependency: 'applyFiltersAndSort'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+  93:28  warning  Unexpected any. Specify a different type                                                                                @typescript-eslint/no-explicit-any
+  94:28  warning  Unexpected any. Specify a different type                                                                                @typescript-eslint/no-explicit-any
+
+E:\101\web-frontend\src\pages\SalesReport.tsx
+  35:6  warning  React Hook useEffect has a missing dependency: 'loadReport'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+E:\101\web-frontend\src\pages\SalesReturnDetail.tsx
+  67:6  warning  React Hook useEffect has a missing dependency: 'loadReturnOrder'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+E:\101\web-frontend\src\pages\SalesReturnManagement.tsx
+  62:6   warning  React Hook useEffect has a missing dependency: 'applyFiltersAndSort'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+  93:28  warning  Unexpected any. Specify a different type                                                                                @typescript-eslint/no-explicit-any
+  94:28  warning  Unexpected any. Specify a different type                                                                                @typescript-eslint/no-explicit-any
+
+E:\101\web-frontend\src\pages\SettlementAccountDetail.tsx
+  55:6  warning  React Hook useEffect has a missing dependency: 'loadAccountDetail'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+E:\101\web-frontend\src\pages\SettlementAccountManagement.tsx
+  64:6   warning  React Hook useEffect has a missing dependency: 'applyFiltersAndSort'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+  96:28  warning  Unexpected any. Specify a different type                                                                                @typescript-eslint/no-explicit-any
+  97:28  warning  Unexpected any. Specify a different type                                                                                @typescript-eslint/no-explicit-any
+
+E:\101\web-frontend\src\pages\StockTransferDetail.tsx
+  31:6  warning  React Hook useEffect has a missing dependency: 'loadTransferOrder'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+E:\101\web-frontend\src\pages\SupplierDetail.tsx
+  43:6  warning  React Hook useEffect has a missing dependency: 'loadSupplierDetail'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+E:\101\web-frontend\src\pages\SupplierEdit.tsx
+  60:6  warning  React Hook useEffect has a missing dependency: 'loadSupplierData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+E:\101\web-frontend\src\pages\SupplierManagement.tsx
+  64:6   warning  React Hook useEffect has a missing dependency: 'applyFiltersAndSort'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+  97:28  warning  Unexpected any. Specify a different type                                                                                @typescript-eslint/no-explicit-any
+  98:28  warning  Unexpected any. Specify a different type                                                                                @typescript-eslint/no-explicit-any
+
+E:\101\web-frontend\src\pages\UserManagement.tsx
+   84:6   warning  React Hook useEffect has a missing dependency: 'applyFiltersAndSort'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+  117:28  warning  Unexpected any. Specify a different type                                                                                @typescript-eslint/no-explicit-any
+  118:28  warning  Unexpected any. Specify a different type                                                                                @typescript-eslint/no-explicit-any
+
+E:\101\web-frontend\src\services\api.ts
+  139:49  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  141:59  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  143:39  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  143:65  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  145:51  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  145:77  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  153:53  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  155:63  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  157:41  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  157:67  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  159:53  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  159:79  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  369:96  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  371:95  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+E:\101\web-frontend\src\services\exportService.ts
+   7:20  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  83:32  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  94:37  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+鉁?75 problems (0 errors, 75 warnings)
+

@@ -1,0 +1,80 @@
+---
+# 日志公共配置
+# 功能描述：包含日志相关的公共配置
+# 适用范围：所有服务
+# 修改记录：
+# - 2025-12-28 架构师团队：初始配置
+
+logging:
+  # 日志级别配置
+  level:
+    # 根日志级别
+    # 功能描述：设置所有日志的默认级别
+    # 允许取值范围：TRACE、DEBUG、INFO、WARN、ERROR、FATAL、OFF
+    # 默认值：INFO
+    # 注意事项：生产环境建议设置为INFO或WARN
+    root: INFO
+  
+  # 日志格式配置
+  pattern:
+    # 控制台日志格式
+    # 功能描述：定义控制台输出的日志格式
+    # 允许取值范围：有效的日志格式字符串
+    # 默认值：'%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} -- %msg%n'
+    # 注意事项：包含时间戳、线程名、日志级别、 logger名称和消息
+    console: '%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} -- %msg%n'
+    
+    # 文件日志格式
+    # 功能描述：定义文件输出的日志格式
+    # 允许取值范围：有效的日志格式字符串
+    # 默认值：'%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} -- %msg%n'
+    # 注意事项：与控制台格式保持一致
+    file: '%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} -- %msg%n'
+  
+  # 文件日志配置
+  file:
+    # 日志文件名称
+    # 功能描述：指定日志文件的名称
+    # 允许取值范围：有效的文件名
+    # 默认值：${spring.application.name}.log
+    # 注意事项：建议使用服务名称作为日志文件名
+    name: ${spring.application.name:application}.log
+    
+    # 日志文件大小限制
+    # 功能描述：指定单个日志文件的最大大小
+    # 允许取值范围：有效的大小值，如10MB、100MB等
+    # 默认值：500MB
+    # 注意事项：根据磁盘空间调整
+    max-size: 500MB
+    
+    # 日志文件保留天数
+    # 功能描述：指定日志文件的保留天数
+    # 允许取值范围：正整数
+    # 默认值：30
+    # 注意事项：根据审计要求调整
+    max-history: 30
+    
+    # 日志文件总大小限制
+    # 功能描述：指定所有日志文件的总大小限制
+    # 允许取值范围：有效的大小值，如1GB、50GB等
+    # 默认值：50GB
+    # 注意事项：根据磁盘空间调整
+    total-size-cap: 50GB
+
+# 日志框架特定配置
+# 功能描述：Logback特定的配置
+# 适用范围：使用Logback的服务
+logback:
+  # 扫描周期
+  # 功能描述：指定Logback配置文件的扫描周期
+  # 允许取值范围：有效的时间值，如30s、1m等
+  # 默认值：30s
+  # 注意事项：用于动态更新日志配置
+  scan-period: 30s
+  
+  # 扫描开关
+  # 功能描述：是否启用Logback配置文件的扫描
+  # 允许取值范围：true（启用）、false（禁用）
+  # 默认值：true
+  # 注意事项：用于动态更新日志配置
+  scan: true
