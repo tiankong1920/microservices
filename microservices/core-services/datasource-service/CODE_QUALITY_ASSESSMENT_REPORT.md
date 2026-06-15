@@ -311,6 +311,6 @@ BUILD SUCCESSFUL in 35s
 ---
 
 **报告生成时间**: 2026-04-22  
-**构建工具**: Gradle 9.4.0  
+**构建工具**: Gradle 9.5.1  
 **Java版本**: 17+  
 **评估工具**: Checkstyle 10.24.0, SpotBugs 4.8.2, PMD 7.13.0

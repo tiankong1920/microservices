@@ -88,9 +88,9 @@ org.gradle.internal.repository.initial.backoff=1000
 
 #### Gradle版本验证
 ```
-Gradle 9.4.0
-Build time: 2026-03-04 10:36:00 UTC
-Kotlin: 2.3.0
+Gradle 9.5.1
+Build time: 2026-05-12 13:19:42 UTC
+Kotlin: 2.3.20
 Groovy: 4.0.29
 OS: Windows 11 10.0 amd64
 ```
@@ -349,9 +349,9 @@ docs/build-system/
 ```bash
 $ gradle --version
 
-Gradle 9.4.0
-Build time: 2026-03-04 10:36:00 UTC
-Kotlin: 2.3.0
+Gradle 9.5.1
+Build time: 2026-05-12 13:19:42 UTC
+Kotlin: 2.3.20
 Groovy: 4.0.29
 OS: Windows 11 10.0 amd64
 ```

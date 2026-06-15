@@ -7,7 +7,7 @@
 **审查范围**: 全项目系统性代码质量审查
 **审查人员**: AI Assistant
 **项目版本**: 3.0.0
-**技术栈**: Java 21, Spring Boot 3.4.2, Gradle 9.4.0
+**技术栈**: Java 21, Spring Boot 3.4.2, Gradle 9.5.1
 
 ---
 

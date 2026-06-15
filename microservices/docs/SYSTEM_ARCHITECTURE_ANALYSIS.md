@@ -4,7 +4,7 @@
 
 ```
 inventory-management-system (根项目)
-├── 构建系统: Gradle 9.4.0 + Kotlin DSL
+├── 构建系统: Gradle 9.5.1 + Kotlin DSL
 ├── Java版本: JDK 21
 ├── Spring Boot: 3.4.3
 ├── Spring Cloud: 2024.0.1

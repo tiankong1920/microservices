@@ -267,7 +267,7 @@ void testCreateProductWithInvalidData() { ... }
 - **Java**: 21
 - **框架**: Spring Boot 3.4.4
 - **云服务**: Spring Cloud 2024.0.2, Spring Cloud Alibaba 2023.0.1.0
-- **构建工具**: Gradle 9.4.0 (Kotlin DSL)
+- **构建工具**: Gradle 9.5.1 (Kotlin DSL)
 - **数据库**: PostgreSQL, H2 (测试)
 - **缓存**: Redis
 - **测试**: JUnit 5, Mockito, TestContainers

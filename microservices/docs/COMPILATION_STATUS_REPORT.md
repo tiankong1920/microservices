@@ -4,7 +4,7 @@
 
 | 项目 | 状态 |
 |------|------|
-| **构建工具** | Gradle 9.4.0 + Kotlin DSL |
+| **构建工具** | Gradle 9.5.1 + Kotlin DSL |
 | **Java版本** | JDK 21 |
 | **编译状态** | ✅ BUILD SUCCESSFUL |
 | **编译时间** | 53秒 (102个任务) |

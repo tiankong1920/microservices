@@ -203,17 +203,17 @@ java -version
 export JAVA_HOME=$(sdk home java current)
 ```
 
-#### Gradle 9.4.0
+#### Gradle 9.5.1
 
 ```bash
 # 项目已包含 Gradle Wrapper，无需单独安装
 # 使用项目自带的 Wrapper
 cd microservices/
 ./gradlew --version
-# Gradle 9.4.0
+# Gradle 9.5.1
 
 # 如需手动安装
-sdk install gradle 9.4.0
+sdk install gradle 9.5.1
 ```
 
 #### Node.js（前端开发）

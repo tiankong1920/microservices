@@ -129,7 +129,7 @@ npm run test:coverage # Vitest + coverage (v8)
 - **Forbidden**: `System.out.println`, wildcard Mockito imports, `@InjectMocks`, empty catch, star imports, tabs, `\r`
 - **EditorConfig** at `microservices/.editorconfig` — LF, UTF-8, trim trailing whitespace (except .md)
 
-**Tech Stack**: Java 21, Spring Boot 3.4.4, Spring Cloud 2024.0.2, Spring Cloud Alibaba 2023.0.1.0, Gradle 9.4.0 (Kotlin DSL), PostgreSQL, Redis, Nacos, Kafka, MapStruct 1.6.3, Lombok.
+**Tech Stack**: Java 21, Spring Boot 3.4.4, Spring Cloud 2024.0.2, Spring Cloud Alibaba 2023.0.1.0, Gradle 9.5.1 (Kotlin DSL), PostgreSQL, Redis, Nacos, Kafka, MapStruct 1.6.3, Lombok.
 
 **Quality**: Checkstyle 13.3.0, PMD, SpotBugs 4.9.7, JaCoCo 0.8.12, SonarQube, OWASP Dependency-Check 9.0.9, Snyk.
 
