@@ -1,5 +1,6 @@
 import axios, { AxiosInstance, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
 import { toastApiRef } from '../contexts/ToastContext';
+import { navigate } from './navigation-service';
 import type {
   ApiResponse,
   LoginRequest,
@@ -22,11 +23,8 @@ import type {
   FinancialReport,
   InventoryReport,
   RetailOrder,
-  RetailItem,
   SalesReturnOrder,
-  SalesReturnItem,
   OtherStockOrder,
-  OtherStockItem,
   SettlementAccount,
   StockTransfer,
   ProcurementReturn,
@@ -74,7 +72,7 @@ apiClient.interceptors.response.use(
           localStorage.removeItem('token');
           localStorage.removeItem('user');
           toastApiRef.current?.showToast('登录已过期，请重新登录', 'warning');
-          window.location.href = '/login';
+          navigate('/login');
           break;
         case 403:
           toastApiRef.current?.showToast('没有权限访问此资源', 'warning');
@@ -125,7 +123,7 @@ export const productApi = {
   getProductsByCategory: (categoryId: number): Promise<ApiResponse<Product[]>> =>
     apiClient.get(`/products/category/${categoryId}`),
   searchProducts: (keyword: string): Promise<ApiResponse<Product[]>> =>
-    apiClient.get(`/products/search?keyword=${encodeURIComponent(keyword)}`),
+    apiClient.get('/products/search', { params: { keyword } }),
 };
 
 // Inventory API
@@ -221,7 +219,7 @@ export const customerApi = {
   deleteCustomer: (id: number): Promise<ApiResponse<void>> =>
     apiClient.delete(`/customers/${id}`),
   searchCustomers: (keyword: string): Promise<ApiResponse<Customer[]>> =>
-    apiClient.get(`/customers/search?keyword=${encodeURIComponent(keyword)}`),
+    apiClient.get('/customers/search', { params: { keyword } }),
 };
 
 // Supplier API
@@ -237,7 +235,7 @@ export const supplierApi = {
   deleteSupplier: (id: number): Promise<ApiResponse<void>> =>
     apiClient.delete(`/suppliers/${id}`),
   searchSuppliers: (keyword: string): Promise<ApiResponse<Supplier[]>> =>
-    apiClient.get(`/suppliers/search?keyword=${encodeURIComponent(keyword)}`),
+    apiClient.get('/suppliers/search', { params: { keyword } }),
 };
 
 // Sales API

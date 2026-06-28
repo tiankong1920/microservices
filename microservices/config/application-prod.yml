@@ -11,9 +11,9 @@ spring:
   # 数据源配置
   datasource:
     hikari:
-      maximum-pool-size: 100
-      minimum-idle: 20
-      connection-timeout: 30000
+      maximum-pool-size: 10
+      minimum-idle: 5
+      connection-timeout: 5000
       validation-timeout: 5000
       idle-timeout: 600000
       max-lifetime: 1800000
@@ -24,7 +24,7 @@ spring:
     redis:
       host: ${REDIS_HOST:localhost}
       port: ${REDIS_PORT:6379}
-      password: ${REDIS_PASSWORD:}
+      password: ${REDIS_PASSWORD}
       database: ${REDIS_DATABASE:0}
       timeout: 3000ms
       lettuce:
@@ -56,11 +56,6 @@ spring:
         cache:
           use_second_level_cache: true
           use_query_cache: true
-          region:
-            factory_class: org.hibernate.cache.jcache.JCacheRegionFactory
-        javax.cache:
-          provider: org.ehcache.jsr107.EhcacheCachingProvider
-          uri: classpath:ehcache.xml
 
   # Kafka配置
   kafka:
@@ -149,9 +144,15 @@ server:
     max-connections: 10000
     keep-alive-timeout: 30000
     accept-count: 200
+    uri-encoding: UTF-8
   compression:
     enabled: true
     mime-types: application/json,application/xml,text/html,text/xml,text/plain
+  servlet:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
 
 # Resilience4j 配置
 resilience4j:

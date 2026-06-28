@@ -1,5 +1,6 @@
 package com.inventory.financeservice.security;
 
+import com.inventory.financeservice.exception.EncryptionException;
 import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -7,11 +8,14 @@ import org.springframework.stereotype.Component;
 
 import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
+import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.GCMParameterSpec;
+import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
+import java.security.spec.KeySpec;
 import java.util.Base64;
 
 @Component
@@ -22,7 +26,7 @@ public class Aes256EncryptionService {
     private static final int GCM_IV_LENGTH = 12;
     private static final int GCM_TAG_LENGTH = 128;
 
-    @Value("${encryption.master-key:default-master-key-for-development-only-change-in-production}")
+    @Value("${encryption.master-key}")
     private String masterKey;
 
     private SecretKey secretKey;
@@ -57,7 +61,7 @@ public class Aes256EncryptionService {
             return Base64.getEncoder().encodeToString(byteBuffer.array());
         } catch (Exception e) {
             log.error("Encryption failed", e);
-            throw new RuntimeException("Encryption failed", e);
+            throw new EncryptionException("Encryption failed", e);
         }
     }
 
@@ -84,7 +88,7 @@ public class Aes256EncryptionService {
             return new String(decryptedBytes, StandardCharsets.UTF_8);
         } catch (Exception e) {
             log.error("Decryption failed", e);
-            throw new RuntimeException("Decryption failed", e);
+            throw new EncryptionException("Decryption failed", e);
         }
     }
 
@@ -109,7 +113,7 @@ public class Aes256EncryptionService {
             return Base64.getEncoder().encodeToString(byteBuffer.array());
         } catch (Exception e) {
             log.error("Role-based encryption failed", e);
-            throw new RuntimeException("Role-based encryption failed", e);
+            throw new EncryptionException("Role-based encryption failed", e);
         }
     }
 
@@ -135,7 +139,7 @@ public class Aes256EncryptionService {
             return new String(decryptedBytes, StandardCharsets.UTF_8);
         } catch (Exception e) {
             log.error("Role-based decryption failed", e);
-            throw new RuntimeException("Role-based decryption failed", e);
+            throw new EncryptionException("Role-based decryption failed", e);
         }
     }
 
@@ -162,19 +166,18 @@ public class Aes256EncryptionService {
             }
             return hexString.toString();
         } catch (Exception e) {
-            throw new RuntimeException("Hashing failed", e);
+            throw new EncryptionException("Hashing failed", e);
         }
     }
 
     private byte[] deriveKey(String key) {
         try {
-            java.security.MessageDigest digest = java.security.MessageDigest.getInstance("SHA-256");
-            byte[] hashBytes = digest.digest(key.getBytes(StandardCharsets.UTF_8));
-            byte[] keyBytes = new byte[32];
-            System.arraycopy(hashBytes, 0, keyBytes, 0, 32);
-            return keyBytes;
+            SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
+            byte[] salt = "InventoryAES256KDF".getBytes(StandardCharsets.UTF_8);
+            KeySpec spec = new PBEKeySpec(key.toCharArray(), salt, 65536, 256);
+            return factory.generateSecret(spec).getEncoded();
         } catch (Exception e) {
-            throw new RuntimeException("Key derivation failed", e);
+            throw new EncryptionException("Key derivation failed", e);
         }
     }
 

@@ -17,29 +17,11 @@ import java.util.stream.Collectors;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(ResourceNotFoundException.class)
-    public ResponseEntity<ErrorResponse> handleResourceNotFound(
-            ResourceNotFoundException ex,
+    @ExceptionHandler({ResourceNotFoundException.class, ReceiptNotFoundException.class, PaymentNotFoundException.class})
+    public ResponseEntity<ErrorResponse> handleNotFound(
+            RuntimeException ex,
             HttpServletRequest request) {
         log.error("Resource not found: {}", ex.getMessage());
-        ErrorResponse error = ErrorResponse.notFound(ex.getMessage(), request.getRequestURI());
-        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
-    }
-
-    @ExceptionHandler(ReceiptNotFoundException.class)
-    public ResponseEntity<ErrorResponse> handleReceiptNotFound(
-            ReceiptNotFoundException ex,
-            HttpServletRequest request) {
-        log.error("Receipt not found: {}", ex.getMessage());
-        ErrorResponse error = ErrorResponse.notFound(ex.getMessage(), request.getRequestURI());
-        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
-    }
-
-    @ExceptionHandler(PaymentNotFoundException.class)
-    public ResponseEntity<ErrorResponse> handlePaymentNotFound(
-            PaymentNotFoundException ex,
-            HttpServletRequest request) {
-        log.error("Payment not found: {}", ex.getMessage());
         ErrorResponse error = ErrorResponse.notFound(ex.getMessage(), request.getRequestURI());
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
