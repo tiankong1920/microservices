@@ -48,7 +48,6 @@ replay_pid*
 logs/
 
 # Package Files
-*.nar
 *.zip
 *.tar.gz
 *.rar
@@ -139,6 +138,7 @@ docs/_build/
 .superpowers_official/
 .team/
 .opencode/
+!.opencode/skills/
 .omm/
 .worklog/
 
