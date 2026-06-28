@@ -1,0 +1,320 @@
+# Instincts generated from https://github.com/tiankong1920/microservices
+# Generated: 2026-06-28T10:46:03.513Z
+# Version: 2.0
+# NOTE: This file supplements (does not replace) any existing curated instincts.
+# High-confidence manually curated instincts should be preserved alongside these.
+
+---
+id: microservices-commit-conventional
+trigger: "when writing a commit message"
+confidence: 0.85
+domain: git
+source: repo-analysis
+source_repo: https://github.com/tiankong1920/microservices
+---
+
+# Microservices Commit Conventional
+
+## Action
+
+Use conventional commit format with prefixes: fix, chore
+
+## Evidence
+
+- 5 commits analyzed
+- Detected conventional commit pattern
+- Examples: fix(build): add common test dependency to product-service, chore: add gitignore exception for skills directory
+
+---
+id: microservices-commit-length
+trigger: "when writing a commit message"
+confidence: 0.6
+domain: git
+source: repo-analysis
+source_repo: https://github.com/tiankong1920/microservices
+---
+
+# Microservices Commit Length
+
+## Action
+
+Write moderate-length commit messages (~61 characters)
+
+## Evidence
+
+- Average commit message length: 61 chars
+- Based on 5 commits
+
+---
+id: microservices-naming-files
+trigger: "when creating a new file"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: https://github.com/tiankong1920/microservices
+---
+
+# Microservices Naming Files
+
+## Action
+
+Use camelCase naming convention
+
+## Evidence
+
+- Analyzed file naming patterns in repository
+- Dominant pattern: camelCase
+
+---
+id: microservices-import-relative
+trigger: "when importing modules"
+confidence: 0.75
+domain: code-style
+source: repo-analysis
+source_repo: https://github.com/tiankong1920/microservices
+---
+
+# Microservices Import Relative
+
+## Action
+
+Use relative imports for project files
+
+## Evidence
+
+- Import analysis shows relative import pattern
+- Example: import { x } from '../lib/x'
+
+---
+id: microservices-export-style
+trigger: "when exporting from a module"
+confidence: 0.7
+domain: code-style
+source: repo-analysis
+source_repo: https://github.com/tiankong1920/microservices
+---
+
+# Microservices Export Style
+
+## Action
+
+Prefer named exports
+
+## Evidence
+
+- Export pattern analysis
+- Dominant style: named
+
+---
+id: microservices-arch-type-based
+trigger: "when adding new code"
+confidence: 0.8
+domain: architecture
+source: repo-analysis
+source_repo: https://github.com/tiankong1920/microservices
+---
+
+# Microservices Arch Type Based
+
+## Action
+
+Place code in the appropriate type folder (components/, services/, utils/, etc.)
+
+## Evidence
+
+- Type-based module organization detected
+- Folders: 
+
+---
+id: microservices-test-separate
+trigger: "when writing tests"
+confidence: 0.8
+domain: testing
+source: repo-analysis
+source_repo: https://github.com/tiankong1920/microservices
+---
+
+# Microservices Test Separate
+
+## Action
+
+Place tests in the tests/ or __tests__/ directory, mirroring src structure
+
+## Evidence
+
+- Separate test directory pattern detected
+- Tests live in dedicated test folders
+
+---
+id: microservices-instinct-class-naming
+trigger: "When creating a new Java class"
+confidence: 0.9
+domain: code-style
+source: repo-analysis
+source_repo: tiankong1920/microservices
+---
+
+# Microservices Instinct Class Naming
+
+## Action
+
+Name the class using PascalCase
+
+## Evidence
+
+- Pattern in namingConventions.classes: PascalCase
+
+---
+id: microservices-instinct-function-naming
+trigger: "When defining a function or method in Java"
+confidence: 0.9
+domain: code-style
+source: repo-analysis
+source_repo: tiankong1920/microservices
+---
+
+# Microservices Instinct Function Naming
+
+## Action
+
+Name the function using camelCase
+
+## Evidence
+
+- Pattern in namingConventions.functions: camelCase
+
+---
+id: microservices-instinct-constant-naming
+trigger: "When declaring a constant in Java"
+confidence: 0.9
+domain: code-style
+source: repo-analysis
+source_repo: tiankong1920/microservices
+---
+
+# Microservices Instinct Constant Naming
+
+## Action
+
+Use SCREAMING_SNAKE_CASE for the constant name
+
+## Evidence
+
+- Pattern in namingConventions.constants: SCREAMING_SNAKE_CASE
+
+---
+id: microservices-instinct-file-naming
+trigger: "When creating a new file"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: tiankong1920/microservices
+---
+
+# Microservices Instinct File Naming
+
+## Action
+
+Name the file using camelCase
+
+## Evidence
+
+- Pattern in namingConventions.files: camelCase
+
+---
+id: microservices-instinct-import-style
+trigger: "When importing modules or classes in Java"
+confidence: 0.7
+domain: code-style
+source: repo-analysis
+source_repo: tiankong1920/microservices
+---
+
+# Microservices Instinct Import Style
+
+## Action
+
+Use relative import paths
+
+## Evidence
+
+- Pattern in importStyle: relative
+
+---
+id: microservices-instinct-export-style
+trigger: "When exporting modules or classes"
+confidence: 0.7
+domain: code-style
+source: repo-analysis
+source_repo: tiankong1920/microservices
+---
+
+# Microservices Instinct Export Style
+
+## Action
+
+Use named exports
+
+## Evidence
+
+- Pattern in exportStyle: named
+
+---
+id: microservices-instinct-commit-format
+trigger: "When writing a commit message"
+confidence: 0.9
+domain: git
+source: repo-analysis
+source_repo: tiankong1920/microservices
+---
+
+# Microservices Instinct Commit Format
+
+## Action
+
+Use Conventional Commits format with a prefix such as 'fix' or 'chore', followed by a scope in parentheses and a colon
+
+## Evidence
+
+- Seen in commit: fix(build): add common test dependency to product-service
+- Seen in commit: chore: add gitignore exception for skills directory
+- Pattern in commits.prefixes: ["fix", "chore"]
+
+---
+id: microservices-instinct-commit-length
+trigger: "When writing a commit message"
+confidence: 0.7
+domain: git
+source: repo-analysis
+source_repo: tiankong1920/microservices
+---
+
+# Microservices Instinct Commit Length
+
+## Action
+
+Keep the commit message concise, around 60 characters on average
+
+## Evidence
+
+- Pattern in commits.averageLength: 61
+
+---
+id: microservices-instinct-test-location
+trigger: "When adding or updating tests"
+confidence: 0.8
+domain: testing
+source: repo-analysis
+source_repo: tiankong1920/microservices
+---
+
+# Microservices Instinct Test Location
+
+## Action
+
+Place test files in a separate directory from source code
+
+## Evidence
+
+- Pattern in architecture.folderStructure.testLocation: separate
+
