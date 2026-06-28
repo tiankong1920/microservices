@@ -1,5 +1,6 @@
 import axios, { AxiosInstance, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
 import { toastApiRef } from '../contexts/ToastContext';
+import { navigate } from './navigation-service';
 import type {
   ApiResponse,
   LoginRequest,
@@ -71,7 +72,7 @@ apiClient.interceptors.response.use(
           localStorage.removeItem('token');
           localStorage.removeItem('user');
           toastApiRef.current?.showToast('登录已过期，请重新登录', 'warning');
-          window.location.href = '/login';
+          navigate('/login');
           break;
         case 403:
           toastApiRef.current?.showToast('没有权限访问此资源', 'warning');

@@ -8,11 +8,14 @@ import org.springframework.stereotype.Component;
 
 import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
+import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.GCMParameterSpec;
+import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
+import java.security.spec.KeySpec;
 import java.util.Base64;
 
 @Component
@@ -169,11 +172,10 @@ public class Aes256EncryptionService {
 
     private byte[] deriveKey(String key) {
         try {
-            java.security.MessageDigest digest = java.security.MessageDigest.getInstance("SHA-256");
-            byte[] hashBytes = digest.digest(key.getBytes(StandardCharsets.UTF_8));
-            byte[] keyBytes = new byte[32];
-            System.arraycopy(hashBytes, 0, keyBytes, 0, 32);
-            return keyBytes;
+            SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
+            byte[] salt = "InventoryAES256KDF".getBytes(StandardCharsets.UTF_8);
+            KeySpec spec = new PBEKeySpec(key.toCharArray(), salt, 65536, 256);
+            return factory.generateSecret(spec).getEncoded();
         } catch (Exception e) {
             throw new EncryptionException("Key derivation failed", e);
         }

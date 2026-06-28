@@ -56,11 +56,6 @@ spring:
         cache:
           use_second_level_cache: true
           use_query_cache: true
-          region:
-            factory_class: org.hibernate.cache.jcache.JCacheRegionFactory
-        javax.cache:
-          provider: org.ehcache.jsr107.EhcacheCachingProvider
-          uri: classpath:ehcache.xml
 
   # Kafka配置
   kafka:

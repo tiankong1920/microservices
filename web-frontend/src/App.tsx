@@ -1,8 +1,9 @@
-import React, { Suspense, ReactNode, ComponentType, useContext } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate, Outlet } from 'react-router-dom';
+import React, { Suspense, useEffect, ReactNode, ComponentType, useContext } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate, Outlet, useNavigate } from 'react-router-dom';
 import './App.css';
 import Layout from './components/Layout';
 import { AuthContext } from './contexts/AuthContext';
+import { setNavigate } from './services/navigation-service';
 
 // Type for lazy loaded components
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -104,9 +105,19 @@ const Loading: React.FC = () => (
   </div>
 );
 
+// Component to inject navigate into navigation service
+const NavigateSetter: React.FC = () => {
+  const navigate = useNavigate();
+  useEffect(() => {
+    setNavigate(navigate);
+  }, [navigate]);
+  return null;
+};
+
 const App: React.FC = () => {
   return (
     <Router>
+      <NavigateSetter />
       <Suspense fallback={<Loading />}>
         <Routes>
           {/* Login page (no Layout required) */}
