@@ -39,6 +39,7 @@ dependencies {
     // Spring Boot DevTools - 仅开发环境使用
     developmentOnly(libs.spring.boot.starter.devtools)
     
+    testImplementation(project(":common"))
     testImplementation(libs.spring.boot.starter.test)
     testImplementation(libs.mockito.core)
     testImplementation(libs.mockito.junit.jupiter)
