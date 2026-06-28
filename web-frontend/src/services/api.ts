@@ -22,11 +22,8 @@ import type {
   FinancialReport,
   InventoryReport,
   RetailOrder,
-  RetailItem,
   SalesReturnOrder,
-  SalesReturnItem,
   OtherStockOrder,
-  OtherStockItem,
   SettlementAccount,
   StockTransfer,
   ProcurementReturn,
@@ -125,7 +122,7 @@ export const productApi = {
   getProductsByCategory: (categoryId: number): Promise<ApiResponse<Product[]>> =>
     apiClient.get(`/products/category/${categoryId}`),
   searchProducts: (keyword: string): Promise<ApiResponse<Product[]>> =>
-    apiClient.get(`/products/search?keyword=${encodeURIComponent(keyword)}`),
+    apiClient.get('/products/search', { params: { keyword } }),
 };
 
 // Inventory API
@@ -221,7 +218,7 @@ export const customerApi = {
   deleteCustomer: (id: number): Promise<ApiResponse<void>> =>
     apiClient.delete(`/customers/${id}`),
   searchCustomers: (keyword: string): Promise<ApiResponse<Customer[]>> =>
-    apiClient.get(`/customers/search?keyword=${encodeURIComponent(keyword)}`),
+    apiClient.get('/customers/search', { params: { keyword } }),
 };
 
 // Supplier API
@@ -237,7 +234,7 @@ export const supplierApi = {
   deleteSupplier: (id: number): Promise<ApiResponse<void>> =>
     apiClient.delete(`/suppliers/${id}`),
   searchSuppliers: (keyword: string): Promise<ApiResponse<Supplier[]>> =>
-    apiClient.get(`/suppliers/search?keyword=${encodeURIComponent(keyword)}`),
+    apiClient.get('/suppliers/search', { params: { keyword } }),
 };
 
 // Sales API
